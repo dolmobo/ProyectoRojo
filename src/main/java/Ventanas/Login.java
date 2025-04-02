@@ -5,6 +5,7 @@
 package Ventanas;
 
 import java.net.URL;
+import java.util.Set;
 import javax.swing.ImageIcon;
 
 /**
@@ -30,27 +31,54 @@ public class Login extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jScrollPane1 = new javax.swing.JScrollPane();
+        jTextArea1 = new javax.swing.JTextArea();
         jPanel1 = new javax.swing.JPanel();
         jLabelLogo1 = new javax.swing.JLabel();
         jUsuarioLogin = new javax.swing.JTextField();
+        jLabel1 = new javax.swing.JLabel();
         jContraseñaLogin = new javax.swing.JPasswordField();
+        jLabel2 = new javax.swing.JLabel();
         jLogIn = new javax.swing.JButton();
+        jMostrarContraseña = new javax.swing.JCheckBox();
+        jBackground = new javax.swing.JLabel();
+
+        jTextArea1.setColumns(20);
+        jTextArea1.setRows(5);
+        jScrollPane1.setViewportView(jTextArea1);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(0, 150, 136));
 
         jPanel1.setBackground(new java.awt.Color(0, 96, 87));
+        jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabelLogo1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/logoGestiCor.png"))); // NOI18N
+        jPanel1.add(jLabelLogo1, new org.netbeans.lib.awtextra.AbsoluteConstraints(102, 12, 280, -1));
 
-        jUsuarioLogin.setText("Usuario");
         jUsuarioLogin.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jUsuarioLoginActionPerformed(evt);
             }
         });
+        jPanel1.add(jUsuarioLogin, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 224, 100, -1));
 
-        jContraseñaLogin.setText("jPasswordField1");
+        jLabel1.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
+        jLabel1.setForeground(new java.awt.Color(0, 0, 0));
+        jLabel1.setText("Contraseña");
+        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 250, 100, 30));
+
+        jContraseñaLogin.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jContraseñaLoginActionPerformed(evt);
+            }
+        });
+        jPanel1.add(jContraseñaLogin, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 289, 100, 20));
+
+        jLabel2.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
+        jLabel2.setForeground(new java.awt.Color(0, 0, 0));
+        jLabel2.setText("Usuario");
+        jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 200, 80, 20));
 
         jLogIn.setText("Iniciar Sesion");
         jLogIn.addActionListener(new java.awt.event.ActionListener() {
@@ -58,47 +86,28 @@ public class Login extends javax.swing.JFrame {
                 jLogInActionPerformed(evt);
             }
         });
+        jPanel1.add(jLogIn, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 350, -1, -1));
 
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(102, 102, 102)
-                        .addComponent(jLabelLogo1, javax.swing.GroupLayout.PREFERRED_SIZE, 280, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(192, 192, 192)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jContraseñaLogin, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jUsuarioLogin, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLogIn))))
-                .addContainerGap(118, Short.MAX_VALUE))
-        );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabelLogo1)
-                .addGap(33, 33, 33)
-                .addComponent(jUsuarioLogin, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(jContraseñaLogin, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 46, Short.MAX_VALUE)
-                .addComponent(jLogIn)
-                .addGap(43, 43, 43))
-        );
+        jMostrarContraseña.setText("Mostrar Contraseña");
+        jMostrarContraseña.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMostrarContraseñaActionPerformed(evt);
+            }
+        });
+        jPanel1.add(jMostrarContraseña, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 290, -1, 20));
+
+        jBackground.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/gradient_800_600.png"))); // NOI18N
+        jPanel1.add(jBackground, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 510, 420));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         pack();
@@ -111,6 +120,20 @@ public class Login extends javax.swing.JFrame {
     private void jLogInActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jLogInActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jLogInActionPerformed
+
+    private void jMostrarContraseñaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMostrarContraseñaActionPerformed
+        if (jMostrarContraseña.isSelected()) {
+            jContraseñaLogin.setEchoChar((char)0);
+        }
+        else{
+            jContraseñaLogin.setEchoChar('*');
+            
+        }
+    }//GEN-LAST:event_jMostrarContraseñaActionPerformed
+
+    private void jContraseñaLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jContraseñaLoginActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jContraseñaLoginActionPerformed
 
     /**
      * @param args the command line arguments
@@ -148,10 +171,16 @@ public class Login extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel jBackground;
     private javax.swing.JPasswordField jContraseñaLogin;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabelLogo1;
     private javax.swing.JButton jLogIn;
+    private javax.swing.JCheckBox jMostrarContraseña;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JTextArea jTextArea1;
     private javax.swing.JTextField jUsuarioLogin;
     // End of variables declaration//GEN-END:variables
 }
