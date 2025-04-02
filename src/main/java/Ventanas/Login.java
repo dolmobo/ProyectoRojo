@@ -20,6 +20,8 @@ public class Login extends javax.swing.JFrame {
     public Login() {
         initComponents();
         this.setLocationRelativeTo(null);
+        jLabel2.setBackground(new java.awt.Color(0,0,0,0));
+        jLabel1.setBackground(new java.awt.Color(0,0,0,0));
     }
     
     /**
@@ -61,24 +63,24 @@ public class Login extends javax.swing.JFrame {
                 jUsuarioLoginActionPerformed(evt);
             }
         });
-        jPanel1.add(jUsuarioLogin, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 220, 110, 30));
+        jPanel1.add(jUsuarioLogin, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 220, 110, 30));
 
         jLabel1.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(0, 0, 0));
-        jLabel1.setText("Contraseña");
-        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 250, 100, 30));
+        jLabel1.setText("Contraseña:");
+        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 260, 100, 30));
 
         jContraseñaLogin.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jContraseñaLoginActionPerformed(evt);
             }
         });
-        jPanel1.add(jContraseñaLogin, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 280, 110, 30));
+        jPanel1.add(jContraseñaLogin, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 260, 110, 30));
 
         jLabel2.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(0, 0, 0));
-        jLabel2.setText("Usuario");
-        jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 200, 70, 20));
+        jLabel2.setText("Usuario:");
+        jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 220, 80, 30));
 
         jLogIn.setText("Iniciar Sesion");
         jLogIn.addActionListener(new java.awt.event.ActionListener() {
@@ -86,7 +88,7 @@ public class Login extends javax.swing.JFrame {
                 jLogInActionPerformed(evt);
             }
         });
-        jPanel1.add(jLogIn, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 350, -1, -1));
+        jPanel1.add(jLogIn, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 350, 120, -1));
 
         jMostrarContraseña.setText("Mostrar Contraseña");
         jMostrarContraseña.addActionListener(new java.awt.event.ActionListener() {
@@ -94,7 +96,7 @@ public class Login extends javax.swing.JFrame {
                 jMostrarContraseñaActionPerformed(evt);
             }
         });
-        jPanel1.add(jMostrarContraseña, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 280, 150, 30));
+        jPanel1.add(jMostrarContraseña, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 310, 150, 20));
 
         jBackground.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/gradient_800_600.png"))); // NOI18N
         jPanel1.add(jBackground, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 510, 420));
