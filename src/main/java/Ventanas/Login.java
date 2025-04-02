@@ -73,7 +73,7 @@ public class Login extends javax.swing.JFrame {
                 jContraseñaLoginActionPerformed(evt);
             }
         });
-        jPanel1.add(jContraseñaLogin, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 289, 100, 20));
+        jPanel1.add(jContraseñaLogin, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 280, 100, 20));
 
         jLabel2.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(0, 0, 0));
@@ -94,7 +94,7 @@ public class Login extends javax.swing.JFrame {
                 jMostrarContraseñaActionPerformed(evt);
             }
         });
-        jPanel1.add(jMostrarContraseña, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 290, -1, 20));
+        jPanel1.add(jMostrarContraseña, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 280, 130, 20));
 
         jBackground.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/gradient_800_600.png"))); // NOI18N
         jPanel1.add(jBackground, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 510, 420));
