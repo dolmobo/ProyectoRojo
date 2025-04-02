@@ -61,7 +61,7 @@ public class Login extends javax.swing.JFrame {
                 jUsuarioLoginActionPerformed(evt);
             }
         });
-        jPanel1.add(jUsuarioLogin, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 224, 100, -1));
+        jPanel1.add(jUsuarioLogin, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 220, 110, 30));
 
         jLabel1.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(0, 0, 0));
@@ -73,12 +73,12 @@ public class Login extends javax.swing.JFrame {
                 jContraseñaLoginActionPerformed(evt);
             }
         });
-        jPanel1.add(jContraseñaLogin, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 280, 100, 20));
+        jPanel1.add(jContraseñaLogin, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 280, 110, 30));
 
         jLabel2.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(0, 0, 0));
         jLabel2.setText("Usuario");
-        jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 200, 80, 20));
+        jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 200, 70, 20));
 
         jLogIn.setText("Iniciar Sesion");
         jLogIn.addActionListener(new java.awt.event.ActionListener() {
@@ -94,7 +94,7 @@ public class Login extends javax.swing.JFrame {
                 jMostrarContraseñaActionPerformed(evt);
             }
         });
-        jPanel1.add(jMostrarContraseña, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 280, 130, 20));
+        jPanel1.add(jMostrarContraseña, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 280, 150, 30));
 
         jBackground.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/gradient_800_600.png"))); // NOI18N
         jPanel1.add(jBackground, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 510, 420));
