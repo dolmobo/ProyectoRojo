@@ -8,13 +8,14 @@ package Ventanas;
  *
  * @author USUARIO
  */
-public class Empleados extends javax.swing.JFrame {
+public class Clientes extends javax.swing.JFrame {
 
     /**
      * Creates new form Empleados
      */
-    public Empleados() {
+    public Clientes() {
         initComponents();
+        transparenciaBoton();
         this.setLocationRelativeTo(null);
     }
 
@@ -30,7 +31,6 @@ public class Empleados extends javax.swing.JFrame {
         jLabelLogo1 = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
         jLabel3 = new javax.swing.JLabel();
-        jLabel4 = new javax.swing.JLabel();
         jBotonAtras = new javax.swing.JButton();
         fondoprincipal = new javax.swing.JLabel();
 
@@ -42,14 +42,9 @@ public class Empleados extends javax.swing.JFrame {
 
         jLabel3.setFont(new java.awt.Font("Yu Gothic Medium", 1, 24)); // NOI18N
         jLabel3.setForeground(new java.awt.Color(0, 0, 0));
-        jLabel3.setText("GESTIÓN DE EMPLEADOS GESTICOR");
+        jLabel3.setText("GESTIÓN DE CLIENTES GESTICOR");
         jLabel3.setMaximumSize(new java.awt.Dimension(280, 20));
-        jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 40, 450, 80));
-
-        jLabel4.setFont(new java.awt.Font("Georgia Pro", 1, 14)); // NOI18N
-        jLabel4.setForeground(new java.awt.Color(0, 0, 0));
-        jLabel4.setText("¡Le damos la Bienvenida Administrador/a!");
-        jPanel1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 20, 310, 20));
+        jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 0, 450, 80));
 
         jBotonAtras.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/atras.png"))); // NOI18N
         jBotonAtras.addActionListener(new java.awt.event.ActionListener() {
@@ -83,6 +78,14 @@ public class Empleados extends javax.swing.JFrame {
     /**
      * @param args the command line arguments
      */
+    
+    public void transparenciaBoton(){
+        jBotonAtras.setOpaque(false);
+        jBotonAtras.setContentAreaFilled(false);
+        jBotonAtras.setBorderPainted(false);
+    }
+    
+    
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
@@ -97,20 +100,23 @@ public class Empleados extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(Empleados.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Clientes.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(Empleados.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Clientes.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(Empleados.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Clientes.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(Empleados.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Clientes.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new Empleados().setVisible(true);
+                new Clientes().setVisible(true);
             }
         });
     }
@@ -119,7 +125,6 @@ public class Empleados extends javax.swing.JFrame {
     private javax.swing.JLabel fondoprincipal;
     private javax.swing.JButton jBotonAtras;
     private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabelLogo1;
     private javax.swing.JPanel jPanel1;
     // End of variables declaration//GEN-END:variables
