@@ -4,6 +4,8 @@
  */
 package Ventanas;
 
+import Usos.Leer;
+
 /**
  *
  * @author USUARIO
@@ -15,7 +17,7 @@ public class Clientes extends javax.swing.JFrame {
      */
     public Clientes() {
         initComponents();
-        transparenciaBoton();
+        Leer.transparenciaBoton(jBotonAtras);
         this.setLocationRelativeTo(null);
     }
 
@@ -73,17 +75,14 @@ public class Clientes extends javax.swing.JFrame {
 
     private void jBotonAtrasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBotonAtrasActionPerformed
         // TODO add your handling code here:
+        Eleccion abrir=new Eleccion();
+        abrir.setVisible(true);
+        this.setVisible(false);
     }//GEN-LAST:event_jBotonAtrasActionPerformed
 
     /**
      * @param args the command line arguments
      */
-    
-    public void transparenciaBoton(){
-        jBotonAtras.setOpaque(false);
-        jBotonAtras.setContentAreaFilled(false);
-        jBotonAtras.setBorderPainted(false);
-    }
     
     
     public static void main(String args[]) {

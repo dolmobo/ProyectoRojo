@@ -4,6 +4,7 @@
  */
 package Ventanas;
 
+import Usos.Leer;
 import java.net.URL;
 import java.util.Set;
 import javax.swing.ImageIcon;
@@ -54,6 +55,7 @@ public class Eleccion extends javax.swing.JFrame {
         jLabelLogo1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/logoGestiCor.png"))); // NOI18N
         jPanel1.add(jLabelLogo1, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, -120, 280, 180));
 
+        jBotonEmpleados.setFont(new java.awt.Font("Dialog", 1, 11)); // NOI18N
         jBotonEmpleados.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/empleado_vacio.png"))); // NOI18N
         jBotonEmpleados.setText(" Gestion de Empleados");
         jBotonEmpleados.addActionListener(new java.awt.event.ActionListener() {
@@ -61,8 +63,9 @@ public class Eleccion extends javax.swing.JFrame {
                 jBotonEmpleadosActionPerformed(evt);
             }
         });
-        jPanel1.add(jBotonEmpleados, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 70, 240, -1));
+        jPanel1.add(jBotonEmpleados, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 80, 310, -1));
 
+        jBotonClientes.setFont(new java.awt.Font("Dialog", 1, 11)); // NOI18N
         jBotonClientes.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/clientes.png"))); // NOI18N
         jBotonClientes.setText("         Gestion Clientes");
         jBotonClientes.addActionListener(new java.awt.event.ActionListener() {
@@ -70,8 +73,9 @@ public class Eleccion extends javax.swing.JFrame {
                 jBotonClientesActionPerformed(evt);
             }
         });
-        jPanel1.add(jBotonClientes, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 150, 240, -1));
+        jPanel1.add(jBotonClientes, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 160, 310, -1));
 
+        jBotonVentas.setFont(new java.awt.Font("Dialog", 1, 11)); // NOI18N
         jBotonVentas.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/ventas.png"))); // NOI18N
         jBotonVentas.setText("         Gestion de Ventas");
         jBotonVentas.addActionListener(new java.awt.event.ActionListener() {
@@ -79,8 +83,9 @@ public class Eleccion extends javax.swing.JFrame {
                 jBotonVentasActionPerformed(evt);
             }
         });
-        jPanel1.add(jBotonVentas, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 310, 240, -1));
+        jPanel1.add(jBotonVentas, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 320, 310, -1));
 
+        jBotonProduccion.setFont(new java.awt.Font("Dialog", 1, 11)); // NOI18N
         jBotonProduccion.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/produccion.png"))); // NOI18N
         jBotonProduccion.setText("         Gestion de Produccion");
         jBotonProduccion.addActionListener(new java.awt.event.ActionListener() {
@@ -88,7 +93,7 @@ public class Eleccion extends javax.swing.JFrame {
                 jBotonProduccionActionPerformed(evt);
             }
         });
-        jPanel1.add(jBotonProduccion, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 230, 240, -1));
+        jPanel1.add(jBotonProduccion, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 240, 310, -1));
 
         jBackground.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/gradient_800_600.png"))); // NOI18N
         jPanel1.add(jBackground, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 510, 420));
@@ -107,12 +112,12 @@ public class Eleccion extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jBotonClientesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBotonClientesActionPerformed
+    private void jBotonProduccionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBotonProduccionActionPerformed
         // TODO add your handling code here:
-        Clientes abrir=new Clientes();
+        Produccion abrir=new Produccion();
         abrir.setVisible(true);
         this.setVisible(false);
-    }//GEN-LAST:event_jBotonClientesActionPerformed
+    }//GEN-LAST:event_jBotonProduccionActionPerformed
 
     private void jBotonVentasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBotonVentasActionPerformed
         // TODO add your handling code here:
@@ -121,12 +126,12 @@ public class Eleccion extends javax.swing.JFrame {
         this.setVisible(false);
     }//GEN-LAST:event_jBotonVentasActionPerformed
 
-    private void jBotonProduccionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBotonProduccionActionPerformed
+    private void jBotonClientesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBotonClientesActionPerformed
         // TODO add your handling code here:
-        Produccion abrir=new Produccion();
+        Clientes abrir=new Clientes();
         abrir.setVisible(true);
         this.setVisible(false);
-    }//GEN-LAST:event_jBotonProduccionActionPerformed
+    }//GEN-LAST:event_jBotonClientesActionPerformed
 
     private void jBotonEmpleadosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBotonEmpleadosActionPerformed
         // TODO add your handling code here:

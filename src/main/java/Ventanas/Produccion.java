@@ -4,6 +4,8 @@
  */
 package Ventanas;
 
+import Usos.Leer;
+
 /**
  *
  * @author USUARIO
@@ -15,6 +17,7 @@ public class Produccion extends javax.swing.JFrame {
      */
     public Produccion() {
         initComponents();
+        Leer.transparenciaBoton(jBotonAtras);
         this.setLocationRelativeTo(null);
     }
 
@@ -72,6 +75,9 @@ public class Produccion extends javax.swing.JFrame {
 
     private void jBotonAtrasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBotonAtrasActionPerformed
         // TODO add your handling code here:
+        Eleccion abrir=new Eleccion();
+        abrir.setVisible(true);
+        this.setVisible(false);
     }//GEN-LAST:event_jBotonAtrasActionPerformed
 
     /**
