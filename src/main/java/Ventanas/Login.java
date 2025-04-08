@@ -6,7 +6,12 @@ package Ventanas;
 
 import java.net.URL;
 import java.util.Set;
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.Persistence;
+import javax.persistence.TypedQuery;
 import javax.swing.ImageIcon;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -14,16 +19,20 @@ import javax.swing.ImageIcon;
  */
 public class Login extends javax.swing.JFrame {
 
+    private EntityManagerFactory emf;
+    private EntityManager em;
+
     /**
      * Creates new form Login
      */
     public Login() {
         initComponents();
+
         this.setLocationRelativeTo(null);
-        jLabel2.setBackground(new java.awt.Color(0,0,0,0));
-        jLabel1.setBackground(new java.awt.Color(0,0,0,0));
+        jLabel2.setBackground(new java.awt.Color(0, 0, 0, 0));
+        jLabel1.setBackground(new java.awt.Color(0, 0, 0, 0));
     }
-    
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -121,15 +130,28 @@ public class Login extends javax.swing.JFrame {
 
     private void jLogInActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jLogInActionPerformed
         // TODO add your handling code here:
+        String usuario = jUsuarioLogin.getText();
+        String contrasena = new String(jContraseñaLogin.getPassword());
+        if (usuario.equals("admin") && contrasena.equals("1234")) {
+            // Usuario y contraseña correctos
+            JOptionPane.showMessageDialog(this, "Inicio de sesión exitoso.");
+            // Puedes cambiar de ventana aquí, por ejemplo.
+            Eleccion abrir = new Eleccion();
+            abrir.setVisible(true);
+            this.setVisible(false);
+        } else {
+            JOptionPane.showMessageDialog(this, "Usuario o contraseña incorrectos.");
+        }
+
+
     }//GEN-LAST:event_jLogInActionPerformed
 
     private void jMostrarContraseñaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMostrarContraseñaActionPerformed
         if (jMostrarContraseña.isSelected()) {
-            jContraseñaLogin.setEchoChar((char)0);
-        }
-        else{
+            jContraseñaLogin.setEchoChar((char) 0);
+        } else {
             jContraseñaLogin.setEchoChar('*');
-            
+
         }
     }//GEN-LAST:event_jMostrarContraseñaActionPerformed
 
@@ -185,4 +207,5 @@ public class Login extends javax.swing.JFrame {
     private javax.swing.JTextArea jTextArea1;
     private javax.swing.JTextField jUsuarioLogin;
     // End of variables declaration//GEN-END:variables
+
 }
