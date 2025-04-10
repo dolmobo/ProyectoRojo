@@ -5,6 +5,7 @@
 package Ventanas;
 
 import Controlador.ConexionBDR;
+import Controlador.ControladorEmpleados;
 import Usos.Leer;
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -24,8 +25,10 @@ public class Empleados extends javax.swing.JFrame {
      */
     public Empleados() {
         initComponents();
+        RefrescarTabla("empleados");
         this.setLocationRelativeTo(null);
         Leer.transparenciaBoton(jBotonAtras);
+        
     }
 
     /**
@@ -45,8 +48,21 @@ public class Empleados extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         visor = new javax.swing.JTable();
         jActualizar = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
-        jButton4 = new javax.swing.JButton();
+        jAñadir = new javax.swing.JButton();
+        jEliminar = new javax.swing.JButton();
+        jPanelDatos = new javax.swing.JPanel();
+        jLabel2 = new javax.swing.JLabel();
+        jLabel5 = new javax.swing.JLabel();
+        jLabel6 = new javax.swing.JLabel();
+        jLabel7 = new javax.swing.JLabel();
+        jTextoNombre = new javax.swing.JTextField();
+        jTextoSalario = new javax.swing.JTextField();
+        jTextoPuesto = new javax.swing.JTextField();
+        jComboBoxEstado = new javax.swing.JComboBox<>();
+        jLabel1 = new javax.swing.JLabel();
+        jTextoID = new javax.swing.JTextField();
+        jButtonEliminarVisualizacion = new javax.swing.JButton();
+        jButtonEditar = new javax.swing.JButton();
         fondoprincipal = new javax.swing.JLabel();
 
         jLabelLogo1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/logoGestiCor.png"))); // NOI18N
@@ -72,22 +88,47 @@ public class Empleados extends javax.swing.JFrame {
                 jBotonAtrasActionPerformed(evt);
             }
         });
-        jPanel1.add(jBotonAtras, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 50, -1));
+        jPanel1.add(jBotonAtras, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 20, 50, -1));
 
         visor.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+
             },
             new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
+                "ID", "Nombre", "Puesto", "Salario", "Fecha Contratacion", "Estado"
             }
-        ));
-        jScrollPane1.setViewportView(visor);
+        ) {
+            Class[] types = new Class [] {
+                java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.Integer.class, java.lang.String.class, java.lang.String.class
+            };
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false, false
+            };
 
-        jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 110, -1, -1));
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        visor.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                visorMouseClicked(evt);
+            }
+        });
+        jScrollPane1.setViewportView(visor);
+        if (visor.getColumnModel().getColumnCount() > 0) {
+            visor.getColumnModel().getColumn(0).setResizable(false);
+            visor.getColumnModel().getColumn(1).setResizable(false);
+            visor.getColumnModel().getColumn(2).setResizable(false);
+            visor.getColumnModel().getColumn(3).setResizable(false);
+            visor.getColumnModel().getColumn(4).setResizable(false);
+            visor.getColumnModel().getColumn(5).setResizable(false);
+        }
+
+        jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 100, 510, 470));
 
         jActualizar.setText("Refrescar");
         jActualizar.addActionListener(new java.awt.event.ActionListener() {
@@ -95,13 +136,109 @@ public class Empleados extends javax.swing.JFrame {
                 jActualizarActionPerformed(evt);
             }
         });
-        jPanel1.add(jActualizar, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 430, 100, -1));
+        jPanel1.add(jActualizar, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 390, 100, -1));
 
-        jButton3.setText("Eliminar");
-        jPanel1.add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 430, -1, -1));
+        jAñadir.setText("Añadir");
+        jAñadir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jAñadirActionPerformed(evt);
+            }
+        });
+        jPanel1.add(jAñadir, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 440, 80, -1));
 
-        jButton4.setText("Editar");
-        jPanel1.add(jButton4, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 480, 70, -1));
+        jEliminar.setText("Eliminar");
+        jEliminar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jEliminarActionPerformed(evt);
+            }
+        });
+        jPanel1.add(jEliminar, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 480, 80, -1));
+
+        jLabel2.setText("Nombre:");
+
+        jLabel5.setText("Puesto:");
+
+        jLabel6.setText("Salario:");
+
+        jLabel7.setText("Estado:");
+
+        jComboBoxEstado.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Activo", "Inactivo" }));
+        jComboBoxEstado.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jComboBoxEstadoActionPerformed(evt);
+            }
+        });
+
+        jLabel1.setText("ID:");
+
+        jTextoID.setEditable(false);
+
+        javax.swing.GroupLayout jPanelDatosLayout = new javax.swing.GroupLayout(jPanelDatos);
+        jPanelDatos.setLayout(jPanelDatosLayout);
+        jPanelDatosLayout.setHorizontalGroup(
+            jPanelDatosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanelDatosLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanelDatosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel5)
+                    .addComponent(jLabel2)
+                    .addGroup(jPanelDatosLayout.createSequentialGroup()
+                        .addGap(16, 16, 16)
+                        .addComponent(jLabel1))
+                    .addComponent(jLabel6)
+                    .addComponent(jLabel7))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanelDatosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jComboBoxEstado, 0, 114, Short.MAX_VALUE)
+                    .addComponent(jTextoSalario)
+                    .addComponent(jTextoNombre)
+                    .addComponent(jTextoPuesto)
+                    .addComponent(jTextoID, javax.swing.GroupLayout.Alignment.TRAILING))
+                .addContainerGap())
+        );
+        jPanelDatosLayout.setVerticalGroup(
+            jPanelDatosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanelDatosLayout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(jPanelDatosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel1)
+                    .addComponent(jTextoID, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanelDatosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel2)
+                    .addComponent(jTextoNombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanelDatosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel5)
+                    .addComponent(jTextoPuesto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanelDatosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel6)
+                    .addComponent(jTextoSalario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanelDatosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jComboBoxEstado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel7))
+                .addGap(63, 63, 63))
+        );
+
+        jPanel1.add(jPanelDatos, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 100, 190, 190));
+
+        jButtonEliminarVisualizacion.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/actualizar.png"))); // NOI18N
+        jButtonEliminarVisualizacion.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonEliminarVisualizacionActionPerformed(evt);
+            }
+        });
+        jPanel1.add(jButtonEliminarVisualizacion, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 190, 50, -1));
+
+        jButtonEditar.setText("Editar");
+        jButtonEditar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonEditarActionPerformed(evt);
+            }
+        });
+        jPanel1.add(jButtonEditar, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 480, 80, -1));
 
         fondoprincipal.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/gradient_800_600.png"))); // NOI18N
         jPanel1.add(fondoprincipal, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 800, 590));
@@ -120,7 +257,7 @@ public class Empleados extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    public void mostrar(String tabla){
+    public void RefrescarTabla(String tabla){
         String sql = "select * from " + tabla;
         Statement st;
         ConexionBDR con = new ConexionBDR();
@@ -131,9 +268,11 @@ public class Empleados extends javax.swing.JFrame {
         model.addColumn("Nombre");
         model.addColumn("Puesto");
         model.addColumn("Salario");
+        model.addColumn("Fecha Contratacion");
+        model.addColumn("Estado");
         visor.setModel(model);
         
-        String [] datos = new String [4];
+        String [] datos = new String [6];
         try {
             st = ConexionBDR.createStatement();
             ResultSet rs = st.executeQuery(sql);
@@ -143,6 +282,8 @@ public class Empleados extends javax.swing.JFrame {
                 datos[1]=rs.getString(2);
                 datos[2]=rs.getString(3);
                 datos[3]=rs.getString(4);
+                datos[4]=rs.getString(5);
+                datos[5]=rs.getString(6);
                 model.addRow(datos);
             }
         } catch (SQLException e){
@@ -159,8 +300,89 @@ public class Empleados extends javax.swing.JFrame {
 
     private void jActualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jActualizarActionPerformed
         // TODO add your handling code here:
-        mostrar("empleados");
+        RefrescarTabla("empleados");
     }//GEN-LAST:event_jActualizarActionPerformed
+
+    private void jAñadirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jAñadirActionPerformed
+        // TODO add your handling code here:
+        // Obtener los valores de los campos de texto
+    String nombre = jTextoNombre.getText();
+    String puesto = jTextoPuesto.getText();
+    String salario = jTextoSalario.getText();
+    String estado = (String) jComboBoxEstado.getSelectedItem();
+
+    // Llamar al método del controlador pasando los datos obtenidos de los campos
+    ControladorEmpleados.añadir(nombre, puesto, salario, estado);
+
+    // Refrescar la tabla de empleados
+    RefrescarTabla("empleados");
+        jButtonEliminarVisualizacionActionPerformed(evt);
+    }//GEN-LAST:event_jAñadirActionPerformed
+
+    private void jEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jEliminarActionPerformed
+        // TODO add your handling code here:
+    String idString = jTextoID.getText();
+    String nombre = jTextoNombre.getText();
+    String puesto = jTextoPuesto.getText();
+    String salario = jTextoSalario.getText();
+        
+        ControladorEmpleados.eliminar(idString,nombre,puesto,salario);
+        RefrescarTabla("empleados");
+        jButtonEliminarVisualizacionActionPerformed(evt);
+    }//GEN-LAST:event_jEliminarActionPerformed
+
+    private void visorMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_visorMouseClicked
+        // TODO add your handling code here:
+        int filaSeleccionada = visor.getSelectedRow();
+        if (filaSeleccionada == -1) {
+            JOptionPane.showMessageDialog(null, "No se ha seleccionado ningun empleado.");
+        } else {
+            // Cogemos los valores que estan la fila seleccionada
+            String idStr = visor.getValueAt(filaSeleccionada, 0).toString();  
+            String nombre = (String) visor.getValueAt(filaSeleccionada,1);
+            String puesto = (String) visor.getValueAt(filaSeleccionada,2);
+            double salario = Double.parseDouble((String) visor.getValueAt(filaSeleccionada, 3).toString());
+            String estado = (String) visor.getValueAt(filaSeleccionada, 5);
+            
+            // Se establecen los datos que han sido seleccionados previamente
+            jTextoID.setText(String.valueOf(idStr));
+            jTextoNombre.setText(nombre);
+            jTextoPuesto.setText(puesto);
+            jTextoSalario.setText(String.valueOf(salario));
+            
+            jComboBoxEstado.setSelectedItem(estado);
+        }
+    }//GEN-LAST:event_visorMouseClicked
+
+    private void jButtonEliminarVisualizacionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonEliminarVisualizacionActionPerformed
+        // TODO add your handling code here:
+        jTextoID.setText("");
+        jTextoNombre.setText("");
+        jTextoPuesto.setText("");
+        jTextoSalario.setText(String.valueOf(""));
+        jComboBoxEstado.setSelectedItem(-1);
+    }//GEN-LAST:event_jButtonEliminarVisualizacionActionPerformed
+
+    private void jButtonEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonEditarActionPerformed
+        // TODO add your handling code here:
+        // Obtener los valores de los campos de texto
+    String idStr = jTextoID.getText();
+    String nombre = jTextoNombre.getText();
+    String puesto = jTextoPuesto.getText();
+    String salario = jTextoSalario.getText();
+    String estado = (String) jComboBoxEstado.getSelectedItem();
+
+    // Llamar al método del controlador pasando los datos obtenidos de los campos
+    ControladorEmpleados.editar(idStr,nombre, puesto, salario, estado);
+
+    // Refrescar la tabla de empleados
+    RefrescarTabla("empleados");
+        
+    }//GEN-LAST:event_jButtonEditarActionPerformed
+
+    private void jComboBoxEstadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBoxEstadoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jComboBoxEstadoActionPerformed
 
     /**
      * @param args the command line arguments
@@ -196,18 +418,33 @@ public class Empleados extends javax.swing.JFrame {
             }
         });
     }
+    
+    
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel fondoprincipal;
     private javax.swing.JButton jActualizar;
+    private javax.swing.JButton jAñadir;
     private javax.swing.JButton jBotonAtras;
-    private javax.swing.JButton jButton3;
-    private javax.swing.JButton jButton4;
+    private javax.swing.JButton jButtonEditar;
+    private javax.swing.JButton jButtonEliminarVisualizacion;
+    private javax.swing.JComboBox<String> jComboBoxEstado;
+    private javax.swing.JButton jEliminar;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabelLogo1;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanelDatos;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JTextField jTextoID;
+    private javax.swing.JTextField jTextoNombre;
+    private javax.swing.JTextField jTextoPuesto;
+    private javax.swing.JTextField jTextoSalario;
     public javax.swing.JTable visor;
     // End of variables declaration//GEN-END:variables
 }
