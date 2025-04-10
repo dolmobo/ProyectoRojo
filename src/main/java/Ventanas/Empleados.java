@@ -4,7 +4,14 @@
  */
 package Ventanas;
 
+import Controlador.ConexionBDR;
 import Usos.Leer;
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -35,6 +42,11 @@ public class Empleados extends javax.swing.JFrame {
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         jBotonAtras = new javax.swing.JButton();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        visor = new javax.swing.JTable();
+        jActualizar = new javax.swing.JButton();
+        jButton3 = new javax.swing.JButton();
+        jButton4 = new javax.swing.JButton();
         fondoprincipal = new javax.swing.JLabel();
 
         jLabelLogo1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/logoGestiCor.png"))); // NOI18N
@@ -47,12 +59,12 @@ public class Empleados extends javax.swing.JFrame {
         jLabel3.setForeground(new java.awt.Color(0, 0, 0));
         jLabel3.setText("GESTIÓN DE EMPLEADOS GESTICOR");
         jLabel3.setMaximumSize(new java.awt.Dimension(280, 20));
-        jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 40, 450, 80));
+        jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, -10, 450, 80));
 
         jLabel4.setFont(new java.awt.Font("Georgia Pro", 1, 14)); // NOI18N
         jLabel4.setForeground(new java.awt.Color(0, 0, 0));
         jLabel4.setText("¡Le damos la Bienvenida Administrador/a!");
-        jPanel1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 20, 310, 20));
+        jPanel1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 40, 310, 20));
 
         jBotonAtras.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/atras.png"))); // NOI18N
         jBotonAtras.addActionListener(new java.awt.event.ActionListener() {
@@ -61,6 +73,35 @@ public class Empleados extends javax.swing.JFrame {
             }
         });
         jPanel1.add(jBotonAtras, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 50, -1));
+
+        visor.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4"
+            }
+        ));
+        jScrollPane1.setViewportView(visor);
+
+        jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 110, -1, -1));
+
+        jActualizar.setText("Refrescar");
+        jActualizar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jActualizarActionPerformed(evt);
+            }
+        });
+        jPanel1.add(jActualizar, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 430, 100, -1));
+
+        jButton3.setText("Eliminar");
+        jPanel1.add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 430, -1, -1));
+
+        jButton4.setText("Editar");
+        jPanel1.add(jButton4, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 480, 70, -1));
 
         fondoprincipal.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/gradient_800_600.png"))); // NOI18N
         jPanel1.add(fondoprincipal, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 800, 590));
@@ -79,12 +120,47 @@ public class Empleados extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    public void mostrar(String tabla){
+        String sql = "select * from " + tabla;
+        Statement st;
+        ConexionBDR con = new ConexionBDR();
+        Connection ConexionBDR = con.conectar();
+        System.out.println(sql);
+        DefaultTableModel model = new DefaultTableModel();
+        model.addColumn("ID");
+        model.addColumn("Nombre");
+        model.addColumn("Puesto");
+        model.addColumn("Salario");
+        visor.setModel(model);
+        
+        String [] datos = new String [4];
+        try {
+            st = ConexionBDR.createStatement();
+            ResultSet rs = st.executeQuery(sql);
+            while (rs.next())
+            {
+                datos[0]=rs.getString(1);
+                datos[1]=rs.getString(2);
+                datos[2]=rs.getString(3);
+                datos[3]=rs.getString(4);
+                model.addRow(datos);
+            }
+        } catch (SQLException e){
+            JOptionPane.showMessageDialog(null, "Error" + e.toString());
+    }
+    }
+    
     private void jBotonAtrasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBotonAtrasActionPerformed
         // TODO add your handling code here:
         Eleccion abrir=new Eleccion();
         abrir.setVisible(true);
         this.setVisible(false);
     }//GEN-LAST:event_jBotonAtrasActionPerformed
+
+    private void jActualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jActualizarActionPerformed
+        // TODO add your handling code here:
+        mostrar("empleados");
+    }//GEN-LAST:event_jActualizarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -123,10 +199,15 @@ public class Empleados extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel fondoprincipal;
+    private javax.swing.JButton jActualizar;
     private javax.swing.JButton jBotonAtras;
+    private javax.swing.JButton jButton3;
+    private javax.swing.JButton jButton4;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabelLogo1;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JScrollPane jScrollPane1;
+    public javax.swing.JTable visor;
     // End of variables declaration//GEN-END:variables
 }
