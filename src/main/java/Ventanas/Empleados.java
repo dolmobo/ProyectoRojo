@@ -4,7 +4,7 @@
  */
 package Ventanas;
 
-import Controlador.ConexionBDR;
+import Usos.ConexionBDR;
 import Controlador.ControladorEmpleados;
 import Usos.Leer;
 import java.sql.Connection;

@@ -12,6 +12,9 @@ import javax.persistence.Persistence;
 import javax.persistence.TypedQuery;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
+import Usos.AutenticadorBDO; // Asegúrate de que la ruta sea la correcta
+import Usos.User;
+
 
 /**
  *
@@ -51,6 +54,7 @@ public class Login extends javax.swing.JFrame {
         jContraseñaLogin = new javax.swing.JPasswordField();
         jLabel2 = new javax.swing.JLabel();
         jLogIn = new javax.swing.JButton();
+        jRegistrar = new javax.swing.JButton();
         jMostrarContraseña = new javax.swing.JCheckBox();
         jBackground = new javax.swing.JLabel();
 
@@ -97,7 +101,15 @@ public class Login extends javax.swing.JFrame {
                 jLogInActionPerformed(evt);
             }
         });
-        jPanel1.add(jLogIn, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 350, 120, -1));
+        jPanel1.add(jLogIn, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 350, 120, -1));
+
+        jRegistrar.setText("Registrarse");
+        jRegistrar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jRegistrarActionPerformed(evt);
+            }
+        });
+        jPanel1.add(jRegistrar, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 350, 120, -1));
 
         jMostrarContraseña.setText("Mostrar Contraseña");
         jMostrarContraseña.addActionListener(new java.awt.event.ActionListener() {
@@ -129,19 +141,23 @@ public class Login extends javax.swing.JFrame {
     }//GEN-LAST:event_jUsuarioLoginActionPerformed
 
     private void jLogInActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jLogInActionPerformed
-        // TODO add your handling code here:
-        String usuario = jUsuarioLogin.getText();
-        String contrasena = new String(jContraseñaLogin.getPassword());
-        if (usuario.equals("admin") && contrasena.equals("1234")) {
-            // Usuario y contraseña correctos
-            JOptionPane.showMessageDialog(this, "Inicio de sesión exitoso.");
-            // Puedes cambiar de ventana aquí, por ejemplo.
-            Eleccion abrir = new Eleccion();
-            abrir.setVisible(true);
-            this.setVisible(false);
-        } else {
-            JOptionPane.showMessageDialog(this, "Usuario o contraseña incorrectos.");
-        }
+        // Obtener los datos ingresados en el formulario
+    String usuario = jUsuarioLogin.getText();
+    String contrasena = new String(jContraseñaLogin.getPassword());
+    
+    // Llamar a AuthService para verificar si el login es correcto
+    AutenticadorBDO authService = new AutenticadorBDO();
+    
+    if (authService.login(usuario, contrasena)) {
+        // Si el login es exitoso
+        JOptionPane.showMessageDialog(this, "Inicio de sesión exitoso.");
+        Eleccion abrir = new Eleccion();
+        abrir.setVisible(true);
+        this.setVisible(false);
+    } else {
+        // Si el login falla
+        JOptionPane.showMessageDialog(this, "Usuario o contraseña incorrectos.");
+    }
 
 
     }//GEN-LAST:event_jLogInActionPerformed
@@ -158,6 +174,27 @@ public class Login extends javax.swing.JFrame {
     private void jContraseñaLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jContraseñaLoginActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jContraseñaLoginActionPerformed
+
+    private void jRegistrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRegistrarActionPerformed
+        // TODO add your handling code here:
+        
+         // Obtener los datos ingresados
+    String usuario = jUsuarioLogin.getText();
+    String contrasena = new String(jContraseñaLogin.getPassword());
+
+    // Llamar al servicio de autenticación para registrar al nuevo usuario
+    AutenticadorBDO authService = new AutenticadorBDO();
+    
+    // Comprobar si el nombre de usuario ya existe
+    if (authService.userExists(usuario)) {
+        JOptionPane.showMessageDialog(this, "El usuario ya existe. Intenta con otro.");
+    } else {
+        // Registrar al nuevo usuario
+        authService.registerUser(usuario, contrasena);
+        JOptionPane.showMessageDialog(this, "Usuario registrado exitosamente.");
+    }
+        
+    }//GEN-LAST:event_jRegistrarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -203,6 +240,7 @@ public class Login extends javax.swing.JFrame {
     private javax.swing.JButton jLogIn;
     private javax.swing.JCheckBox jMostrarContraseña;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JButton jRegistrar;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTextArea jTextArea1;
     private javax.swing.JTextField jUsuarioLogin;

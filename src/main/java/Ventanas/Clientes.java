@@ -4,7 +4,7 @@
  */
 package Ventanas;
 
-import Controlador.ConexionBDR;
+import Usos.ConexionBDR;
 import Usos.Leer;
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -309,7 +309,7 @@ public class Clientes extends javax.swing.JFrame {
         String sql = "SELECT * FROM clientes";
         
         try {
-            conet = con1.getConnection();
+            //conet = con.getConnection();
             st = conet.createStatement();
             rs = st.executeQuery(sql);
             Object[] cliente = new Object[4];

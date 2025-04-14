@@ -1,4 +1,4 @@
-package Controlador;
+package Usos;
 
 // Falta algo???
 import java.sql.Connection;
