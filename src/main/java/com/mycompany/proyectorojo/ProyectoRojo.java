@@ -4,8 +4,8 @@
 
 package com.mycompany.proyectorojo;
 
+import Usos.User;
 import Ventanas.Login;
-import Ventanas.Usuario;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
@@ -22,9 +22,9 @@ public class ProyectoRojo {
     EntityManager em = emf.createEntityManager();
 
     // Crear usuarios manualmente
-    Usuario u1 = new Usuario("juan", "1234");
-    Usuario u2 = new Usuario("ana", "1234");
-    Usuario u3 = new Usuario("manuel", "1234");
+    User u1 = new User("juan", "1234");
+    User u2 = new User("ana", "1234");
+    User u3 = new User("manuel", "1234");
 
     try {
         // Iniciar la transacción

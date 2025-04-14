@@ -141,21 +141,18 @@ public class Login extends javax.swing.JFrame {
     }//GEN-LAST:event_jUsuarioLoginActionPerformed
 
     private void jLogInActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jLogInActionPerformed
-        // Obtener los datos ingresados en el formulario
+    
     String usuario = jUsuarioLogin.getText();
     String contrasena = new String(jContraseñaLogin.getPassword());
-    
-    // Llamar a AuthService para verificar si el login es correcto
-    AutenticadorBDO authService = new AutenticadorBDO();
-    
-    if (authService.login(usuario, contrasena)) {
-        // Si el login es exitoso
+
+    User usuarioValidado = AutenticadorBDO.validarUsuario(usuario, contrasena);
+
+    if (usuarioValidado != null) {
         JOptionPane.showMessageDialog(this, "Inicio de sesión exitoso.");
         Eleccion abrir = new Eleccion();
         abrir.setVisible(true);
         this.setVisible(false);
     } else {
-        // Si el login falla
         JOptionPane.showMessageDialog(this, "Usuario o contraseña incorrectos.");
     }
 
@@ -176,24 +173,20 @@ public class Login extends javax.swing.JFrame {
     }//GEN-LAST:event_jContraseñaLoginActionPerformed
 
     private void jRegistrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRegistrarActionPerformed
-        // TODO add your handling code here:
-        
-         // Obtener los datos ingresados
+        // TODO add your handling code here:                                           
     String usuario = jUsuarioLogin.getText();
     String contrasena = new String(jContraseñaLogin.getPassword());
 
-    // Llamar al servicio de autenticación para registrar al nuevo usuario
-    AutenticadorBDO authService = new AutenticadorBDO();
-    
-    // Comprobar si el nombre de usuario ya existe
-    if (authService.userExists(usuario)) {
+    // Verifica si ya existe el usuario
+    if (AutenticadorBDO.existeUsuario(usuario)) {
         JOptionPane.showMessageDialog(this, "El usuario ya existe. Intenta con otro.");
     } else {
-        // Registrar al nuevo usuario
-        authService.registerUser(usuario, contrasena);
+        // Crea el objeto User y lo registra
+        User nuevoUsuario = new User(usuario, contrasena);
+        AutenticadorBDO.insertarUsuario(nuevoUsuario);
         JOptionPane.showMessageDialog(this, "Usuario registrado exitosamente.");
     }
-        
+    
     }//GEN-LAST:event_jRegistrarActionPerformed
 
     /**
