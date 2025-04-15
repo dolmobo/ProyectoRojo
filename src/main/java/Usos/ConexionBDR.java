@@ -14,7 +14,7 @@ public class ConexionBDR {
     private Statement sentencia;
     private String usuario = "root";
     private String clave = "";
-    private String url = "jdbc:mysql://localhost:3306/prueba3";  // Asegúrate de que el nombre de la base de datos sea correcto
+    private String url = "jdbc:mysql://127.0.0.1:3306/gestion_produccion";  // Asegúrate de que el nombre de la base de datos sea correcto
 
     // Método para establecer la conexión
         public Connection conectar() {
