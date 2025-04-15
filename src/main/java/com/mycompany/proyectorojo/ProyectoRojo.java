@@ -34,7 +34,7 @@ public class ProyectoRojo {
         em.persist(u1);
         em.persist(u2);
         em.persist(u3);
-
+        
         // Confirmar la transacción
         em.getTransaction().commit();
         System.out.println("Usuarios guardados correctamente.");

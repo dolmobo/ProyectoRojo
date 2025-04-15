@@ -4,31 +4,39 @@
  */
 package Usos;
 
-import javax.persistence.*;
+/**
+ *
+ * @author USUARIO
+ */
 import javax.persistence.Entity;
 import javax.persistence.Id;
 
-/**
- *
- * @author david
- */
 @Entity
 public class User {
     @Id
     private String username;
     private String password;
 
-    public User() {}
-
-    public User(String username, String password) {
-        this.username = username;
-        this.password = password;
+    // Constructor
+    public User(String nombreUsuario, String contraseña) {
+        this.username = nombreUsuario;
+        this.password = contraseña;
     }
 
-    // Getters y setters
-    public String getUsername() { return username; }
-    public void setUsername(String username) { this.username = username; }
+    // Getters y Setters
+    public String getNombreUsuario() {
+        return username;
+    }
 
-    public String getPassword() { return password; }
-    public void setPassword(String password) { this.password = password; }
+    public void setNombreUsuario(String nombreUsuario) {
+        this.username = nombreUsuario;
+    }
+
+    public String getContraseña() {
+        return password;
+    }
+
+    public void setContraseña(String contraseña) {
+        this.password = contraseña;
+    }
 }

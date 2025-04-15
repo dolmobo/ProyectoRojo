@@ -4,6 +4,7 @@
  */
 package Ventanas;
 
+
 import java.net.URL;
 import java.util.Set;
 import javax.persistence.EntityManager;
@@ -14,7 +15,6 @@ import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import Usos.AutenticadorBDO; // Asegúrate de que la ruta sea la correcta
 import Usos.User;
-
 
 /**
  *
@@ -141,20 +141,21 @@ public class Login extends javax.swing.JFrame {
     }//GEN-LAST:event_jUsuarioLoginActionPerformed
 
     private void jLogInActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jLogInActionPerformed
-    
-    String usuario = jUsuarioLogin.getText();
-    String contrasena = new String(jContraseñaLogin.getPassword());
 
-    User usuarioValidado = AutenticadorBDO.validarUsuario(usuario, contrasena);
+        String usuario = jUsuarioLogin.getText();
+        String contrasena = new String(jContraseñaLogin.getPassword());
 
-    if (usuarioValidado != null) {
-        JOptionPane.showMessageDialog(this, "Inicio de sesión exitoso.");
-        Eleccion abrir = new Eleccion();
-        abrir.setVisible(true);
-        this.setVisible(false);
-    } else {
-        JOptionPane.showMessageDialog(this, "Usuario o contraseña incorrectos.");
-    }
+        AutenticadorBDO authService = new AutenticadorBDO();
+        User user = authService.validarUsuario(usuario, contrasena);
+
+        if (user != null) {
+            JOptionPane.showMessageDialog(this, "Inicio de sesión exitoso.");
+            Eleccion abrir = new Eleccion();
+            abrir.setVisible(true);
+            this.setVisible(false);
+        } else {
+            JOptionPane.showMessageDialog(this, "Usuario o contraseña incorrectos.");
+        }
 
 
     }//GEN-LAST:event_jLogInActionPerformed
@@ -174,19 +175,19 @@ public class Login extends javax.swing.JFrame {
 
     private void jRegistrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRegistrarActionPerformed
         // TODO add your handling code here:                                           
-    String usuario = jUsuarioLogin.getText();
-    String contrasena = new String(jContraseñaLogin.getPassword());
+        String usuario = jUsuarioLogin.getText();
+        String contrasena = new String(jContraseñaLogin.getPassword());
 
-    // Verifica si ya existe el usuario
-    if (AutenticadorBDO.existeUsuario(usuario)) {
-        JOptionPane.showMessageDialog(this, "El usuario ya existe. Intenta con otro.");
-    } else {
-        // Crea el objeto User y lo registra
-        User nuevoUsuario = new User(usuario, contrasena);
-        AutenticadorBDO.insertarUsuario(nuevoUsuario);
-        JOptionPane.showMessageDialog(this, "Usuario registrado exitosamente.");
-    }
-    
+        // Verifica si ya existe el usuario
+        if (AutenticadorBDO.existeUsuario(usuario)) {
+            JOptionPane.showMessageDialog(this, "El usuario ya existe. Intenta con otro.");
+        } else {
+            // Crea el objeto User y lo registra
+            User nuevoUsuario = new User(usuario, contrasena);
+            AutenticadorBDO.insertarUsuario(nuevoUsuario);
+            JOptionPane.showMessageDialog(this, "Usuario registrado exitosamente.");
+        }
+
     }//GEN-LAST:event_jRegistrarActionPerformed
 
     /**
