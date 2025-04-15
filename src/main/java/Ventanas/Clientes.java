@@ -5,9 +5,12 @@
 package Ventanas;
 
 import Usos.ConexionBDR;
+import Controlador.ControladorClientes;
+import Controlador.ControladorEmpleados;
 import Usos.Leer;
 import java.sql.Connection;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.sql.Statement;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
@@ -22,17 +25,11 @@ public class Clientes extends javax.swing.JFrame {
      * Creates new form Empleados
      */
     
-    ConexionBDR con1 = new ConexionBDR();
-    Connection conet;
-    DefaultTableModel modelo;
-    Statement st;
-    ResultSet rs;
-    int idc;
-    
-    
+
     
     public Clientes() {
         initComponents();
+        RefrescarTabla("clientes");
         Leer.transparenciaBoton(jBotonAtras);
         this.setLocationRelativeTo(null);
         
@@ -59,9 +56,9 @@ public class Clientes extends javax.swing.JFrame {
         txtApellidos = new javax.swing.JTextField();
         txtEmail = new javax.swing.JTextField();
         jLabel5 = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
+        Añadir = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
+        Eliminar = new javax.swing.JButton();
         jPanel4 = new javax.swing.JPanel();
         jLabel3 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
@@ -109,16 +106,21 @@ public class Clientes extends javax.swing.JFrame {
         jLabel5.setForeground(new java.awt.Color(30, 30, 30));
         jLabel5.setText("Direccion");
 
-        jButton1.setText("Añadir");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        Añadir.setText("Añadir");
+        Añadir.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                AñadirActionPerformed(evt);
             }
         });
 
         jButton2.setText("Modificar");
 
-        jButton3.setText("Eliminar");
+        Eliminar.setText("Eliminar");
+        Eliminar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                EliminarActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -137,9 +139,9 @@ public class Clientes extends javax.swing.JFrame {
                                 .addGap(18, 18, 18)
                                 .addComponent(txtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 184, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(jPanel3Layout.createSequentialGroup()
-                                .addComponent(jButton1)
+                                .addComponent(Añadir)
                                 .addGap(18, 18, 18)
-                                .addComponent(jButton3)
+                                .addComponent(Eliminar)
                                 .addGap(18, 18, 18)
                                 .addComponent(jButton2))
                             .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
@@ -180,8 +182,8 @@ public class Clientes extends javax.swing.JFrame {
                     .addComponent(jLabel5))
                 .addGap(41, 41, 41)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton1)
-                    .addComponent(jButton3)
+                    .addComponent(Añadir)
+                    .addComponent(Eliminar)
                     .addComponent(jButton2))
                 .addContainerGap(265, Short.MAX_VALUE))
         );
@@ -198,15 +200,20 @@ public class Clientes extends javax.swing.JFrame {
 
         Tabla.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+
             },
             new String [] {
-                "Nombre", "Apellidos", "Email", "Direccion"
+                "nombre", "apellidos", "email", "direccion"
             }
-        ));
+        ) {
+            Class[] types = new Class [] {
+                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+        });
         jScrollPane1.setViewportView(Tabla);
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
@@ -261,13 +268,48 @@ public class Clientes extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_txtApellidosActionPerformed
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void AñadirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AñadirActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButton1ActionPerformed
+        // Obtener los valores de los campos de texto
+    String nombre = txtNombre.getText();
+    String apellidos = txtApellidos.getText();
+    String email = txtEmail.getText();
+    String direccion = txtDireccion.getText();
+
+    // Llamar al método del controlador pasando los datos obtenidos de los campos
+    ControladorClientes.añadir(nombre, apellidos, email, direccion);
+
+    // Refrescar la tabla de empleados
+    RefrescarTabla("clientes");
+        jButtonEliminarVisualizacionActionPerformed(evt);
+    }//GEN-LAST:event_AñadirActionPerformed
+
+    private void EliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_EliminarActionPerformed
+        String nombre = txtNombre.getText();
+        String apellidos = txtApellidos.getText();
+        String email = txtEmail.getText();
+        String direccion = txtDireccion.getText();
+            
+        ControladorClientes.eliminar(nombre, apellidos, email, direccion);
+            RefrescarTabla("clientes");
+            jButtonEliminarVisualizacionActionPerformed(evt);       
+    // TODO add your handling code here:
+    }//GEN-LAST:event_EliminarActionPerformed
 
     /**
      * @param args the command line arguments
      */
+    
+    
+     private void jButtonEliminarVisualizacionActionPerformed(java.awt.event.ActionEvent evt) {                                                             
+        // TODO add your handling code here:
+        txtNombre.setText("");
+        txtApellidos.setText("");
+        txtEmail.setText("");
+        txtDireccion.setText("");
+    }   
+    
+    
     
     
     public static void main(String args[]) {
@@ -296,6 +338,18 @@ public class Clientes extends javax.swing.JFrame {
         //</editor-fold>
         //</editor-fold>
         //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
@@ -305,60 +359,103 @@ public class Clientes extends javax.swing.JFrame {
         });
     }
 
-    void consultar() {
-        String sql = "SELECT * FROM clientes";
-        
-        try {
-            //conet = con.getConnection();
-            st = conet.createStatement();
-            rs = st.executeQuery(sql);
-            Object[] cliente = new Object[4];
-            modelo = (DefaultTableModel) Tabla.getModel();
-            while(rs.next()) {
-                
-                cliente [0] = rs.getString("nombre");
-                cliente [1] = rs.getString("apellidos");
-                cliente [2] = rs.getString("email");
-                cliente [3] = rs.getString("direccion");
-                
-                modelo.addRow(cliente);
-            }
-            Tabla.setModel(modelo);
-            
-            
-        } catch (Exception e) {
-        }
-        
-        
-        
-    }
+//    void consultar() {
+//        String sql = "SELECT * FROM 'clientes'";
+//        
+//        try {
+//            conet = con1.conectar();
+//            st = conet.createStatement();
+//            rs = st.executeQuery(sql);
+//            Object[] cliente = new Object[4];
+//            modelo = (DefaultTableModel) Tabla.getModel();
+//            while(rs.next()) {
+//                
+//                cliente [0] = rs.getString("nombre");
+//                cliente [1] = rs.getString("apellidos");
+//                cliente [2] = rs.getString("email");
+//                cliente [3] = rs.getString("direccion");
+//                
+//                modelo.addRow(cliente);
+//            }
+//            Tabla.setModel(modelo);
+//            
+//            
+//        } catch (Exception e) {
+//        }
+//        
+//        
+//        
+//    }
     
-    void Agregar() {
-        String nom = txtNombre.getText();
-        String ape = txtApellidos.getText();
-        String ema = txtEmail.getText();
-        String direc = txtDireccion.getText();
+//    void Agregar() {
+//        String nom = txtNombre.getText();
+//        String ape = txtApellidos.getText();
+//        String ema = txtEmail.getText();
+//        String direc = txtDireccion.getText();
+//        
+//        try {
+//            if (nom.equals("") || ape.equals("") || ema.equals("") || direc.equals("")) {
+//                JOptionPane.showMessageDialog(null, "Faltan ingresar datos");
+////                limpiarTabla();
+//                
+//            } else {
+//                
+//                String sql = "INSERT INTRO clientes(nombre, apellido, email, direccion) values ('"+nom+"','"+ape+"','"+ema+"','"+direc+"')";
+//                
+//            conet = con1.conectar();
+//            st = conet.createStatement();
+//            st.executeUpdate(sql);                
+//                JOptionPane.showMessageDialog(null, "Nuevo cliente registrado");
+////                limpiarTabla(); 
+//            }
+//                
+//            
+//        } catch (Exception e) {
+//        }
+//     
+//    }       
+       
         
+     public void RefrescarTabla(String tabla){
+        String sql = "select * from " + tabla;
+        Statement st;
+        ConexionBDR con = new ConexionBDR();
+        Connection ConexionBDR = con.conectar();
+        System.out.println(sql);
+        DefaultTableModel model = new DefaultTableModel();
+        model.addColumn("nombre");
+        model.addColumn("apellidos");
+        model.addColumn("email");
+        model.addColumn("direccion");
+        Tabla.setModel(model);
+        
+        String [] datos = new String [4];
         try {
-            if (nom.equals("") || ape.equals("") || ema.equals("") || direc.equals("")) {
-                JOptionPane.showMessageDialog(null, "Faltan ingresar datos");
-                
+            st = ConexionBDR.createStatement();
+            ResultSet rs = st.executeQuery(sql);
+            while (rs.next())
+            {
+                datos[0]=rs.getString(1);
+                datos[1]=rs.getString(2);
+                datos[2]=rs.getString(3);
+                datos[3]=rs.getString(4);
+                model.addRow(datos);
             }
-                
-            
-        } catch (Exception e) {
-        }
-        
+        } catch (SQLException e){
+            JOptionPane.showMessageDialog(null, "Error" + e.toString());
     }
+    }       
+        
+    
     
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton Añadir;
+    private javax.swing.JButton Eliminar;
     private javax.swing.JTable Tabla;
     private javax.swing.JLabel fondoprincipal;
     private javax.swing.JButton jBotonAtras;
-    private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
