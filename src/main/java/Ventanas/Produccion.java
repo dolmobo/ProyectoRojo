@@ -37,15 +37,15 @@ public class Produccion extends javax.swing.JFrame {
         System.out.println(sql);
 
         DefaultTableModel model = new DefaultTableModel();
-        model.addColumn("id");
-        model.addColumn("empleado_nombre");
-        model.addColumn("cantidad");
-        model.addColumn("estado");
-        model.addColumn("fecha_inicio");
-        model.addColumn("fecha_fin");
+        model.addColumn("ID");
+        model.addColumn("Nombre");
+        model.addColumn("Cantidad");
+        model.addColumn("Estado");
+        model.addColumn("Fecha Inicio");
+        model.addColumn("Fecha Fin");
         TablaProResu.setModel(model);
 
-        String[] datos = new String[4];
+        String[] datos = new String[6];
         try {
             st = ConexionBDR.createStatement();
             ResultSet rs = st.executeQuery(sql);
@@ -235,8 +235,15 @@ public class Produccion extends javax.swing.JFrame {
             new String [] {
                 "Empleado", "Cantidad", "Estado", "Fecha Inicio", "Fecha Fin"
             }
-        ));
-        TablaProResu.setColumnSelectionAllowed(true);
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
         jScrollPane1.setViewportView(TablaProResu);
         TablaProResu.getColumnModel().getSelectionModel().setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
 
