@@ -19,8 +19,9 @@ import javax.swing.JOptionPane;
 public class ControladorProducción {
 
     public static boolean añadir(String empleado, int cantidad, String estado, String fechaInicio, String fechaFin) {
-        String sql = "INSERT INTO produccion (empleado_nombre, cantidad, estado, fecha_inicio, fecha_fin) VALUES ('" + empleado + "', '" + cantidad + "', '" + estado + "', '" + fechaInicio + "', '" + fechaFin + "')";
 
+        String sql = "INSERT INTO produccion (empleado_nombre, cantidad, estado, fecha_inicio, fecha_fin) VALUES (?, ?, ?, ?, ?)";
+        
         try (Connection con = new ConexionBDR().conectar(); PreparedStatement ps = con.prepareStatement(sql)) {
 
             ps.setString(1, empleado);
