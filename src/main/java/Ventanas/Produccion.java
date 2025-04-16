@@ -4,7 +4,14 @@
  */
 package Ventanas;
 
+import Usos.ConexionBDR;
 import Usos.Leer;
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -17,8 +24,81 @@ public class Produccion extends javax.swing.JFrame {
      */
     public Produccion() {
         initComponents();
+        RefrescarTablaEmpleados("empleados");
         Leer.transparenciaBoton(jBotonAtras);
         this.setLocationRelativeTo(null);
+    }
+
+    public void RefrescarTablaEmpleados(String tabla) {
+        String sql = "select * from " + tabla;
+        Statement st;
+        ConexionBDR con = new ConexionBDR();
+        Connection ConexionBDR = con.conectar();
+        System.out.println(sql);
+        DefaultTableModel model = new DefaultTableModel();
+        model.addColumn("ID");
+        model.addColumn("Nombre");
+        model.addColumn("Puesto");
+        model.addColumn("Salario");
+        model.addColumn("Fecha Contratacion");
+        model.addColumn("Estado");
+        visor.setModel(model);
+
+        String[] datos = new String[6];
+        try {
+            st = ConexionBDR.createStatement();
+            ResultSet rs = st.executeQuery(sql);
+            while (rs.next()) {
+                datos[0] = rs.getString(1);
+                datos[1] = rs.getString(2);
+                datos[2] = rs.getString(3);
+                datos[3] = rs.getString(4);
+                datos[4] = rs.getString(5);
+                datos[5] = rs.getString(6);
+                model.addRow(datos);
+            }
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "Error" + e.toString());
+        }
+    }
+
+    // Método para mostrar la producción de un empleado
+    public void mostrarProduccionPorEmpleado(String idEmpleado) {
+         // Modificamos la consulta SQL para obtener los datos que necesitas
+    String sql = "SELECT p.id, e.nombre, p.producto, p.cantidad, p.estado, p.fecha_inicio, p.fecha_fin " +
+                 "FROM produccion p " +
+                 "JOIN empleados e ON p.empleado_id = e.id " +
+                 "WHERE p.empleado_id = " + idEmpleado;
+    Statement st;
+    ConexionBDR con = new ConexionBDR();
+    Connection conexionBDR = con.conectar();
+    DefaultTableModel model = new DefaultTableModel();
+    model.addColumn("ID Produccion");
+    model.addColumn("Empleado");
+    model.addColumn("Producto");
+    model.addColumn("Cantidad");
+    model.addColumn("Estado");
+    model.addColumn("Fecha Inicio");
+    model.addColumn("Fecha Fin");
+    TablaProComple.setModel(model);
+
+    String[] datos = new String[7]; // Ahora tenemos 7 columnas
+    try {
+        st = conexionBDR.createStatement();
+        ResultSet rs = st.executeQuery(sql);
+        while (rs.next()) {
+            datos[0] = rs.getString("id");
+            datos[1] = rs.getString("nombre");  // Nombre del empleado
+            datos[2] = rs.getString("producto");  // Nombre del producto
+            datos[3] = rs.getString("cantidad");
+            datos[4] = rs.getString("estado");
+            datos[5] = rs.getString("fecha_inicio");
+            datos[6] = rs.getString("fecha_fin");
+            model.addRow(datos);
+        }
+    } catch (SQLException e) {
+        JOptionPane.showMessageDialog(null, "Error: " + e.toString());
+    }
     }
 
     /**
@@ -37,22 +117,29 @@ public class Produccion extends javax.swing.JFrame {
         jLabel6 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
-        jTextField3 = new javax.swing.JTextField();
-        jTextField4 = new javax.swing.JTextField();
-        list1 = new java.awt.List();
-        jTextField5 = new javax.swing.JTextField();
-        jTextField6 = new javax.swing.JTextField();
-        jButton4 = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
+        jLabel9 = new javax.swing.JLabel();
+        anadirUsuario = new javax.swing.JButton();
+        empleado = new javax.swing.JTextField();
+        cantidad = new javax.swing.JTextField();
+        estado = new javax.swing.JComboBox<>();
+        jComboBox1 = new javax.swing.JComboBox<>();
+        fechaInicio = new javax.swing.JTextField();
+        fechaFin = new javax.swing.JTextField();
+        resetear = new javax.swing.JButton();
+        eliminar = new javax.swing.JButton();
+        modificar = new javax.swing.JButton();
         jBotonAtras = new javax.swing.JButton();
-        jButton1 = new javax.swing.JButton();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        TablaProComple = new javax.swing.JTable();
         jLabel3 = new javax.swing.JLabel();
+        jLabel10 = new javax.swing.JLabel();
         jLabel11 = new javax.swing.JLabel();
         jLabel12 = new javax.swing.JLabel();
+        jLabel1 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
-        jLabel10 = new javax.swing.JLabel();
+        visor = new javax.swing.JTable();
+        jLabel13 = new javax.swing.JLabel();
         fondoprincipal = new javax.swing.JLabel();
 
         jLabelLogo1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/logoGestiCor.png"))); // NOI18N
@@ -61,47 +148,88 @@ public class Produccion extends javax.swing.JFrame {
 
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jLabel5.setForeground(new java.awt.Color(0, 0, 0));
         jLabel5.setText("[Empleado]");
-        jPanel1.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 170, -1, -1));
+        jPanel1.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 150, -1, -1));
 
-        jLabel4.setForeground(new java.awt.Color(0, 0, 0));
         jLabel4.setText("[Cantidad] ");
-        jPanel1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 210, -1, -1));
+        jPanel1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 190, -1, -1));
 
-        jLabel6.setForeground(new java.awt.Color(0, 0, 0));
         jLabel6.setText("[Fecha Inicio]");
-        jPanel1.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 290, -1, -1));
+        jPanel1.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 310, -1, -1));
 
-        jLabel7.setForeground(new java.awt.Color(0, 0, 0));
         jLabel7.setText("[Estado]");
-        jPanel1.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 250, -1, -1));
+        jPanel1.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 230, -1, -1));
 
-        jLabel8.setForeground(new java.awt.Color(0, 0, 0));
         jLabel8.setText("[Fecha Fin]");
-        jPanel1.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 340, -1, -1));
+        jPanel1.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 350, -1, -1));
 
-        jTextField3.setText("Introduce");
-        jPanel1.add(jTextField3, new org.netbeans.lib.awtextra.AbsoluteConstraints(640, 170, 70, -1));
+        jLabel9.setText("[Tipo]");
+        jPanel1.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 270, -1, -1));
 
-        jTextField4.setText("Introduce");
-        jPanel1.add(jTextField4, new org.netbeans.lib.awtextra.AbsoluteConstraints(640, 210, 70, -1));
-        jPanel1.add(list1, new org.netbeans.lib.awtextra.AbsoluteConstraints(640, 250, 70, 20));
+        anadirUsuario.setText("Añadir");
+        anadirUsuario.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                anadirUsuarioActionPerformed(evt);
+            }
+        });
+        jPanel1.add(anadirUsuario, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 400, -1, -1));
 
-        jTextField5.setText("dd/mm/aaaa");
-        jPanel1.add(jTextField5, new org.netbeans.lib.awtextra.AbsoluteConstraints(640, 290, 70, -1));
+        empleado.setText("Introduce");
+        empleado.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                empleadoActionPerformed(evt);
+            }
+        });
+        jPanel1.add(empleado, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 150, 90, -1));
 
-        jTextField6.setText("dd/mm/aaaa");
-        jPanel1.add(jTextField6, new org.netbeans.lib.awtextra.AbsoluteConstraints(640, 340, 70, -1));
+        cantidad.setText("Introduce");
+        cantidad.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cantidadActionPerformed(evt);
+            }
+        });
+        jPanel1.add(cantidad, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 190, 90, -1));
 
-        jButton4.setText("Consultar");
-        jPanel1.add(jButton4, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 500, -1, 30));
+        estado.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Finalizado", "En Proceso" }));
+        jPanel1.add(estado, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 230, 90, -1));
 
-        jButton3.setText("Eliminar");
-        jPanel1.add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 500, -1, 30));
+        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Bandejas", "Cajones", "Pales" }));
+        jPanel1.add(jComboBox1, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 270, 90, -1));
 
-        jButton2.setText("Modificar");
-        jPanel1.add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 500, -1, 30));
+        fechaInicio.setText("dd/mm/aaaa");
+        fechaInicio.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                fechaInicioActionPerformed(evt);
+            }
+        });
+        jPanel1.add(fechaInicio, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 310, 90, -1));
+
+        fechaFin.setText("dd/mm/aaaa");
+        fechaFin.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                fechaFinActionPerformed(evt);
+            }
+        });
+        jPanel1.add(fechaFin, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 350, 90, -1));
+
+        resetear.setText("Resetear");
+        resetear.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                resetearActionPerformed(evt);
+            }
+        });
+        jPanel1.add(resetear, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 490, 90, 30));
+
+        eliminar.setText("Eliminar");
+        eliminar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                eliminarActionPerformed(evt);
+            }
+        });
+        jPanel1.add(eliminar, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 490, 80, 30));
+
+        modificar.setText("Modificar");
+        jPanel1.add(modificar, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 490, 90, 30));
 
         jBotonAtras.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/atras.png"))); // NOI18N
         jBotonAtras.addActionListener(new java.awt.event.ActionListener() {
@@ -111,74 +239,172 @@ public class Produccion extends javax.swing.JFrame {
         });
         jPanel1.add(jBotonAtras, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 50, -1));
 
-        jButton1.setText("Agregar Producción");
-        jButton1.setToolTipText("");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
-            }
-        });
-        jPanel1.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 500, -1, 30));
-
-        jLabel3.setFont(new java.awt.Font("Yu Gothic Medium", 1, 24)); // NOI18N
-        jLabel3.setForeground(new java.awt.Color(0, 0, 0));
-        jLabel3.setText("GESTIÓN DE PRODUCCION GESTICOR");
-        jLabel3.setMaximumSize(new java.awt.Dimension(280, 20));
-        jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 0, 480, 80));
-
-        jLabel11.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/fondo.png"))); // NOI18N
-        jLabel11.setText("a");
-        jPanel1.add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 130, 320, 270));
-
-        jLabel12.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/fondoPanel.png"))); // NOI18N
-        jPanel1.add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 470, -1, -1));
-
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        TablaProComple.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
             new String [] {
-                "Empleado", "Cantidad", "Estado", "Fecha Inicio", "Fecha Fin"
+                "ID Produccion", "Empleado", "Producto", "Cantidad", "Estado", "Fecha Inicio", "Fecha Fin"
             }
-        ));
-        jTable1.setColumnSelectionAllowed(true);
-        jScrollPane1.setViewportView(jTable1);
-        jTable1.getColumnModel().getSelectionModel().setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false, false, false
+            };
 
-        jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 110, 320, 320));
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        jScrollPane2.setViewportView(TablaProComple);
+        TablaProComple.getColumnModel().getSelectionModel().setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
 
-        jLabel10.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/fondoSegundario.png"))); // NOI18N
-        jPanel1.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 90, -1, -1));
+        jPanel1.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 360, 580, 70));
 
-        fondoprincipal.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/gradient_800_600.png"))); // NOI18N
-        jPanel1.add(fondoprincipal, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 800, 590));
+        jLabel3.setFont(new java.awt.Font("Yu Gothic Medium", 1, 24)); // NOI18N
+        jLabel3.setText("GESTIÓN DE PRODUCCION GESTICOR");
+        jLabel3.setMaximumSize(new java.awt.Dimension(280, 20));
+        jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 0, 480, 80));
+
+        jLabel10.setText("Formulario De Producción");
+        jPanel1.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 110, 140, -1));
+
+        jLabel11.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/RecuaGris.jpg"))); // NOI18N
+        jPanel1.add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 100, 280, 340));
+
+        jLabel12.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/fondoPanel.png"))); // NOI18N
+        jPanel1.add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 470, 450, 70));
+
+        jLabel1.setText("Consulta");
+        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(590, 340, 50, 20));
+
+        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/gradient_800_600.png"))); // NOI18N
+        jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 340, 600, 100));
+
+        visor.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "ID", "Nombre", "Puesto", "Salario", "Fecha Contratacion", "Estado"
+            }
+        ) {
+            Class[] types = new Class [] {
+                java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.Integer.class, java.lang.String.class, java.lang.String.class
+            };
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false, false
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        visor.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                visorMouseClicked(evt);
+            }
+        });
+        jScrollPane1.setViewportView(visor);
+
+        jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 100, 600, 230));
+
+        jLabel13.setText("Informacion Del Empleado");
+        jPanel1.add(jLabel13, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 80, -1, -1));
+
+        fondoprincipal.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/gradient_1920_1080.png"))); // NOI18N
+        jPanel1.add(fondoprincipal, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, -20, 940, 590));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton1ActionPerformed
-
     private void jBotonAtrasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBotonAtrasActionPerformed
         // TODO add your handling code here:
-        Eleccion abrir=new Eleccion();
+        Eleccion abrir = new Eleccion();
         abrir.setVisible(true);
         this.setVisible(false);
     }//GEN-LAST:event_jBotonAtrasActionPerformed
+
+    private void fechaInicioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_fechaInicioActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_fechaInicioActionPerformed
+
+    private void fechaFinActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_fechaFinActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_fechaFinActionPerformed
+
+    private void empleadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_empleadoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_empleadoActionPerformed
+
+    private void cantidadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cantidadActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cantidadActionPerformed
+
+    private void anadirUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_anadirUsuarioActionPerformed
+        String nombreEmpleado = empleado.getText();
+        String cantTexto = cantidad.getText();
+        String estadoProd = (String) estado.getSelectedItem();
+        String fechaInicioTexto = fechaInicio.getText();
+        String fechaFinTexto = fechaFin.getText();
+
+        if (nombreEmpleado.isEmpty() || cantTexto.isEmpty() || fechaInicioTexto.isEmpty() || fechaFinTexto.isEmpty()) {
+            JOptionPane.showMessageDialog(null, "Por favor, completa todos los campos.");
+            return;
+        }
+
+        try {
+            int cantidadValor = Integer.parseInt(cantTexto);
+            boolean resultado = Controlador.ControladorProducción.añadir(nombreEmpleado, cantidadValor, estadoProd, fechaInicioTexto, fechaFinTexto);
+            if (resultado) {
+                JOptionPane.showMessageDialog(null, "Producción añadida correctamente.");
+                RefrescarTablaEmpleados("empleados");
+            }
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(null, "La cantidad debe ser un número entero.");
+        }
+    }//GEN-LAST:event_anadirUsuarioActionPerformed
+
+    private void eliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_eliminarActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_eliminarActionPerformed
+
+    private void visorMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_visorMouseClicked
+         int filaSeleccionada = visor.getSelectedRow();
+    if (filaSeleccionada == -1) {
+        JOptionPane.showMessageDialog(null, "No se ha seleccionado ningun empleado.");
+    } else {
+        // Obtener el ID del empleado seleccionado
+        String idEmpleado = visor.getValueAt(filaSeleccionada, 0).toString();
+        
+        // Llamar al método para mostrar la producción del empleado
+        mostrarProduccionPorEmpleado(idEmpleado);
+    }
+    }//GEN-LAST:event_visorMouseClicked
+
+    private void resetearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_resetearActionPerformed
+//        jTexto.setText("");
+//        jTextoNombre.setText("");
+//        jTextoPuesto.setText("");
+//        jTextoSalario.setText(String.valueOf(""));
+//        jComboBoxEstado.setSelectedItem(-1);
+    }//GEN-LAST:event_resetearActionPerformed
 
     /**
      * @param args the command line arguments
@@ -219,29 +445,36 @@ public class Produccion extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JTable TablaProComple;
+    private javax.swing.JButton anadirUsuario;
+    private javax.swing.JTextField cantidad;
+    private javax.swing.JButton eliminar;
+    private javax.swing.JTextField empleado;
+    private javax.swing.JComboBox<String> estado;
+    private javax.swing.JTextField fechaFin;
+    private javax.swing.JTextField fechaInicio;
     private javax.swing.JLabel fondoprincipal;
     private javax.swing.JButton jBotonAtras;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
-    private javax.swing.JButton jButton4;
+    private javax.swing.JComboBox<String> jComboBox1;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
+    private javax.swing.JLabel jLabel13;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
     private javax.swing.JLabel jLabelLogo1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
-    private javax.swing.JTextField jTextField3;
-    private javax.swing.JTextField jTextField4;
-    private javax.swing.JTextField jTextField5;
-    private javax.swing.JTextField jTextField6;
-    private java.awt.List list1;
+    private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JButton modificar;
+    private javax.swing.JButton resetear;
+    public javax.swing.JTable visor;
     // End of variables declaration//GEN-END:variables
 }
