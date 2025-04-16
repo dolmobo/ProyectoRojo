@@ -34,7 +34,7 @@ public class ControladorClientes {
             }
         }   
         
-     public static void eliminar(String nombre, String apellidos, String email, String direccion) {
+     public static void eliminar(String idStr,String nombre, String apellidos, String email, String direccion) {
         try {
             if (nombre.equals("") || apellidos.equals("") || email.equals("") || direccion.equals("")) {
                JOptionPane.showMessageDialog(null, "Faltan datos por ingresar.");
@@ -42,7 +42,7 @@ public class ControladorClientes {
             
             else {
                 Connection con = new ConexionBDR().conectar();
-                String sql = "DELETE FROM clientes WHERE nombre = '" + nombre + "' AND apellidos = '" + apellidos + 
+                String sql = "DELETE FROM clientes WHERE id = '" + idStr + "' AND nombre = '" + nombre + "' AND apellidos = '" + apellidos + 
                              "' AND email = '" + email + "' AND direccion = '" + direccion + "'";
                 Statement st = con.createStatement();
                 st.executeUpdate(sql);
@@ -52,23 +52,23 @@ public class ControladorClientes {
         }
     }
 
-//    public static void editar(String idStr,String nombre, String puesto, String salario, String estado) {
-//        try {
-//            if (estado.equals("") || nombre.equals("") || puesto.equals("") || salario.equals("")) {
-//               JOptionPane.showMessageDialog(null, "Faltan datos por ingresar.");
-//            } 
-//            
-//            else {
-//                Connection con = new ConexionBDR().conectar();
-//                String sql = "UPDATE EMPLEADOS SET nombre = '" + nombre + "', puesto = '" + puesto + "', salario = '" + salario + "', estado = '" + estado + "' WHERE id = '" + idStr + "'";
-//                //String sql = "INSERT INTO EMPLEADOS(nombre, puesto, salario, estado) VALUES ('" + nombre + "', '" + puesto + "', '" + salario + "', '" + estado + "')";
-//                Statement st = con.createStatement();
-//                st.executeUpdate(sql);
-//                JOptionPane.showMessageDialog(null, "Nuevo empleado modificado con exito.");
-//            }
-//        } catch (Exception e) {
-//        }
-//    }      
+    public static void editar(String idStr,String nombre, String apellidos, String email, String direccion) {
+        try {
+            if (nombre.equals("") || apellidos.equals("") || email.equals("") || direccion.equals("")) {
+               JOptionPane.showMessageDialog(null, "Faltan datos por ingresar.");
+            } 
+            
+            else {
+                Connection con = new ConexionBDR().conectar();
+                String sql = "UPDATE clientes SET nombre = '" + nombre + "', apellidos = '" + apellidos + "', email = '" + email + "', direccion = '" + direccion + "' WHERE id = '" + idStr + "'";
+                //String sql = "INSERT INTO EMPLEADOS(nombre, puesto, salario, estado) VALUES ('" + nombre + "', '" + puesto + "', '" + salario + "', '" + estado + "')";
+                Statement st = con.createStatement();
+                st.executeUpdate(sql);
+                JOptionPane.showMessageDialog(null, "Nuevo empleado modificado con exito.");
+            }
+        } catch (Exception e) {
+        }
+    }      
     
     
     
