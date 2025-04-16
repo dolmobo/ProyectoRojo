@@ -125,20 +125,21 @@ public class Produccion extends javax.swing.JFrame {
         jComboBox1 = new javax.swing.JComboBox<>();
         fechaInicio = new javax.swing.JTextField();
         fechaFin = new javax.swing.JTextField();
-        consultar = new javax.swing.JButton();
+        resetear = new javax.swing.JButton();
         eliminar = new javax.swing.JButton();
         modificar = new javax.swing.JButton();
         jBotonAtras = new javax.swing.JButton();
-        agregarProduccion = new javax.swing.JButton();
         jScrollPane2 = new javax.swing.JScrollPane();
         TablaProComple = new javax.swing.JTable();
         jLabel3 = new javax.swing.JLabel();
+        jLabel10 = new javax.swing.JLabel();
         jLabel11 = new javax.swing.JLabel();
         jLabel12 = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         visor = new javax.swing.JTable();
+        jLabel13 = new javax.swing.JLabel();
         fondoprincipal = new javax.swing.JLabel();
 
         jLabelLogo1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/logoGestiCor.png"))); // NOI18N
@@ -148,22 +149,22 @@ public class Produccion extends javax.swing.JFrame {
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel5.setText("[Empleado]");
-        jPanel1.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 130, -1, -1));
+        jPanel1.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 150, -1, -1));
 
         jLabel4.setText("[Cantidad] ");
-        jPanel1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 170, -1, -1));
+        jPanel1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 190, -1, -1));
 
         jLabel6.setText("[Fecha Inicio]");
-        jPanel1.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 290, -1, -1));
+        jPanel1.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 310, -1, -1));
 
         jLabel7.setText("[Estado]");
-        jPanel1.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 210, -1, -1));
+        jPanel1.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 230, -1, -1));
 
         jLabel8.setText("[Fecha Fin]");
-        jPanel1.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 330, -1, -1));
+        jPanel1.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 350, -1, -1));
 
         jLabel9.setText("[Tipo]");
-        jPanel1.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 250, -1, -1));
+        jPanel1.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 270, -1, -1));
 
         anadirUsuario.setText("Añadir");
         anadirUsuario.addActionListener(new java.awt.event.ActionListener() {
@@ -171,7 +172,7 @@ public class Produccion extends javax.swing.JFrame {
                 anadirUsuarioActionPerformed(evt);
             }
         });
-        jPanel1.add(anadirUsuario, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 390, -1, -1));
+        jPanel1.add(anadirUsuario, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 400, -1, -1));
 
         empleado.setText("Introduce");
         empleado.addActionListener(new java.awt.event.ActionListener() {
@@ -179,7 +180,7 @@ public class Produccion extends javax.swing.JFrame {
                 empleadoActionPerformed(evt);
             }
         });
-        jPanel1.add(empleado, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 130, 90, -1));
+        jPanel1.add(empleado, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 150, 90, -1));
 
         cantidad.setText("Introduce");
         cantidad.addActionListener(new java.awt.event.ActionListener() {
@@ -187,13 +188,13 @@ public class Produccion extends javax.swing.JFrame {
                 cantidadActionPerformed(evt);
             }
         });
-        jPanel1.add(cantidad, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 170, 90, -1));
+        jPanel1.add(cantidad, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 190, 90, -1));
 
         estado.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Finalizado", "En Proceso" }));
-        jPanel1.add(estado, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 210, 90, -1));
+        jPanel1.add(estado, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 230, 90, -1));
 
         jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Bandejas", "Cajones", "Pales" }));
-        jPanel1.add(jComboBox1, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 250, 90, -1));
+        jPanel1.add(jComboBox1, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 270, 90, -1));
 
         fechaInicio.setText("dd/mm/aaaa");
         fechaInicio.addActionListener(new java.awt.event.ActionListener() {
@@ -201,7 +202,7 @@ public class Produccion extends javax.swing.JFrame {
                 fechaInicioActionPerformed(evt);
             }
         });
-        jPanel1.add(fechaInicio, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 290, 90, -1));
+        jPanel1.add(fechaInicio, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 310, 90, -1));
 
         fechaFin.setText("dd/mm/aaaa");
         fechaFin.addActionListener(new java.awt.event.ActionListener() {
@@ -209,10 +210,15 @@ public class Produccion extends javax.swing.JFrame {
                 fechaFinActionPerformed(evt);
             }
         });
-        jPanel1.add(fechaFin, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 330, 90, -1));
+        jPanel1.add(fechaFin, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 350, 90, -1));
 
-        consultar.setText("Consultar");
-        jPanel1.add(consultar, new org.netbeans.lib.awtextra.AbsoluteConstraints(780, 550, -1, 30));
+        resetear.setText("Resetear");
+        resetear.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                resetearActionPerformed(evt);
+            }
+        });
+        jPanel1.add(resetear, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 490, 90, 30));
 
         eliminar.setText("Eliminar");
         eliminar.addActionListener(new java.awt.event.ActionListener() {
@@ -220,10 +226,10 @@ public class Produccion extends javax.swing.JFrame {
                 eliminarActionPerformed(evt);
             }
         });
-        jPanel1.add(eliminar, new org.netbeans.lib.awtextra.AbsoluteConstraints(700, 550, -1, 30));
+        jPanel1.add(eliminar, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 490, 80, 30));
 
         modificar.setText("Modificar");
-        jPanel1.add(modificar, new org.netbeans.lib.awtextra.AbsoluteConstraints(610, 550, -1, 30));
+        jPanel1.add(modificar, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 490, 90, 30));
 
         jBotonAtras.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/atras.png"))); // NOI18N
         jBotonAtras.addActionListener(new java.awt.event.ActionListener() {
@@ -232,15 +238,6 @@ public class Produccion extends javax.swing.JFrame {
             }
         });
         jPanel1.add(jBotonAtras, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 50, -1));
-
-        agregarProduccion.setText("Agregar Producción");
-        agregarProduccion.setToolTipText("");
-        agregarProduccion.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                agregarProduccionActionPerformed(evt);
-            }
-        });
-        jPanel1.add(agregarProduccion, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 550, -1, 30));
 
         TablaProComple.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -261,25 +258,27 @@ public class Produccion extends javax.swing.JFrame {
         jScrollPane2.setViewportView(TablaProComple);
         TablaProComple.getColumnModel().getSelectionModel().setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
 
-        jPanel1.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 390, 690, 110));
+        jPanel1.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 360, 580, 70));
 
         jLabel3.setFont(new java.awt.Font("Yu Gothic Medium", 1, 24)); // NOI18N
         jLabel3.setText("GESTIÓN DE PRODUCCION GESTICOR");
         jLabel3.setMaximumSize(new java.awt.Dimension(280, 20));
         jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 0, 480, 80));
 
+        jLabel10.setText("Formulario De Producción");
+        jPanel1.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 110, 140, -1));
+
         jLabel11.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/RecuaGris.jpg"))); // NOI18N
         jPanel1.add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 100, 280, 340));
 
         jLabel12.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/fondoPanel.png"))); // NOI18N
-        jPanel1.add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 530, 450, 70));
+        jPanel1.add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 470, 450, 70));
 
-        jLabel1.setForeground(new java.awt.Color(255, 255, 255));
         jLabel1.setText("Consulta");
-        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(650, 370, 60, 20));
+        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(590, 340, 50, 20));
 
         jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/gradient_800_600.png"))); // NOI18N
-        jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 370, 710, 150));
+        jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 340, 600, 100));
 
         visor.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -311,16 +310,19 @@ public class Produccion extends javax.swing.JFrame {
         });
         jScrollPane1.setViewportView(visor);
 
-        jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 100, 710, 260));
+        jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 100, 600, 230));
+
+        jLabel13.setText("Informacion Del Empleado");
+        jPanel1.add(jLabel13, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 80, -1, -1));
 
         fondoprincipal.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/gradient_1920_1080.png"))); // NOI18N
-        jPanel1.add(fondoprincipal, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1060, 640));
+        jPanel1.add(fondoprincipal, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, -20, 940, 590));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -331,31 +333,6 @@ public class Produccion extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
-    private void agregarProduccionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_agregarProduccionActionPerformed
-        // TODO add your handling code here:
-        String nombreEmpleado = empleado.getText();
-    String cantTexto = cantidad.getText();
-    String estadoProd = (String) estado.getSelectedItem();
-    String fechaInicioTexto = fechaInicio.getText();
-    String fechaFinTexto = fechaFin.getText();
-
-    if (nombreEmpleado.isEmpty() || cantTexto.isEmpty() || fechaInicioTexto.isEmpty() || fechaFinTexto.isEmpty()) {
-        JOptionPane.showMessageDialog(null, "Por favor, completa todos los campos.");
-        return;
-    }
-
-    try {
-        int cantidadValor = Integer.parseInt(cantTexto);
-        boolean resultado = Controlador.ControladorProducción.añadir(nombreEmpleado, cantidadValor, estadoProd, fechaInicioTexto, fechaFinTexto);
-        if (resultado) {
-            JOptionPane.showMessageDialog(null, "Producción añadida correctamente.");
-            RefrescarTablaEmpleados("empleados");
-        }
-    } catch (NumberFormatException e) {
-        JOptionPane.showMessageDialog(null, "La cantidad debe ser un número entero.");
-    }
-    }//GEN-LAST:event_agregarProduccionActionPerformed
 
     private void jBotonAtrasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBotonAtrasActionPerformed
         // TODO add your handling code here:
@@ -421,6 +398,14 @@ public class Produccion extends javax.swing.JFrame {
     }
     }//GEN-LAST:event_visorMouseClicked
 
+    private void resetearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_resetearActionPerformed
+//        jTexto.setText("");
+//        jTextoNombre.setText("");
+//        jTextoPuesto.setText("");
+//        jTextoSalario.setText(String.valueOf(""));
+//        jComboBoxEstado.setSelectedItem(-1);
+    }//GEN-LAST:event_resetearActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -461,10 +446,8 @@ public class Produccion extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTable TablaProComple;
-    private javax.swing.JButton agregarProduccion;
     private javax.swing.JButton anadirUsuario;
     private javax.swing.JTextField cantidad;
-    private javax.swing.JButton consultar;
     private javax.swing.JButton eliminar;
     private javax.swing.JTextField empleado;
     private javax.swing.JComboBox<String> estado;
@@ -474,8 +457,10 @@ public class Produccion extends javax.swing.JFrame {
     private javax.swing.JButton jBotonAtras;
     private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
+    private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -489,6 +474,7 @@ public class Produccion extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JButton modificar;
+    private javax.swing.JButton resetear;
     public javax.swing.JTable visor;
     // End of variables declaration//GEN-END:variables
 }
