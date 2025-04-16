@@ -79,10 +79,12 @@ public class Produccion extends javax.swing.JFrame {
         jLabel6 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
+        jLabel9 = new javax.swing.JLabel();
         anadirUsuario = new javax.swing.JButton();
         empleado = new javax.swing.JTextField();
         cantidad = new javax.swing.JTextField();
         estado = new javax.swing.JComboBox<>();
+        jComboBox1 = new javax.swing.JComboBox<>();
         fechaInicio = new javax.swing.JTextField();
         fechaFin = new javax.swing.JTextField();
         consultar = new javax.swing.JButton();
@@ -111,16 +113,19 @@ public class Produccion extends javax.swing.JFrame {
         jPanel1.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 130, -1, -1));
 
         jLabel4.setText("[Cantidad] ");
-        jPanel1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 180, -1, -1));
+        jPanel1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 170, -1, -1));
 
         jLabel6.setText("[Fecha Inicio]");
-        jPanel1.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 280, -1, -1));
+        jPanel1.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 290, -1, -1));
 
         jLabel7.setText("[Estado]");
-        jPanel1.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 230, -1, -1));
+        jPanel1.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 210, -1, -1));
 
         jLabel8.setText("[Fecha Fin]");
         jPanel1.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 330, -1, -1));
+
+        jLabel9.setText("[Tipo]");
+        jPanel1.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 250, -1, -1));
 
         anadirUsuario.setText("Añadir");
         anadirUsuario.addActionListener(new java.awt.event.ActionListener() {
@@ -144,10 +149,13 @@ public class Produccion extends javax.swing.JFrame {
                 cantidadActionPerformed(evt);
             }
         });
-        jPanel1.add(cantidad, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 180, 90, -1));
+        jPanel1.add(cantidad, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 170, 90, -1));
 
         estado.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Finalizado", "En Proceso" }));
-        jPanel1.add(estado, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 230, 90, -1));
+        jPanel1.add(estado, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 210, 90, -1));
+
+        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Bandejas", "Cajones", "Pales" }));
+        jPanel1.add(jComboBox1, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 250, 90, -1));
 
         fechaInicio.setText("dd/mm/aaaa");
         fechaInicio.addActionListener(new java.awt.event.ActionListener() {
@@ -155,7 +163,7 @@ public class Produccion extends javax.swing.JFrame {
                 fechaInicioActionPerformed(evt);
             }
         });
-        jPanel1.add(fechaInicio, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 280, 90, -1));
+        jPanel1.add(fechaInicio, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 290, 90, -1));
 
         fechaFin.setText("dd/mm/aaaa");
         fechaFin.addActionListener(new java.awt.event.ActionListener() {
@@ -379,6 +387,7 @@ public class Produccion extends javax.swing.JFrame {
     private javax.swing.JTextField fechaInicio;
     private javax.swing.JLabel fondoprincipal;
     private javax.swing.JButton jBotonAtras;
+    private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
@@ -389,6 +398,7 @@ public class Produccion extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
     private javax.swing.JLabel jLabelLogo1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
