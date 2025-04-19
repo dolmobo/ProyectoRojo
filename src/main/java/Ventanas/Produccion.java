@@ -69,6 +69,7 @@ public class Produccion extends javax.swing.JFrame {
                  "FROM produccion p " +
                  "JOIN empleados e ON p.empleado_id = e.id " +
                  "WHERE p.empleado_id = " + idEmpleado;
+    
     Statement st;
     ConexionBDR con = new ConexionBDR();
     Connection conexionBDR = con.conectar();
@@ -119,16 +120,18 @@ public class Produccion extends javax.swing.JFrame {
         jLabel8 = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
         anadirUsuario = new javax.swing.JButton();
-        empleado = new javax.swing.JTextField();
-        cantidad = new javax.swing.JTextField();
-        estado = new javax.swing.JComboBox<>();
-        jComboBox1 = new javax.swing.JComboBox<>();
-        fechaInicio = new javax.swing.JTextField();
-        fechaFin = new javax.swing.JTextField();
+        jempleado = new javax.swing.JTextField();
+        jcantidad = new javax.swing.JTextField();
+        jestado = new javax.swing.JComboBox<>();
+        jproducto = new javax.swing.JComboBox<>();
+        jfechaInicio = new javax.swing.JTextField();
+        jfechaFin = new javax.swing.JTextField();
         resetear = new javax.swing.JButton();
         eliminar = new javax.swing.JButton();
         modificar = new javax.swing.JButton();
         jBotonAtras = new javax.swing.JButton();
+        jID = new javax.swing.JTextField();
+        jLabel14 = new javax.swing.JLabel();
         jScrollPane2 = new javax.swing.JScrollPane();
         TablaProComple = new javax.swing.JTable();
         jLabel3 = new javax.swing.JLabel();
@@ -149,22 +152,22 @@ public class Produccion extends javax.swing.JFrame {
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel5.setText("[Empleado]");
-        jPanel1.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 150, -1, -1));
+        jPanel1.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 180, -1, -1));
 
         jLabel4.setText("[Cantidad] ");
-        jPanel1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 190, -1, -1));
+        jPanel1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 260, -1, -1));
 
         jLabel6.setText("[Fecha Inicio]");
-        jPanel1.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 310, -1, -1));
+        jPanel1.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 330, -1, -1));
 
         jLabel7.setText("[Estado]");
-        jPanel1.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 230, -1, -1));
+        jPanel1.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 300, -1, -1));
 
         jLabel8.setText("[Fecha Fin]");
-        jPanel1.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 350, -1, -1));
+        jPanel1.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 370, -1, -1));
 
-        jLabel9.setText("[Tipo]");
-        jPanel1.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 270, -1, -1));
+        jLabel9.setText("[Producto]");
+        jPanel1.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 220, -1, -1));
 
         anadirUsuario.setText("Añadir");
         anadirUsuario.addActionListener(new java.awt.event.ActionListener() {
@@ -172,45 +175,41 @@ public class Produccion extends javax.swing.JFrame {
                 anadirUsuarioActionPerformed(evt);
             }
         });
-        jPanel1.add(anadirUsuario, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 400, -1, -1));
+        jPanel1.add(anadirUsuario, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 410, -1, -1));
 
-        empleado.setText("Introduce");
-        empleado.addActionListener(new java.awt.event.ActionListener() {
+        jempleado.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                empleadoActionPerformed(evt);
+                jempleadoActionPerformed(evt);
             }
         });
-        jPanel1.add(empleado, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 150, 90, -1));
+        jPanel1.add(jempleado, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 180, 90, -1));
 
-        cantidad.setText("Introduce");
-        cantidad.addActionListener(new java.awt.event.ActionListener() {
+        jcantidad.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                cantidadActionPerformed(evt);
+                jcantidadActionPerformed(evt);
             }
         });
-        jPanel1.add(cantidad, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 190, 90, -1));
+        jPanel1.add(jcantidad, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 260, 90, -1));
 
-        estado.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Finalizado", "En Proceso" }));
-        jPanel1.add(estado, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 230, 90, -1));
+        jestado.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Finalizado", "En Proceso" }));
+        jPanel1.add(jestado, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 300, 90, -1));
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Bandejas", "Cajones", "Pales" }));
-        jPanel1.add(jComboBox1, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 270, 90, -1));
+        jproducto.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Bandejas", "Cajones", "Pales" }));
+        jPanel1.add(jproducto, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 220, 90, -1));
 
-        fechaInicio.setText("dd/mm/aaaa");
-        fechaInicio.addActionListener(new java.awt.event.ActionListener() {
+        jfechaInicio.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                fechaInicioActionPerformed(evt);
+                jfechaInicioActionPerformed(evt);
             }
         });
-        jPanel1.add(fechaInicio, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 310, 90, -1));
+        jPanel1.add(jfechaInicio, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 330, 90, -1));
 
-        fechaFin.setText("dd/mm/aaaa");
-        fechaFin.addActionListener(new java.awt.event.ActionListener() {
+        jfechaFin.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                fechaFinActionPerformed(evt);
+                jfechaFinActionPerformed(evt);
             }
         });
-        jPanel1.add(fechaFin, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 350, 90, -1));
+        jPanel1.add(jfechaFin, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 370, 90, -1));
 
         resetear.setText("Resetear");
         resetear.addActionListener(new java.awt.event.ActionListener() {
@@ -239,6 +238,16 @@ public class Produccion extends javax.swing.JFrame {
         });
         jPanel1.add(jBotonAtras, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 50, -1));
 
+        jID.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jIDActionPerformed(evt);
+            }
+        });
+        jPanel1.add(jID, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 150, 90, -1));
+
+        jLabel14.setText("[ID]");
+        jPanel1.add(jLabel14, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 150, -1, -1));
+
         TablaProComple.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
@@ -255,6 +264,11 @@ public class Produccion extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
+        TablaProComple.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                TablaProCompleMouseClicked(evt);
+            }
+        });
         jScrollPane2.setViewportView(TablaProComple);
         TablaProComple.getColumnModel().getSelectionModel().setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
 
@@ -266,7 +280,7 @@ public class Produccion extends javax.swing.JFrame {
         jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 0, 480, 80));
 
         jLabel10.setText("Formulario De Producción");
-        jPanel1.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 110, 140, -1));
+        jPanel1.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 110, 170, -1));
 
         jLabel11.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/RecuaGris.jpg"))); // NOI18N
         jPanel1.add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 100, 280, 340));
@@ -341,28 +355,28 @@ public class Produccion extends javax.swing.JFrame {
         this.setVisible(false);
     }//GEN-LAST:event_jBotonAtrasActionPerformed
 
-    private void fechaInicioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_fechaInicioActionPerformed
+    private void jfechaInicioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jfechaInicioActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_fechaInicioActionPerformed
+    }//GEN-LAST:event_jfechaInicioActionPerformed
 
-    private void fechaFinActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_fechaFinActionPerformed
+    private void jfechaFinActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jfechaFinActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_fechaFinActionPerformed
+    }//GEN-LAST:event_jfechaFinActionPerformed
 
-    private void empleadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_empleadoActionPerformed
+    private void jempleadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jempleadoActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_empleadoActionPerformed
+    }//GEN-LAST:event_jempleadoActionPerformed
 
-    private void cantidadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cantidadActionPerformed
+    private void jcantidadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jcantidadActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_cantidadActionPerformed
+    }//GEN-LAST:event_jcantidadActionPerformed
 
     private void anadirUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_anadirUsuarioActionPerformed
-        String nombreEmpleado = empleado.getText();
-        String cantTexto = cantidad.getText();
-        String estadoProd = (String) estado.getSelectedItem();
-        String fechaInicioTexto = fechaInicio.getText();
-        String fechaFinTexto = fechaFin.getText();
+        String nombreEmpleado = jempleado.getText();
+        String cantTexto = jcantidad.getText();
+        String estadoProd = (String) jestado.getSelectedItem();
+        String fechaInicioTexto = jfechaInicio.getText();
+        String fechaFinTexto = jfechaFin.getText();
 
         if (nombreEmpleado.isEmpty() || cantTexto.isEmpty() || fechaInicioTexto.isEmpty() || fechaFinTexto.isEmpty()) {
             JOptionPane.showMessageDialog(null, "Por favor, completa todos los campos.");
@@ -406,6 +420,41 @@ public class Produccion extends javax.swing.JFrame {
 //        jComboBoxEstado.setSelectedItem(-1);
     }//GEN-LAST:event_resetearActionPerformed
 
+    private void jIDActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jIDActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jIDActionPerformed
+
+    private void TablaProCompleMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TablaProCompleMouseClicked
+        // TODO add your handling code here:
+        int filaSeleccionada = TablaProComple.getSelectedRow();
+        if (filaSeleccionada == -1) {
+            JOptionPane.showMessageDialog(null, "No se ha seleccionado ningun empleado.");
+        } else {
+            // Cogemos los valores que estan la fila seleccionada
+            String idStr = TablaProComple.getValueAt(filaSeleccionada, 0).toString();
+            String empleado = (String) TablaProComple.getValueAt(filaSeleccionada, 1);
+            String tipoProducto = (String) TablaProComple.getValueAt(filaSeleccionada, 2);
+            String cantidad = (String) TablaProComple.getValueAt(filaSeleccionada, 3);
+            String estado = (String) TablaProComple.getValueAt(filaSeleccionada, 4);
+            String fechaInicio = (String) TablaProComple.getValueAt(filaSeleccionada, 5);
+            String fechaFin = (String) TablaProComple.getValueAt(filaSeleccionada, 6);
+            
+            //double salario = Double.parseDouble((String) visor.getValueAt(filaSeleccionada, 3).toString());
+            //String fechaContratacion = (String) visor.getValueAt(filaSeleccionada,4);
+            
+            
+            // Se establecen los datos que han sido seleccionados previamente
+            jID.setText(idStr);
+            jempleado.setText(empleado);
+            jproducto.setSelectedItem(tipoProducto);
+            jcantidad.setText(cantidad);
+            jestado.setSelectedItem(estado);
+            jfechaInicio.setText(fechaInicio);
+            jfechaFin.setText(fechaFin);
+}
+
+    }//GEN-LAST:event_TablaProCompleMouseClicked
+
     /**
      * @param args the command line arguments
      */
@@ -447,20 +496,16 @@ public class Produccion extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTable TablaProComple;
     private javax.swing.JButton anadirUsuario;
-    private javax.swing.JTextField cantidad;
     private javax.swing.JButton eliminar;
-    private javax.swing.JTextField empleado;
-    private javax.swing.JComboBox<String> estado;
-    private javax.swing.JTextField fechaFin;
-    private javax.swing.JTextField fechaInicio;
     private javax.swing.JLabel fondoprincipal;
     private javax.swing.JButton jBotonAtras;
-    private javax.swing.JComboBox<String> jComboBox1;
+    private javax.swing.JTextField jID;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;
+    private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -473,6 +518,12 @@ public class Produccion extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JTextField jcantidad;
+    private javax.swing.JTextField jempleado;
+    private javax.swing.JComboBox<String> jestado;
+    private javax.swing.JTextField jfechaFin;
+    private javax.swing.JTextField jfechaInicio;
+    private javax.swing.JComboBox<String> jproducto;
     private javax.swing.JButton modificar;
     private javax.swing.JButton resetear;
     public javax.swing.JTable visor;
