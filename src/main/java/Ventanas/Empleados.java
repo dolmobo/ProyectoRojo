@@ -61,6 +61,8 @@ public class Empleados extends javax.swing.JFrame {
         jComboBoxEstado = new javax.swing.JComboBox<>();
         jLabel1 = new javax.swing.JLabel();
         jTextoID = new javax.swing.JTextField();
+        jLabel8 = new javax.swing.JLabel();
+        jfechacontratacion = new javax.swing.JTextField();
         jButtonEliminarVisualizacion = new javax.swing.JButton();
         jButtonEditar = new javax.swing.JButton();
         fondoprincipal = new javax.swing.JLabel();
@@ -173,6 +175,8 @@ public class Empleados extends javax.swing.JFrame {
 
         jTextoID.setEditable(false);
 
+        jLabel8.setText("Contratacion: ");
+
         javax.swing.GroupLayout jPanelDatosLayout = new javax.swing.GroupLayout(jPanelDatos);
         jPanelDatos.setLayout(jPanelDatosLayout);
         jPanelDatosLayout.setHorizontalGroup(
@@ -180,20 +184,26 @@ public class Empleados extends javax.swing.JFrame {
             .addGroup(jPanelDatosLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanelDatosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel5)
-                    .addComponent(jLabel2)
                     .addGroup(jPanelDatosLayout.createSequentialGroup()
-                        .addGap(16, 16, 16)
-                        .addComponent(jLabel1))
-                    .addComponent(jLabel6)
-                    .addComponent(jLabel7))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanelDatosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jComboBoxEstado, 0, 114, Short.MAX_VALUE)
-                    .addComponent(jTextoSalario)
-                    .addComponent(jTextoNombre)
-                    .addComponent(jTextoPuesto)
-                    .addComponent(jTextoID, javax.swing.GroupLayout.Alignment.TRAILING))
+                        .addGroup(jPanelDatosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel5)
+                            .addComponent(jLabel2)
+                            .addGroup(jPanelDatosLayout.createSequentialGroup()
+                                .addGap(16, 16, 16)
+                                .addComponent(jLabel1))
+                            .addComponent(jLabel6)
+                            .addComponent(jLabel7))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPanelDatosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jComboBoxEstado, 0, 125, Short.MAX_VALUE)
+                            .addComponent(jTextoSalario)
+                            .addComponent(jTextoNombre)
+                            .addComponent(jTextoPuesto)
+                            .addComponent(jTextoID, javax.swing.GroupLayout.Alignment.TRAILING)))
+                    .addGroup(jPanelDatosLayout.createSequentialGroup()
+                        .addComponent(jLabel8)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jfechacontratacion)))
                 .addContainerGap())
         );
         jPanelDatosLayout.setVerticalGroup(
@@ -219,10 +229,14 @@ public class Empleados extends javax.swing.JFrame {
                 .addGroup(jPanelDatosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jComboBoxEstado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel7))
-                .addGap(63, 63, 63))
+                .addGap(18, 18, 18)
+                .addGroup(jPanelDatosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel8)
+                    .addComponent(jfechacontratacion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(23, 23, 23))
         );
 
-        jPanel1.add(jPanelDatos, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 100, 190, 190));
+        jPanel1.add(jPanelDatos, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 100, 190, -1));
 
         jButtonEliminarVisualizacion.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/actualizar.png"))); // NOI18N
         jButtonEliminarVisualizacion.addActionListener(new java.awt.event.ActionListener() {
@@ -309,10 +323,11 @@ public class Empleados extends javax.swing.JFrame {
     String nombre = jTextoNombre.getText();
     String puesto = jTextoPuesto.getText();
     String salario = jTextoSalario.getText();
+    String fechaContratacion = jfechacontratacion.getText();
     String estado = (String) jComboBoxEstado.getSelectedItem();
 
     // Llamar al método del controlador pasando los datos obtenidos de los campos
-    ControladorEmpleados.añadir(nombre, puesto, salario, estado);
+    ControladorEmpleados.añadir(nombre, puesto, salario, fechaContratacion, estado);
 
     // Refrescar la tabla de empleados
     RefrescarTabla("empleados");
@@ -342,6 +357,7 @@ public class Empleados extends javax.swing.JFrame {
             String nombre = (String) visor.getValueAt(filaSeleccionada,1);
             String puesto = (String) visor.getValueAt(filaSeleccionada,2);
             double salario = Double.parseDouble((String) visor.getValueAt(filaSeleccionada, 3).toString());
+            String fechaContratacion = (String) visor.getValueAt(filaSeleccionada,4);
             String estado = (String) visor.getValueAt(filaSeleccionada, 5);
             
             // Se establecen los datos que han sido seleccionados previamente
@@ -349,6 +365,7 @@ public class Empleados extends javax.swing.JFrame {
             jTextoNombre.setText(nombre);
             jTextoPuesto.setText(puesto);
             jTextoSalario.setText(String.valueOf(salario));
+            jfechacontratacion.setText(fechaContratacion);
             
             jComboBoxEstado.setSelectedItem(estado);
         }
@@ -360,6 +377,7 @@ public class Empleados extends javax.swing.JFrame {
         jTextoNombre.setText("");
         jTextoPuesto.setText("");
         jTextoSalario.setText(String.valueOf(""));
+        jfechacontratacion.setText("");
         jComboBoxEstado.setSelectedItem(-1);
     }//GEN-LAST:event_jButtonEliminarVisualizacionActionPerformed
 
@@ -370,10 +388,11 @@ public class Empleados extends javax.swing.JFrame {
     String nombre = jTextoNombre.getText();
     String puesto = jTextoPuesto.getText();
     String salario = jTextoSalario.getText();
+    String fechaContratacion = jfechacontratacion.getText();
     String estado = (String) jComboBoxEstado.getSelectedItem();
 
     // Llamar al método del controlador pasando los datos obtenidos de los campos
-    ControladorEmpleados.editar(idStr,nombre, puesto, salario, estado);
+    ControladorEmpleados.editar(idStr,nombre, puesto, salario, fechaContratacion, estado);
 
     // Refrescar la tabla de empleados
     RefrescarTabla("empleados");
@@ -437,6 +456,7 @@ public class Empleados extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabelLogo1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanelDatos;
@@ -445,6 +465,7 @@ public class Empleados extends javax.swing.JFrame {
     private javax.swing.JTextField jTextoNombre;
     private javax.swing.JTextField jTextoPuesto;
     private javax.swing.JTextField jTextoSalario;
+    private javax.swing.JTextField jfechacontratacion;
     public javax.swing.JTable visor;
     // End of variables declaration//GEN-END:variables
 }
