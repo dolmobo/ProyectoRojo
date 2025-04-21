@@ -123,7 +123,7 @@ public class Usuarios extends javax.swing.JFrame {
                 jAñadirActionPerformed(evt);
             }
         });
-        jPanel1.add(jAñadir, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 460, 80, -1));
+        jPanel1.add(jAñadir, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 350, 80, -1));
 
         jEliminar.setText("Eliminar");
         jEliminar.addActionListener(new java.awt.event.ActionListener() {
@@ -131,7 +131,7 @@ public class Usuarios extends javax.swing.JFrame {
                 jEliminarActionPerformed(evt);
             }
         });
-        jPanel1.add(jEliminar, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 460, 80, -1));
+        jPanel1.add(jEliminar, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 350, 80, -1));
 
         jLabel2.setText("Nombre:");
 
@@ -158,7 +158,7 @@ public class Usuarios extends javax.swing.JFrame {
                     .addComponent(jLabel7))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanelDatosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jComboRol, 0, 109, Short.MAX_VALUE)
+                    .addComponent(jComboRol, 0, 159, Short.MAX_VALUE)
                     .addComponent(jUsuarioLogin)
                     .addComponent(jContraseñaLogin))
                 .addContainerGap())
@@ -181,7 +181,7 @@ public class Usuarios extends javax.swing.JFrame {
                 .addContainerGap(18, Short.MAX_VALUE))
         );
 
-        jPanel1.add(jPanelDatos, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 150, 190, 130));
+        jPanel1.add(jPanelDatos, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 150, 240, 130));
 
         jButtonRefrescar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/actualizar.png"))); // NOI18N
         jButtonRefrescar.addActionListener(new java.awt.event.ActionListener() {
@@ -189,7 +189,7 @@ public class Usuarios extends javax.swing.JFrame {
                 jButtonRefrescarActionPerformed(evt);
             }
         });
-        jPanel1.add(jButtonRefrescar, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 190, 50, -1));
+        jPanel1.add(jButtonRefrescar, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 290, 70, -1));
 
         fondoprincipal.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/gradient_800_600.png"))); // NOI18N
         jPanel1.add(fondoprincipal, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 800, 590));

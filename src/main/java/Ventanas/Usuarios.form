@@ -161,7 +161,7 @@
           </Events>
           <Constraints>
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-              <AbsoluteConstraints x="60" y="460" width="80" height="-1"/>
+              <AbsoluteConstraints x="30" y="350" width="80" height="-1"/>
             </Constraint>
           </Constraints>
         </Component>
@@ -174,14 +174,14 @@
           </Events>
           <Constraints>
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-              <AbsoluteConstraints x="160" y="460" width="80" height="-1"/>
+              <AbsoluteConstraints x="170" y="350" width="80" height="-1"/>
             </Constraint>
           </Constraints>
         </Component>
         <Container class="javax.swing.JPanel" name="jPanelDatos">
           <Constraints>
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-              <AbsoluteConstraints x="20" y="150" width="190" height="130"/>
+              <AbsoluteConstraints x="20" y="150" width="240" height="130"/>
             </Constraint>
           </Constraints>
 
@@ -197,7 +197,7 @@
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="jComboRol" pref="109" max="32767" attributes="0"/>
+                          <Component id="jComboRol" pref="159" max="32767" attributes="0"/>
                           <Component id="jUsuarioLogin" max="32767" attributes="0"/>
                           <Component id="jContraseñaLogin" max="32767" attributes="0"/>
                       </Group>
@@ -277,7 +277,7 @@
           </Events>
           <Constraints>
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-              <AbsoluteConstraints x="220" y="190" width="50" height="-1"/>
+              <AbsoluteConstraints x="110" y="290" width="70" height="-1"/>
             </Constraint>
           </Constraints>
         </Component>
