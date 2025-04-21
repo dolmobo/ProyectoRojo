@@ -13,12 +13,12 @@ import javax.swing.ImageIcon;
  *
  * @author USUARIO
  */
-public class Eleccion extends javax.swing.JFrame {
+public class Eleccion_NO extends javax.swing.JFrame {
 
     /**
      * Creates new form Login
      */
-    public Eleccion() {
+    public Eleccion_NO() {
         initComponents();
         this.setLocationRelativeTo(null);
     }
@@ -36,10 +36,8 @@ public class Eleccion extends javax.swing.JFrame {
         jTextArea1 = new javax.swing.JTextArea();
         jPanel1 = new javax.swing.JPanel();
         jLabelLogo1 = new javax.swing.JLabel();
-        jBotonEmpleados = new javax.swing.JButton();
         jBotonClientes = new javax.swing.JButton();
         jBotonVentas = new javax.swing.JButton();
-        jBotonUsuarios = new javax.swing.JButton();
         jBotonProduccion = new javax.swing.JButton();
         jBackground = new javax.swing.JLabel();
 
@@ -54,17 +52,7 @@ public class Eleccion extends javax.swing.JFrame {
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabelLogo1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/logoGestiCor.png"))); // NOI18N
-        jPanel1.add(jLabelLogo1, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, -120, 280, 180));
-
-        jBotonEmpleados.setFont(new java.awt.Font("Dialog", 1, 11)); // NOI18N
-        jBotonEmpleados.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/empleado_vacio.png"))); // NOI18N
-        jBotonEmpleados.setText(" Gestion de Empleados");
-        jBotonEmpleados.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jBotonEmpleadosActionPerformed(evt);
-            }
-        });
-        jPanel1.add(jBotonEmpleados, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 70, 310, -1));
+        jPanel1.add(jLabelLogo1, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, -120, 280, 180));
 
         jBotonClientes.setFont(new java.awt.Font("Dialog", 1, 11)); // NOI18N
         jBotonClientes.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/clientes.png"))); // NOI18N
@@ -74,7 +62,7 @@ public class Eleccion extends javax.swing.JFrame {
                 jBotonClientesActionPerformed(evt);
             }
         });
-        jPanel1.add(jBotonClientes, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 230, 310, -1));
+        jPanel1.add(jBotonClientes, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 130, 310, -1));
 
         jBotonVentas.setFont(new java.awt.Font("Dialog", 1, 11)); // NOI18N
         jBotonVentas.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/ventas.png"))); // NOI18N
@@ -84,17 +72,7 @@ public class Eleccion extends javax.swing.JFrame {
                 jBotonVentasActionPerformed(evt);
             }
         });
-        jPanel1.add(jBotonVentas, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 390, 310, -1));
-
-        jBotonUsuarios.setFont(new java.awt.Font("Dialog", 1, 11)); // NOI18N
-        jBotonUsuarios.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/image-removebg-preview (1).png"))); // NOI18N
-        jBotonUsuarios.setText("         Gestion de Usuarios");
-        jBotonUsuarios.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jBotonUsuariosActionPerformed(evt);
-            }
-        });
-        jPanel1.add(jBotonUsuarios, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 150, 310, 70));
+        jPanel1.add(jBotonVentas, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 290, 310, -1));
 
         jBotonProduccion.setFont(new java.awt.Font("Dialog", 1, 11)); // NOI18N
         jBotonProduccion.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/produccion.png"))); // NOI18N
@@ -104,10 +82,10 @@ public class Eleccion extends javax.swing.JFrame {
                 jBotonProduccionActionPerformed(evt);
             }
         });
-        jPanel1.add(jBotonProduccion, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 310, 310, -1));
+        jPanel1.add(jBotonProduccion, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 210, 310, -1));
 
         jBackground.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/gradient_800_600.png"))); // NOI18N
-        jPanel1.add(jBackground, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 570, 500));
+        jPanel1.add(jBackground, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 510, 420));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -144,21 +122,6 @@ public class Eleccion extends javax.swing.JFrame {
         this.setVisible(false);
     }//GEN-LAST:event_jBotonClientesActionPerformed
 
-    private void jBotonEmpleadosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBotonEmpleadosActionPerformed
-        // TODO add your handling code here:
-        Empleados abrir=new Empleados();
-        abrir.setVisible(true);
-        this.setVisible(false);
-    }//GEN-LAST:event_jBotonEmpleadosActionPerformed
-
-    private void jBotonUsuariosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBotonUsuariosActionPerformed
-        // TODO add your handling code here:
-        Usuarios abrir = new Usuarios();
-        abrir.setVisible(true);
-        this.setVisible(false);
-        
-    }//GEN-LAST:event_jBotonUsuariosActionPerformed
-
     /**
      * @param args the command line arguments
      */
@@ -176,21 +139,23 @@ public class Eleccion extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(Eleccion.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Eleccion_NO.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(Eleccion.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Eleccion_NO.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(Eleccion.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Eleccion_NO.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(Eleccion.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Eleccion_NO.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        //</editor-fold>
         //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new Eleccion().setVisible(true);
+                new Eleccion_NO().setVisible(true);
             }
         });
     }
@@ -198,9 +163,7 @@ public class Eleccion extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jBackground;
     private javax.swing.JButton jBotonClientes;
-    private javax.swing.JButton jBotonEmpleados;
     private javax.swing.JButton jBotonProduccion;
-    private javax.swing.JButton jBotonUsuarios;
     private javax.swing.JButton jBotonVentas;
     private javax.swing.JLabel jLabelLogo1;
     private javax.swing.JPanel jPanel1;

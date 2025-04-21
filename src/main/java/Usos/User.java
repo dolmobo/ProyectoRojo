@@ -1,13 +1,5 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package Usos;
 
-/**
- *
- * @author USUARIO
- */
 import javax.persistence.Entity;
 import javax.persistence.Id;
 
@@ -16,12 +8,23 @@ public class User {
     @Id
     private String username;
     private String password;
+    private String rol; // Campo nuevo
 
     // Constructor
+
+    public User(String username, String password, String rol) {
+        this.username = username;
+        this.password = password;
+        this.rol = rol;
+    }
+    
     public User(String nombreUsuario, String contraseña) {
         this.username = nombreUsuario;
         this.password = contraseña;
+        this.rol = "usuario"; 
     }
+
+    public User() {}
 
     // Getters y Setters
     public String getNombreUsuario() {
@@ -38,5 +41,13 @@ public class User {
 
     public void setContraseña(String contraseña) {
         this.password = contraseña;
+    }
+
+    public String getRol() {
+        return rol;
+    }
+
+    public void setRol(String rol) {
+        this.rol = rol;
     }
 }

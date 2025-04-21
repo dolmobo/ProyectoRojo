@@ -142,20 +142,34 @@ public class Login extends javax.swing.JFrame {
 
     private void jLogInActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jLogInActionPerformed
 
-        String usuario = jUsuarioLogin.getText();
-        String contrasena = new String(jContraseñaLogin.getPassword());
+    String usuario = jUsuarioLogin.getText();
+    String contrasena = new String(jContraseñaLogin.getPassword());
 
-        AutenticadorBDO authService = new AutenticadorBDO();
-        User user = authService.validarUsuario(usuario, contrasena);
+    // Instanciar el servicio de autenticación
+    AutenticadorBDO authService = new AutenticadorBDO();
+    User user = authService.validarUsuario(usuario, contrasena);
 
-        if (user != null) {
-            JOptionPane.showMessageDialog(this, "Inicio de sesión exitoso.");
-            Eleccion abrir = new Eleccion();
-            abrir.setVisible(true);
-            this.setVisible(false);
-        } else {
-            JOptionPane.showMessageDialog(this, "Usuario o contraseña incorrectos.");
-        }
+    if (user == null) {
+        JOptionPane.showMessageDialog(this, "Usuario o contraseña incorrectos.");
+        return;  // Si el usuario no existe, no seguimos
+    }
+
+    // Si el usuario existe, obtenemos el rol
+    String rol = user.getRol();
+
+    // Verificamos el rol del usuario
+    if ("admin".equalsIgnoreCase(rol)) {
+        JOptionPane.showMessageDialog(this, "Inicio de sesión como administrador.");
+        Eleccion admin = new Eleccion(); // Aquí se abre la ventana del administrador
+        admin.setVisible(true);
+    } else {
+        JOptionPane.showMessageDialog(this, "Inicio de sesión exitoso.");
+        Eleccion_NO abrir = new Eleccion_NO(); // Aquí se abre la ventana del usuario normal
+        abrir.setVisible(true);
+    }
+
+    // Cierra la ventana de login
+    this.setVisible(false);
 
 
     }//GEN-LAST:event_jLogInActionPerformed
