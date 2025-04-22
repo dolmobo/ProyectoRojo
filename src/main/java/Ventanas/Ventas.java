@@ -5,6 +5,7 @@
 package Ventanas;
 
 import Usos.Leer;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -34,6 +35,18 @@ public class Ventas extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         jLabel3 = new javax.swing.JLabel();
         jBotonAtras = new javax.swing.JButton();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        visor = new javax.swing.JTable();
+        jButton1 = new javax.swing.JButton();
+        jButton2 = new javax.swing.JButton();
+        SegundoApartado = new javax.swing.JLabel();
+        jTextField1 = new javax.swing.JTextField();
+        TercerApartado = new javax.swing.JLabel();
+        jTextField2 = new javax.swing.JTextField();
+        CuartoApartado = new javax.swing.JLabel();
+        jTextField3 = new javax.swing.JTextField();
+        jLabel5 = new javax.swing.JLabel();
+        jTextField4 = new javax.swing.JTextField();
         fondoprincipal = new javax.swing.JLabel();
 
         jLabelLogo1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/logoGestiCor.png"))); // NOI18N
@@ -43,7 +56,6 @@ public class Ventas extends javax.swing.JFrame {
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel3.setFont(new java.awt.Font("Yu Gothic Medium", 1, 24)); // NOI18N
-        jLabel3.setForeground(new java.awt.Color(0, 0, 0));
         jLabel3.setText("GESTIÓN DE VENTAS GESTICOR");
         jLabel3.setMaximumSize(new java.awt.Dimension(280, 20));
         jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 10, 450, 80));
@@ -55,6 +67,72 @@ public class Ventas extends javax.swing.JFrame {
             }
         });
         jPanel1.add(jBotonAtras, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 50, -1));
+
+        visor.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "ID", "Nombre", "Puesto", "Salario", "Fecha Contratacion", "Estado"
+            }
+        ) {
+            Class[] types = new Class [] {
+                java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.Integer.class, java.lang.String.class, java.lang.String.class
+            };
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false, false
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        visor.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                visorMouseClicked(evt);
+            }
+        });
+        jScrollPane1.setViewportView(visor);
+
+        jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 70, 440, 400));
+
+        jButton1.setText("jButton1");
+        jPanel1.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 480, -1, -1));
+
+        jButton2.setText("jButton1");
+        jPanel1.add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 480, -1, -1));
+
+        SegundoApartado.setText("Cantidad");
+        jPanel1.add(SegundoApartado, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 130, -1, -1));
+
+        jTextField1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTextField1ActionPerformed(evt);
+            }
+        });
+        jPanel1.add(jTextField1, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 160, 200, -1));
+
+        TercerApartado.setText("Precio");
+        jPanel1.add(TercerApartado, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 200, -1, -1));
+        jPanel1.add(jTextField2, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 280, 200, -1));
+
+        CuartoApartado.setText("Vendedor");
+        jPanel1.add(CuartoApartado, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 260, -1, -1));
+
+        jTextField3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTextField3ActionPerformed(evt);
+            }
+        });
+        jPanel1.add(jTextField3, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 100, 200, -1));
+
+        jLabel5.setText("Nombre");
+        jPanel1.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 70, -1, -1));
+        jPanel1.add(jTextField4, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 220, 200, -1));
 
         fondoprincipal.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/gradient_800_600.png"))); // NOI18N
         jPanel1.add(fondoprincipal, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 800, 590));
@@ -79,6 +157,27 @@ public class Ventas extends javax.swing.JFrame {
         abrir.setVisible(true);
         this.setVisible(false);
     }//GEN-LAST:event_jBotonAtrasActionPerformed
+
+    private void visorMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_visorMouseClicked
+        int filaSeleccionada = visor.getSelectedRow();
+        if (filaSeleccionada == -1) {
+//            JOptionPane.showMessageDialog(null, "No se ha seleccionado ningun empleado.");
+        } else {
+            // Obtener el ID del empleado seleccionado
+            String idEmpleado = visor.getValueAt(filaSeleccionada, 0).toString();
+
+            // Llamar al método para mostrar la producción del empleado
+//            mostrarProduccionPorEmpleado(idEmpleado);
+        }
+    }//GEN-LAST:event_visorMouseClicked
+
+    private void jTextField3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField3ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTextField3ActionPerformed
+
+    private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTextField1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -117,10 +216,22 @@ public class Ventas extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel CuartoApartado;
+    private javax.swing.JLabel SegundoApartado;
+    private javax.swing.JLabel TercerApartado;
     private javax.swing.JLabel fondoprincipal;
     private javax.swing.JButton jBotonAtras;
+    private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabelLogo1;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JTextField jTextField1;
+    private javax.swing.JTextField jTextField2;
+    private javax.swing.JTextField jTextField3;
+    private javax.swing.JTextField jTextField4;
+    public javax.swing.JTable visor;
     // End of variables declaration//GEN-END:variables
 }
