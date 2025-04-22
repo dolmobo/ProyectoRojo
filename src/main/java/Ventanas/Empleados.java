@@ -195,7 +195,7 @@ public class Empleados extends javax.swing.JFrame {
                             .addComponent(jLabel7))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanelDatosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jComboBoxEstado, 0, 125, Short.MAX_VALUE)
+                            .addComponent(jComboBoxEstado, 0, 124, Short.MAX_VALUE)
                             .addComponent(jTextoSalario)
                             .addComponent(jTextoNombre)
                             .addComponent(jTextoPuesto)
@@ -236,7 +236,7 @@ public class Empleados extends javax.swing.JFrame {
                 .addGap(23, 23, 23))
         );
 
-        jPanel1.add(jPanelDatos, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 100, 190, -1));
+        jPanel1.add(jPanelDatos, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 100, 200, 220));
 
         jButtonEliminarVisualizacion.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/actualizar.png"))); // NOI18N
         jButtonEliminarVisualizacion.addActionListener(new java.awt.event.ActionListener() {
