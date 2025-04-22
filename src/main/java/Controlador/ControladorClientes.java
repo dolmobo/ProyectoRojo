@@ -42,8 +42,11 @@ public class ControladorClientes {
             
             else {
                 Connection con = new ConexionBDR().conectar();
-                String sql = "DELETE FROM clientes WHERE id = '" + idStr + "' AND nombre = '" + nombre + "' AND apellidos = '" + apellidos + 
-                             "' AND email = '" + email + "' AND direccion = '" + direccion + "'";
+                 String sql = "DELETE FROM clientes WHERE id = " + idStr +
+                     " AND nombre = '" + nombre + "'" +
+                     " AND apellidos = '" + apellidos + "'" +
+                     " AND email = '" + email + "'" +
+                     " AND direccion = '" + direccion + "'";
                 Statement st = con.createStatement();
                 st.executeUpdate(sql);
                 JOptionPane.showMessageDialog(null, "Nuevo empleado eliminado con exito.");

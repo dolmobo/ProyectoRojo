@@ -384,10 +384,10 @@ public class Clientes extends javax.swing.JFrame {
         } else {
             // Cogemos los valores que estan la fila seleccionada
             String idStr = Tabla.getValueAt(filaSeleccionada, 0).toString();            
-            String nombre = (String) Tabla.getValueAt(filaSeleccionada,0);
-            String apellidos = (String) Tabla.getValueAt(filaSeleccionada,1);
-            String email = (String) Tabla.getValueAt(filaSeleccionada,2);
-            String direccion = (String) Tabla.getValueAt(filaSeleccionada,3);
+            String nombre = (String) Tabla.getValueAt(filaSeleccionada,1);
+            String apellidos = (String) Tabla.getValueAt(filaSeleccionada,2);
+            String email = (String) Tabla.getValueAt(filaSeleccionada,3);
+            String direccion = (String) Tabla.getValueAt(filaSeleccionada,4);
             
             // Se establecen los datos que han sido seleccionados previamente
             id.setText(String.valueOf(idStr));            
@@ -548,7 +548,7 @@ public class Clientes extends javax.swing.JFrame {
         Connection ConexionBDR = con.conectar();
         System.out.println(sql);
         DefaultTableModel model = new DefaultTableModel();
-        model.addColumn("ID");
+        model.addColumn("id");
         model.addColumn("nombre");
         model.addColumn("apellidos");
         model.addColumn("email");
