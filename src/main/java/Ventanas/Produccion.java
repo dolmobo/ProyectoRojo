@@ -132,6 +132,8 @@ public class Produccion extends javax.swing.JFrame {
         modificar = new javax.swing.JButton();
         jBotonAtras = new javax.swing.JButton();
         jID = new javax.swing.JTextField();
+        jIDProduccion = new javax.swing.JTextField();
+        jLabel15 = new javax.swing.JLabel();
         jLabel14 = new javax.swing.JLabel();
         jScrollPane2 = new javax.swing.JScrollPane();
         TablaProComple = new javax.swing.JTable();
@@ -153,22 +155,22 @@ public class Produccion extends javax.swing.JFrame {
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel5.setText("[Empleado]");
-        jPanel1.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 180, -1, -1));
+        jPanel1.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 270, -1, -1));
 
         jLabel4.setText("[Cantidad] ");
-        jPanel1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 260, -1, -1));
+        jPanel1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 350, -1, -1));
 
         jLabel6.setText("[Fecha Inicio]");
-        jPanel1.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 340, -1, -1));
+        jPanel1.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 430, -1, -1));
 
         jLabel7.setText("[Estado]");
-        jPanel1.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 300, -1, -1));
+        jPanel1.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 390, -1, -1));
 
         jLabel8.setText("[Fecha Fin]");
-        jPanel1.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 380, -1, -1));
+        jPanel1.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 470, -1, -1));
 
         jLabel9.setText("[Producto]");
-        jPanel1.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 220, -1, -1));
+        jPanel1.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 310, -1, -1));
 
         anadirUsuario.setText("Añadir");
         anadirUsuario.addActionListener(new java.awt.event.ActionListener() {
@@ -176,41 +178,41 @@ public class Produccion extends javax.swing.JFrame {
                 anadirUsuarioActionPerformed(evt);
             }
         });
-        jPanel1.add(anadirUsuario, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 420, -1, -1));
+        jPanel1.add(anadirUsuario, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 590, 80, 30));
 
         jempleado.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jempleadoActionPerformed(evt);
             }
         });
-        jPanel1.add(jempleado, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 180, 90, -1));
+        jPanel1.add(jempleado, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 270, 120, -1));
 
         jcantidad.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jcantidadActionPerformed(evt);
             }
         });
-        jPanel1.add(jcantidad, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 260, 90, -1));
+        jPanel1.add(jcantidad, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 350, 120, -1));
 
         jestado_f.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Finalizado", "En Proceso" }));
-        jPanel1.add(jestado_f, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 300, 90, -1));
+        jPanel1.add(jestado_f, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 390, 120, -1));
 
         jproducto.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Bandejas", "Cajones", "Pales" }));
-        jPanel1.add(jproducto, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 220, 90, -1));
+        jPanel1.add(jproducto, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 310, 120, -1));
 
         jfechaInicio.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jfechaInicioActionPerformed(evt);
             }
         });
-        jPanel1.add(jfechaInicio, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 340, 90, -1));
+        jPanel1.add(jfechaInicio, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 430, 120, -1));
 
         jfechaFin.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jfechaFinActionPerformed(evt);
             }
         });
-        jPanel1.add(jfechaFin, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 380, 90, -1));
+        jPanel1.add(jfechaFin, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 470, 120, -1));
 
         resetear.setText("Resetear");
         resetear.addActionListener(new java.awt.event.ActionListener() {
@@ -218,7 +220,7 @@ public class Produccion extends javax.swing.JFrame {
                 resetearActionPerformed(evt);
             }
         });
-        jPanel1.add(resetear, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 490, 110, 30));
+        jPanel1.add(resetear, new org.netbeans.lib.awtextra.AbsoluteConstraints(660, 590, 90, 30));
 
         eliminar.setText("Eliminar");
         eliminar.addActionListener(new java.awt.event.ActionListener() {
@@ -226,10 +228,10 @@ public class Produccion extends javax.swing.JFrame {
                 eliminarActionPerformed(evt);
             }
         });
-        jPanel1.add(eliminar, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 490, 100, 30));
+        jPanel1.add(eliminar, new org.netbeans.lib.awtextra.AbsoluteConstraints(560, 590, 80, 30));
 
         modificar.setText("Modificar");
-        jPanel1.add(modificar, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 490, 110, 30));
+        jPanel1.add(modificar, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 590, 90, 30));
 
         jBotonAtras.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/atras.png"))); // NOI18N
         jBotonAtras.addActionListener(new java.awt.event.ActionListener() {
@@ -239,15 +241,27 @@ public class Produccion extends javax.swing.JFrame {
         });
         jPanel1.add(jBotonAtras, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 50, -1));
 
+        jID.setEditable(false);
         jID.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jIDActionPerformed(evt);
             }
         });
-        jPanel1.add(jID, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 140, 90, -1));
+        jPanel1.add(jID, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 210, 120, -1));
 
-        jLabel14.setText("[ID]");
-        jPanel1.add(jLabel14, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 140, -1, -1));
+        jIDProduccion.setEditable(false);
+        jIDProduccion.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jIDProduccionActionPerformed(evt);
+            }
+        });
+        jPanel1.add(jIDProduccion, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 240, 120, -1));
+
+        jLabel15.setText("[ID Produccion]");
+        jPanel1.add(jLabel15, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 240, -1, -1));
+
+        jLabel14.setText("[ID Empleado]");
+        jPanel1.add(jLabel14, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 210, -1, -1));
 
         TablaProComple.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -274,27 +288,27 @@ public class Produccion extends javax.swing.JFrame {
         jScrollPane2.setViewportView(TablaProComple);
         TablaProComple.getColumnModel().getSelectionModel().setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
 
-        jPanel1.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 360, 580, 70));
+        jPanel1.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 360, 680, 190));
 
         jLabel3.setFont(new java.awt.Font("Yu Gothic Medium", 1, 24)); // NOI18N
         jLabel3.setText("GESTIÓN DE PRODUCCION GESTICOR");
         jLabel3.setMaximumSize(new java.awt.Dimension(280, 20));
-        jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 0, 480, 80));
+        jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 0, 480, 80));
 
         jLabel10.setText("Formulario De Producción");
-        jPanel1.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 110, 170, -1));
+        jPanel1.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 180, 170, -1));
 
         jLabel11.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/RecuaGris.jpg"))); // NOI18N
-        jPanel1.add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 100, 280, 360));
+        jPanel1.add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 170, 280, 360));
 
         jLabel12.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/fondoPanel.png"))); // NOI18N
-        jPanel1.add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 470, 450, 70));
+        jPanel1.add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 570, 450, 70));
 
         jLabel1.setText("Consulta");
         jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(590, 340, 50, 20));
 
         jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/gradient_800_600.png"))); // NOI18N
-        jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 340, 600, 100));
+        jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 340, 700, 220));
 
         visor.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -326,13 +340,13 @@ public class Produccion extends javax.swing.JFrame {
         });
         jScrollPane1.setViewportView(visor);
 
-        jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 100, 600, 230));
+        jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 100, 700, 230));
 
         jLabel13.setText("Informacion Del Empleado");
         jPanel1.add(jLabel13, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 80, -1, -1));
 
         fondoprincipal.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/gradient_1920_1080.png"))); // NOI18N
-        jPanel1.add(fondoprincipal, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, -20, 940, 590));
+        jPanel1.add(fondoprincipal, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, -20, 1030, 680));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -397,6 +411,7 @@ public class Produccion extends javax.swing.JFrame {
         } catch (NumberFormatException e) {
             JOptionPane.showMessageDialog(null, "La cantidad debe ser un número entero.");
         }
+        
     }//GEN-LAST:event_anadirUsuarioActionPerformed
 
     private void eliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_eliminarActionPerformed
@@ -417,7 +432,10 @@ public class Produccion extends javax.swing.JFrame {
         } else {
             // Obtener el ID del empleado seleccionado
             String idEmpleado = visor.getValueAt(filaSeleccionada, 0).toString();
-
+            String empleado = (String) visor.getValueAt(filaSeleccionada, 1);
+            jID.setText(idEmpleado);
+            jempleado.setText(empleado);
+            
             // Llamar al método para mostrar la producción del empleado
             mostrarProduccionPorEmpleado(idEmpleado);
         }
@@ -425,6 +443,7 @@ public class Produccion extends javax.swing.JFrame {
 
     private void resetearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_resetearActionPerformed
         jID.setText("");
+        jIDProduccion.setText("");
         jempleado.setText("");
         jproducto.setSelectedItem(-1);
         jcantidad.setText("");
@@ -455,7 +474,7 @@ public class Produccion extends javax.swing.JFrame {
             //double salario = Double.parseDouble((String) visor.getValueAt(filaSeleccionada, 3).toString());
             //String fechaContratacion = (String) visor.getValueAt(filaSeleccionada,4);
             // Se establecen los datos que han sido seleccionados previamente
-            jID.setText(idStr);
+            jIDProduccion.setText(idStr);
             jempleado.setText(empleado);
             jproducto.setSelectedItem(tipoProducto);
             jcantidad.setText(cantidad);
@@ -465,6 +484,10 @@ public class Produccion extends javax.swing.JFrame {
         }
 
     }//GEN-LAST:event_TablaProCompleMouseClicked
+
+    private void jIDProduccionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jIDProduccionActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jIDProduccionActionPerformed
 
     /**
      * @param args the command line arguments
@@ -511,12 +534,14 @@ public class Produccion extends javax.swing.JFrame {
     private javax.swing.JLabel fondoprincipal;
     private javax.swing.JButton jBotonAtras;
     private javax.swing.JTextField jID;
+    private javax.swing.JTextField jIDProduccion;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel14;
+    private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
