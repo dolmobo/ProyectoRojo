@@ -263,6 +263,7 @@ public class Produccion extends javax.swing.JFrame {
         jLabel14.setText("[ID Empleado]");
         jPanel1.add(jLabel14, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 210, -1, -1));
 
+        TablaProComple.setAutoCreateRowSorter(true);
         TablaProComple.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
@@ -279,7 +280,6 @@ public class Produccion extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
-        TablaProComple.setColumnSelectionAllowed(true);
         TablaProComple.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 TablaProCompleMouseClicked(evt);
