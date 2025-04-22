@@ -185,34 +185,34 @@ public class Produccion extends javax.swing.JFrame {
                 jempleadoActionPerformed(evt);
             }
         });
-        jPanel1.add(jempleado, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 270, 90, -1));
+        jPanel1.add(jempleado, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 270, 120, -1));
 
         jcantidad.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jcantidadActionPerformed(evt);
             }
         });
-        jPanel1.add(jcantidad, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 350, 90, -1));
+        jPanel1.add(jcantidad, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 350, 120, -1));
 
         jestado_f.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Finalizado", "En Proceso" }));
-        jPanel1.add(jestado_f, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 390, 90, -1));
+        jPanel1.add(jestado_f, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 390, 120, -1));
 
         jproducto.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Bandejas", "Cajones", "Pales" }));
-        jPanel1.add(jproducto, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 310, 90, -1));
+        jPanel1.add(jproducto, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 310, 120, -1));
 
         jfechaInicio.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jfechaInicioActionPerformed(evt);
             }
         });
-        jPanel1.add(jfechaInicio, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 430, 90, -1));
+        jPanel1.add(jfechaInicio, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 430, 120, -1));
 
         jfechaFin.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jfechaFinActionPerformed(evt);
             }
         });
-        jPanel1.add(jfechaFin, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 470, 90, -1));
+        jPanel1.add(jfechaFin, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 470, 120, -1));
 
         resetear.setText("Resetear");
         resetear.addActionListener(new java.awt.event.ActionListener() {
@@ -247,7 +247,7 @@ public class Produccion extends javax.swing.JFrame {
                 jIDActionPerformed(evt);
             }
         });
-        jPanel1.add(jID, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 210, 90, -1));
+        jPanel1.add(jID, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 210, 120, -1));
 
         jIDProduccion.setEditable(false);
         jIDProduccion.addActionListener(new java.awt.event.ActionListener() {
@@ -255,7 +255,7 @@ public class Produccion extends javax.swing.JFrame {
                 jIDProduccionActionPerformed(evt);
             }
         });
-        jPanel1.add(jIDProduccion, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 240, 90, -1));
+        jPanel1.add(jIDProduccion, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 240, 120, -1));
 
         jLabel15.setText("[ID Produccion]");
         jPanel1.add(jLabel15, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 240, -1, -1));
@@ -293,7 +293,7 @@ public class Produccion extends javax.swing.JFrame {
         jLabel3.setFont(new java.awt.Font("Yu Gothic Medium", 1, 24)); // NOI18N
         jLabel3.setText("GESTIÓN DE PRODUCCION GESTICOR");
         jLabel3.setMaximumSize(new java.awt.Dimension(280, 20));
-        jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 0, 480, 80));
+        jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 0, 480, 80));
 
         jLabel10.setText("Formulario De Producción");
         jPanel1.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 180, 170, -1));
@@ -411,6 +411,7 @@ public class Produccion extends javax.swing.JFrame {
         } catch (NumberFormatException e) {
             JOptionPane.showMessageDialog(null, "La cantidad debe ser un número entero.");
         }
+        
     }//GEN-LAST:event_anadirUsuarioActionPerformed
 
     private void eliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_eliminarActionPerformed
@@ -431,7 +432,9 @@ public class Produccion extends javax.swing.JFrame {
         } else {
             // Obtener el ID del empleado seleccionado
             String idEmpleado = visor.getValueAt(filaSeleccionada, 0).toString();
+            String empleado = (String) visor.getValueAt(filaSeleccionada, 1);
             jID.setText(idEmpleado);
+            jempleado.setText(empleado);
             
             // Llamar al método para mostrar la producción del empleado
             mostrarProduccionPorEmpleado(idEmpleado);
@@ -440,6 +443,7 @@ public class Produccion extends javax.swing.JFrame {
 
     private void resetearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_resetearActionPerformed
         jID.setText("");
+        jIDProduccion.setText("");
         jempleado.setText("");
         jproducto.setSelectedItem(-1);
         jcantidad.setText("");
