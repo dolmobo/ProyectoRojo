@@ -236,7 +236,7 @@ public class Empleados extends javax.swing.JFrame {
                 .addGap(23, 23, 23))
         );
 
-        jPanel1.add(jPanelDatos, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 100, 200, 220));
+        jPanel1.add(jPanelDatos, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 100, 200, 250));
 
         jButtonEliminarVisualizacion.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/actualizar.png"))); // NOI18N
         jButtonEliminarVisualizacion.addActionListener(new java.awt.event.ActionListener() {

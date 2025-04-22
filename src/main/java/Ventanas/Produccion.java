@@ -197,7 +197,7 @@ public class Produccion extends javax.swing.JFrame {
         jestado_f.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Finalizado", "En Proceso" }));
         jPanel1.add(jestado_f, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 390, 120, -1));
 
-        jproducto.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Bandejas", "Cajones", "Pales" }));
+        jproducto.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Bandejas", "Cajones", "Palets" }));
         jPanel1.add(jproducto, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 310, 120, -1));
 
         jfechaInicio.addActionListener(new java.awt.event.ActionListener() {
@@ -406,7 +406,8 @@ public class Produccion extends javax.swing.JFrame {
 
             if (resultado) {
                 JOptionPane.showMessageDialog(null, "Producción añadida correctamente.");
-                RefrescarTablaEmpleados("empleados");
+                String idEmpleado = jID.getText();
+                mostrarProduccionPorEmpleado(idEmpleado);
             }
         } catch (NumberFormatException e) {
             JOptionPane.showMessageDialog(null, "La cantidad debe ser un número entero.");
@@ -416,13 +417,18 @@ public class Produccion extends javax.swing.JFrame {
 
     private void eliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_eliminarActionPerformed
         // TODO add your handling code here:
-        String idStr = jID.getText();
-        String empleado = jempleado.getText();
+        String idProduccion = jIDProduccion.getText();
+        
+        // Probar mas tarde a ver si funcionan juntas:
+        String idEmpleado = jID.getText();
+        String tipoProducto = (String) jproducto.getSelectedItem();
         String cantidad = jcantidad.getText();
-        String fechaInicio = jfechaInicio.getText();
-        String fechaFin = jfechaFin.getText();
+        String estado = (String) jestado_f.getSelectedItem();
+        //
 
-        Controlador.ControladorProducción.eliminar(idStr, WIDTH, idStr, empleado, fechaInicio, fechaFin);
+        Controlador.ControladorProducción.eliminar(idProduccion);
+        
+        mostrarProduccionPorEmpleado(idEmpleado);
     }//GEN-LAST:event_eliminarActionPerformed
 
     private void visorMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_visorMouseClicked
