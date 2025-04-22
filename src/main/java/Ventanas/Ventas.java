@@ -17,6 +17,7 @@ public class Ventas extends javax.swing.JFrame {
      * Creates new form Empleados
      */
     public Ventas() {
+        //Eliminar por ID
         initComponents();
         Leer.transparenciaBoton(jBotonAtras);
         this.setLocationRelativeTo(null);
