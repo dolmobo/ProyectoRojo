@@ -1,11 +1,8 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package Controlador;
 
-
+import Modelo.Empleado;
 import Usos.ConexionBDR;
+
 import java.sql.Connection;
 import java.sql.Statement;
 import javax.swing.JOptionPane;
@@ -14,66 +11,73 @@ import javax.swing.JOptionPane;
  *
  * @author USUARIO
  */
-public class ControladorEmpleados{
+public class ControladorEmpleados {
 
-        public static void añadir(String nombre, String puesto, String salario,String fechaContratacion ,String estado) {
-            try {
-                if (estado.equals("") || nombre.equals("") || puesto.equals("") || salario.equals("") || fechaContratacion.equals("")) {
-                   JOptionPane.showMessageDialog(null, "Faltan datos por ingresar.");
-                } 
-
-                else {
-                    Connection con = new ConexionBDR().conectar();
-                    String sql = "INSERT INTO EMPLEADOS(nombre, puesto, salario,fecha_contratacion, estado) VALUES ('" 
-                            + nombre + "', '" 
-                            + puesto + "', '" 
-                            + salario + "', '" 
-                            + fechaContratacion + "', '"
-                            + estado + "')";
-                    
-                    Statement st = con.createStatement();
-                    st.executeUpdate(sql);
-                    JOptionPane.showMessageDialog(null, "Nuevo empleado añadido con exito.");
-                }
-            } catch (Exception e) {
-            }
-        }
-
-    public static void eliminar(String idStr,String nombre, String puesto, String salario) {
+    public void añadir(Empleado empleado, String estado) {
         try {
-            if (nombre.equals("") || puesto.equals("") || salario.equals("")) {
-               JOptionPane.showMessageDialog(null, "Faltan datos por ingresar.");
-            } 
-            
-            else {
+            if (estado.isEmpty() || empleado.getNombre().isEmpty() || empleado.getPuesto().isEmpty() 
+                || String.valueOf(empleado.getSalario()).isEmpty() || empleado.getFechaContratacion().isEmpty()) {
+                
+                JOptionPane.showMessageDialog(null, "Faltan datos por ingresar.");
+            } else {
                 Connection con = new ConexionBDR().conectar();
-                String sql = "DELETE FROM empleados WHERE id = " + idStr + 
-                             " AND nombre = '" + nombre + "' AND puesto = '" + puesto + 
-                             "' AND salario = '" + salario + "'";
+                String sql = "INSERT INTO empleados (nombre, puesto, salario, fecha_contratacion, estado) VALUES ('"
+                        + empleado.getNombre() + "', '"
+                        + empleado.getPuesto() + "', '"
+                        + empleado.getSalario() + "', '"
+                        + empleado.getFechaContratacion() + "', '"
+                        + estado + "')";
+                
                 Statement st = con.createStatement();
                 st.executeUpdate(sql);
-                JOptionPane.showMessageDialog(null, "Nuevo empleado eliminado con exito.");
+                JOptionPane.showMessageDialog(null, "Nuevo empleado añadido con éxito.");
             }
         } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Error al añadir empleado: " + e.getMessage());
         }
     }
 
-    public static void editar(String idStr,String nombre, String puesto, String salario, String fechaContratacion,String estado) {
+    public void eliminar(Empleado empleado) {
         try {
-            if (estado.equals("") || nombre.equals("") || puesto.equals("") || salario.equals("") || fechaContratacion.equals("")) {
-               JOptionPane.showMessageDialog(null, "Faltan datos por ingresar.");
-            } 
-            
-            else {
+            if (empleado.getNombre().isEmpty() || empleado.getPuesto().isEmpty() || String.valueOf(empleado.getSalario()).isEmpty()) {
+                JOptionPane.showMessageDialog(null, "Faltan datos por ingresar.");
+            } else {
                 Connection con = new ConexionBDR().conectar();
-                String sql = "UPDATE EMPLEADOS SET nombre = '" + nombre + "', puesto = '" + puesto + "', salario = '" + salario +  "', fecha_contratacion = '" + fechaContratacion + "', estado = '" + estado + "' WHERE id = '" + idStr + "'";
-                //String sql = "INSERT INTO EMPLEADOS(nombre, puesto, salario, estado) VALUES ('" + nombre + "', '" + puesto + "', '" + salario + "', '" + estado + "')";
+                String sql = "DELETE FROM empleados WHERE id = " + empleado.getId()+
+                             " AND nombre = '" + empleado.getNombre() +
+                             "' AND puesto = '" + empleado.getPuesto() +
+                             "' AND salario = '" + empleado.getSalario() + "'";
+                
                 Statement st = con.createStatement();
                 st.executeUpdate(sql);
-                JOptionPane.showMessageDialog(null, "Nuevo empleado modificado con exito.");
+                JOptionPane.showMessageDialog(null, "Empleado eliminado con éxito.");
             }
         } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Error al eliminar empleado: " + e.getMessage());
         }
     }
 
+    public void editar(Empleado empleado, String estado) {
+        try {
+            if (estado.isEmpty() || empleado.getNombre().isEmpty() || empleado.getPuesto().isEmpty()
+                || String.valueOf(empleado.getSalario()).isEmpty() || empleado.getFechaContratacion().isEmpty()) {
+                
+                JOptionPane.showMessageDialog(null, "Faltan datos por ingresar.");
+            } else {
+                Connection con = new ConexionBDR().conectar();
+                String sql = "UPDATE empleados SET nombre = '" + empleado.getNombre() +
+                             "', puesto = '" + empleado.getPuesto() +
+                             "', salario = '" + empleado.getSalario() +
+                             "', fecha_contratacion = '" + empleado.getFechaContratacion() +
+                             "', estado = '" + estado +
+                             "' WHERE id = '" + empleado.getId() + "'";
+                
+                Statement st = con.createStatement();
+                st.executeUpdate(sql);
+                JOptionPane.showMessageDialog(null, "Empleado modificado con éxito.");
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Error al editar empleado: " + e.getMessage());
+        }
+    }
 }
