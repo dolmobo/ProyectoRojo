@@ -321,7 +321,6 @@ public class Producciones extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
-        TablaProComple.setColumnSelectionAllowed(true);
         TablaProComple.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 TablaProCompleMouseClicked(evt);
