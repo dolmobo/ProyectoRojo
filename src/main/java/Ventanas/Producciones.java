@@ -8,6 +8,12 @@ import Controlador.ControladorEmpleados;
 import Controlador.ControladorProducción;
 import Usos.ConexionBDR;
 import Usos.Leer;
+import java.beans.XMLDecoder;
+import java.beans.XMLEncoder;
+import java.io.BufferedInputStream;
+import java.io.BufferedOutputStream;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -175,6 +181,8 @@ public class Producciones extends javax.swing.JFrame {
         TablaProComple = new javax.swing.JTable();
         jLabel3 = new javax.swing.JLabel();
         jLabel10 = new javax.swing.JLabel();
+        CargarDatos = new javax.swing.JButton();
+        guardaDatos = new javax.swing.JButton();
         jLabel11 = new javax.swing.JLabel();
         jLabel12 = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
@@ -356,8 +364,24 @@ public class Producciones extends javax.swing.JFrame {
         jLabel10.setText("Formulario De Producción");
         jPanel1.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 180, 170, -1));
 
+        CargarDatos.setText("Cargar datos de fichero XML  ");
+        CargarDatos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                CargarDatosActionPerformed(evt);
+            }
+        });
+        jPanel1.add(CargarDatos, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 493, -1, 20));
+
+        guardaDatos.setText("Guardar datos en fichero XML");
+        guardaDatos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                guardaDatosActionPerformed(evt);
+            }
+        });
+        jPanel1.add(guardaDatos, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 463, -1, 20));
+
         jLabel11.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/RecuaGris.jpg"))); // NOI18N
-        jPanel1.add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 170, 280, 300));
+        jPanel1.add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 170, 280, 350));
 
         jLabel12.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/fondoPanel.png"))); // NOI18N
         jPanel1.add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 570, 450, 70));
@@ -583,14 +607,13 @@ public class Producciones extends javax.swing.JFrame {
 
         try (Connection conexion = new ConexionBDR().conectar()) {
             Statement stmt = conexion.createStatement();
-            
+
             String sql = "UPDATE produccion SET producto = '" + producto
                     + "', cantidad = " + cantidad
                     + ", estado_f = '" + estado_f
                     + "', fecha_inicio = '" + fechaInicio
                     + "', fecha_fin = '" + fechaFin
                     + "' WHERE id = " + idProduccion;
-
 
             int filasAfectadas = stmt.executeUpdate(sql);
 
@@ -606,6 +629,48 @@ public class Producciones extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "Error al actualizar: " + e.getMessage());
         }
     }//GEN-LAST:event_modificarMouseClicked
+
+    private void CargarDatosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CargarDatosActionPerformed
+        // TODO add your handling code here:
+        try {
+            // Crear un FileInputStream para leer el archivo XML
+            FileInputStream fis = new FileInputStream("C:/Users/halla/Desktop/listadoproducciones.xml");
+            XMLDecoder xmld = new XMLDecoder(new BufferedInputStream(fis));
+
+            // Leer el objeto directamente (una lista o arreglo de filas de la tabla)
+            Object data = xmld.readObject();
+
+            // Verificamos si lo que leímos es un arreglo o lista de objetos
+            if (data instanceof Object[][]) {
+                Object[][] dataArray = (Object[][]) data; // Suponiendo que es un arreglo bidimensional
+
+                // Actualizar el TableModel con los datos leídos
+                dtm.setDataVector(dataArray, columnaspro);  // columnaspro es el arreglo de nombres de las columnas
+
+                JOptionPane.showMessageDialog(this, "Datos cargados correctamente.");
+            }
+
+            xmld.close(); // Cerrar el XMLDecoder
+
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "Error al cargar los datos: " + e.getMessage());
+        }
+    }//GEN-LAST:event_CargarDatosActionPerformed
+
+    private void guardaDatosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_guardaDatosActionPerformed
+        // TODO add your handling code here:
+        try (FileOutputStream fos = new FileOutputStream("C:/Users/halla/Desktop/listadoproducciones.xml"); XMLEncoder xmle = new XMLEncoder(new BufferedOutputStream(fos))) {
+
+            // Obtener los datos del TableModel y guardarlos directamente en el archivo XML
+            xmle.writeObject(dtm.getDataVector());
+
+            // Confirmación
+            JOptionPane.showMessageDialog(this, "Datos guardados correctamente.");
+
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "Error al guardar los datos: " + e.getMessage());
+        }
+    }//GEN-LAST:event_guardaDatosActionPerformed
 
     /**
      * @param args the command line arguments
@@ -650,10 +715,12 @@ public class Producciones extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton CargarDatos;
     private javax.swing.JTable TablaProComple;
     private javax.swing.JButton anadirUsuario;
     private javax.swing.JButton eliminar;
     private javax.swing.JLabel fondoprincipal;
+    private javax.swing.JButton guardaDatos;
     private javax.swing.JButton jBotonAtras;
     private javax.swing.JTextField jID;
     private javax.swing.JTextField jIDProduccion;
