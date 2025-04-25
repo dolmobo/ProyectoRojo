@@ -335,7 +335,7 @@ public class Empleados extends javax.swing.JFrame {
 
     private void jAñadirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jAñadirActionPerformed
         // TODO add your handling code here:
-        
+
         // Obtener los valores de los campos de texto
         String nombre = jTextoNombre.getText();
         String puesto = jTextoPuesto.getText();
@@ -355,9 +355,9 @@ public class Empleados extends javax.swing.JFrame {
         Empleado.Estado estado;
         estado = Empleado.Estado.valueOf(estadoStr.toUpperCase());  // Convertimos el String a Enum
 
-        Empleado empleado = new Empleado(WIDTH, nombre, puesto, salario, fechaContratacion, estado);
+        Empleado empleadoAñadir = new Empleado(WIDTH, nombre, puesto, salario, fechaContratacion, estado);
 
-        controladorEmpleados.añadir(empleado, estadoStr);
+        controladorEmpleados.añadir(empleadoAñadir, estadoStr);
 
         // Refrescar la tabla de empleados
         actualizarMatrizDatos();
@@ -370,7 +370,7 @@ public class Empleados extends javax.swing.JFrame {
         String nombre = jTextoNombre.getText();
         String puesto = jTextoPuesto.getText();
         String salarioStr = jTextoSalario.getText();
-        
+
         int salario = 0;
         try {
             salario = Integer.parseInt(salarioStr);  // Intentamos convertir el salario a int
@@ -378,7 +378,7 @@ public class Empleados extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "Por favor ingresa un salario válido");
             return;  // Salir del método si el salario es inválido
         }
-        
+
         int id = 0;
         try {
             id = Integer.parseInt(idString);  // Intentamos convertir el id a int
@@ -387,8 +387,8 @@ public class Empleados extends javax.swing.JFrame {
             return;  // Salir del método si el id es inválido
         }
 
-        Empleado empleado = new Empleado(id, nombre, puesto, salario);
-        controladorEmpleados.eliminar(empleado);
+        Empleado empleadoEliminar = new Empleado(id, nombre, puesto, salario);
+        controladorEmpleados.eliminar(empleadoEliminar);
 //        ControladorEmpleados.eliminar(idString,nombre,puesto,salario);
         actualizarMatrizDatos();
         jButtonEliminarVisualizacionActionPerformed(evt);
@@ -431,18 +431,53 @@ public class Empleados extends javax.swing.JFrame {
 
     private void jButtonEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonEditarActionPerformed
         // TODO add your handling code here:
-        // Obtener los valores de los campos de texto
-        String idStr = jTextoID.getText();
-        String nombre = jTextoNombre.getText();
-        String puesto = jTextoPuesto.getText();
-        String salario = jTextoSalario.getText();
-        String fechaContratacion = jfechacontratacion.getText();
-        String estado = (String) jComboBoxEstado.getSelectedItem();
+    // Obtener los valores de los campos de texto
+    String idStr = jTextoID.getText();
+    String nombre = jTextoNombre.getText();
+    String puesto = jTextoPuesto.getText();
+    String salarioStr = jTextoSalario.getText();
+    String fechaContratacion = jfechacontratacion.getText();
+    String estadoStr = (String) jComboBoxEstado.getSelectedItem();
 
-        // Llamar al método del controlador pasando los datos obtenidos de los campos
-        //  ControladorEmpleados.editar(idStr,nombre, puesto, salario, fechaContratacion, estado);
-        // Refrescar la tabla de empleados
-        actualizarMatrizDatos();
+    // Intentamos convertir el salario a int
+    int salario = 0;
+    try {
+        salario = Integer.parseInt(salarioStr);  // Intentamos convertir el salario a int
+    } catch (NumberFormatException e) {
+        JOptionPane.showMessageDialog(this, "Por favor ingresa un salario válido");
+        return;  // Salir del método si el salario es inválido
+    }
+
+    // Intentamos convertir el id a int
+    int id = 0;
+    try {
+        id = Integer.parseInt(idStr);  // Intentamos convertir el id a int
+    } catch (NumberFormatException e) {
+        JOptionPane.showMessageDialog(this, "Por favor ingresa un id válido");
+        return;  // Salir del método si el id es inválido
+    }
+
+    // Convertir el estado de String a Enum (ACTIVO o INACTIVO)
+    Empleado.Estado estado = null;
+    try {
+        estado = Empleado.Estado.valueOf(estadoStr.toUpperCase());  // Convertimos el String a Enum
+    } catch (IllegalArgumentException e) {
+        JOptionPane.showMessageDialog(this, "Estado inválido.");
+        return;  // Salir si el estado no es válido
+    }
+
+    // Crear un objeto Empleado con los datos obtenidos
+    Empleado empleadomodificado = new Empleado(id, nombre, puesto, salario, fechaContratacion, estado);
+
+    // Convertir el Enum a String para pasarlo a la base de datos
+    String estadoDb = estado.name();  
+    
+    // Llamar al método del controlador para editar el empleado
+    controladorEmpleados.editar(empleadomodificado, estadoDb);  
+
+    // Refrescar la tabla de empleados
+    actualizarMatrizDatos();
+
 
     }//GEN-LAST:event_jButtonEditarActionPerformed
 
