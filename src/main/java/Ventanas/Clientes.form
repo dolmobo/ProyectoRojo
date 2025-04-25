@@ -322,7 +322,7 @@
           </Properties>
           <Constraints>
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-              <AbsoluteConstraints x="430" y="0" width="580" height="720"/>
+              <AbsoluteConstraints x="430" y="0" width="580" height="660"/>
             </Constraint>
           </Constraints>
 
@@ -356,7 +356,7 @@
                       <Component id="guardarDatos" min="-2" pref="44" max="-2" attributes="0"/>
                       <EmptySpace min="-2" pref="27" max="-2" attributes="0"/>
                       <Component id="cargarDatos" min="-2" pref="44" max="-2" attributes="0"/>
-                      <EmptySpace pref="111" max="32767" attributes="0"/>
+                      <EmptySpace pref="51" max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
