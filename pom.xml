@@ -54,4 +54,5 @@
         <maven.compiler.target>22</maven.compiler.target>
         <exec.mainClass>com.mycompany.proyectorojo.ProyectoRojo</exec.mainClass>
     </properties>
+    <name>ProyectoRojo_Copia</name>
 </project>

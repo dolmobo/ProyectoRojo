@@ -21,10 +21,10 @@ public class ConexionBDR {
         try {
             Connection con = DriverManager.getConnection(url, usuario, clave);
             System.out.println("Conexión establecida con " + url);
-            return con;  // Retorna la conexión
+            return con;  
         } catch (SQLException e) {
             System.err.println("Error de conexión: " + e.getMessage());
-            return null;  // Retorna null si falla la conexión
+            return null;  
         }
     }
 
