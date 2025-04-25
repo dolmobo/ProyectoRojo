@@ -20,6 +20,9 @@ import javax.swing.table.DefaultTableModel;
  */
 public class Empleados extends javax.swing.JFrame {
 
+    
+    
+    
     /**
      * Creates new form Empleados
      */
@@ -278,12 +281,12 @@ public class Empleados extends javax.swing.JFrame {
         Connection ConexionBDR = con.conectar();
         System.out.println(sql);
         DefaultTableModel model = new DefaultTableModel();
-        model.addColumn("ID");
-        model.addColumn("Nombre");
-        model.addColumn("Puesto");
-        model.addColumn("Salario");
-        model.addColumn("Fecha Contratacion");
-        model.addColumn("Estado");
+//        model.addColumn("ID");
+//        model.addColumn("Nombre");
+//        model.addColumn("Puesto");
+//        model.addColumn("Salario");
+//        model.addColumn("Fecha Contratacion");
+//        model.addColumn("Estado");
         visor.setModel(model);
         
         String [] datos = new String [6];

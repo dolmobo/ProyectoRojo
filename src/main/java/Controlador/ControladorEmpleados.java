@@ -4,6 +4,7 @@
  */
 package Controlador;
 
+
 import Usos.ConexionBDR;
 import java.sql.Connection;
 import java.sql.Statement;
@@ -13,7 +14,7 @@ import javax.swing.JOptionPane;
  *
  * @author USUARIO
  */
-public class ControladorEmpleados {
+public class ControladorEmpleados{
 
         public static void añadir(String nombre, String puesto, String salario,String fechaContratacion ,String estado) {
             try {
