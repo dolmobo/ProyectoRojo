@@ -487,9 +487,11 @@ public class Producciones extends javax.swing.JFrame {
             jID.setText(id);
             actualizarMatrizDatoProduccion(idEmpleado);
             
+            String nombre = visor.getValueAt(filaSeleccionada, 1).toString();
+            jempleado.setText(nombre);
+            
             // resetear
             jIDProduccion.setText("");
-            jempleado.setText("");
             jproducto.setSelectedIndex(-1);
             jcantidad.setText("");
             jestado_f.setSelectedIndex(-1);
@@ -522,7 +524,7 @@ public class Producciones extends javax.swing.JFrame {
             // Obtenemos los valores en el orden correcto según las columnaspro
 
             String idStr = TablaProComple.getValueAt(filaSeleccionada, 0).toString();  // ID Producción
-            String empleado = TablaProComple.getValueAt(filaSeleccionada, 1).toString();  // Empleado
+            //String empleado = TablaProComple.getValueAt(filaSeleccionada, 1).toString();  // Empleado
             String cantidad = TablaProComple.getValueAt(filaSeleccionada, 2).toString();  // Cantidad
             String tipoProducto = TablaProComple.getValueAt(filaSeleccionada, 3).toString();  // Producto
             String estado_f = TablaProComple.getValueAt(filaSeleccionada, 4).toString();  // Estado
@@ -531,7 +533,7 @@ public class Producciones extends javax.swing.JFrame {
 
             // Asignamos a los campos del formulario
             jIDProduccion.setText(idStr);
-            jempleado.setText(empleado);
+            //jempleado.setText(empleado);
             jcantidad.setText(cantidad);
             jproducto.setSelectedItem(tipoProducto);
             jestado_f.setSelectedItem(estado_f);
