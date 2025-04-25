@@ -1,0 +1,3 @@
+usuario;root
+clave;
+url;jdbc:mysql://localhost:3306/prueba4
