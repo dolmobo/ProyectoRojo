@@ -4,6 +4,7 @@
  */
 package Controlador;
 
+import Modelo.Cliente;
 import Usos.ConexionBDR;
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -17,60 +18,79 @@ import javax.swing.JOptionPane;
  */
 public class ControladorClientes {
         
-        public static void añadir(String nombre, String apellidos, String telefono, String email, String direccion) {
-            try {
-                if (nombre.equals("") || apellidos.equals("") || telefono.equals("") || email.equals("") || direccion.equals("")) {
-                   JOptionPane.showMessageDialog(null, "Faltan datos por ingresar.");
-                } 
-
-                else {
-                    Connection con = new ConexionBDR().conectar();
-                    String sql = "INSERT INTO clientes(nombre, apellidos, telefono, email, direccion) VALUES ('" + nombre + "', '" + apellidos + "', '" + telefono + "', '" + email + "', '" + direccion + "')";
-                    Statement st = con.createStatement();
-                    st.executeUpdate(sql);
-                    JOptionPane.showMessageDialog(null, "Nuevo empleado añadido con exito.");
-                }
-            } catch (Exception e) {
-            }
-        }   
-        
-     public static void eliminar(String idStr,String nombre, String apellidos, String telefono, String email, String direccion) {
+    public void añadir(Cliente cliente) {
         try {
-            if (nombre.equals("") || apellidos.equals("") || telefono.equals("") || email.equals("") || direccion.equals("")) {
-               JOptionPane.showMessageDialog(null, "Faltan datos por ingresar.");
-            } 
+            if (cliente.getNombre().isEmpty() || cliente.getApellidos().isEmpty() 
+                || cliente.getTelefono().isEmpty() || cliente.getEmail().isEmpty()
+                || cliente.getDireccion().isEmpty())
             
-            else {
+            {
+                
+                JOptionPane.showMessageDialog(null, "Faltan datos por ingresar.");
+            } else {
                 Connection con = new ConexionBDR().conectar();
-                 String sql = "DELETE FROM clientes WHERE id = " + idStr +
-                     " AND nombre = '" + nombre + "'" +
-                     " AND apellidos = '" + apellidos + "'" +
-                     " AND telefono = '" + telefono + "'" +                    
-                     " AND email = '" + email + "'" +
-                     " AND direccion = '" + direccion + "'";
+                String sql = "INSERT INTO clientes (nombre, apellidos, telefono, email, direccion) VALUES ('"
+                        + cliente.getNombre() + "', '"
+                        + cliente.getApellidos() + "', '"
+                        + cliente.getTelefono() + "', '"
+                        + cliente.getEmail()+ "', '"
+                        + cliente.getDireccion()+ "')";
+                
                 Statement st = con.createStatement();
                 st.executeUpdate(sql);
-                JOptionPane.showMessageDialog(null, "Nuevo empleado eliminado con exito.");
+                JOptionPane.showMessageDialog(null, "Nuevo cliente añadido con éxito.");
             }
         } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Error al añadir cliente: " + e.getMessage());
+        }
+    }   
+        
+    public void eliminar(Cliente cliente) {
+        try {
+            if (cliente.getNombre().isEmpty() || cliente.getApellidos().isEmpty() 
+                || cliente.getTelefono().isEmpty() || cliente.getEmail().isEmpty()
+                || cliente.getDireccion().isEmpty()) {
+                JOptionPane.showMessageDialog(null, "Faltan datos por ingresar.");
+            } else {
+                Connection con = new ConexionBDR().conectar();
+                String sql = "DELETE FROM clientes WHERE id = " + cliente.getId()+
+                             " AND nombre = '" + cliente.getNombre() +
+                             "' AND apellidos = '" + cliente.getApellidos()+
+                             "' AND telefono = '" + cliente.getTelefono()+
+                             "' AND email = '" + cliente.getEmail()+
+                             "' AND direccion = '" + cliente.getDireccion()+ "'";
+                
+                Statement st = con.createStatement();
+                st.executeUpdate(sql);
+                JOptionPane.showMessageDialog(null, "Cliente eliminado con éxito.");
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Error al eliminar el cliente: " + e.getMessage());
         }
     }
 
-    public static void editar(String idStr,String nombre, String apellidos, String telefono, String email, String direccion) {
+    public static void editar(Cliente cliente) {
         try {
-            if (nombre.equals("") || apellidos.equals("") || email.equals("") || direccion.equals("")) {
-               JOptionPane.showMessageDialog(null, "Faltan datos por ingresar.");
-            } 
-            
-            else {
+            if (cliente.getNombre().isEmpty() || cliente.getApellidos().isEmpty() 
+                || cliente.getTelefono().isEmpty() || cliente.getEmail().isEmpty()
+                || cliente.getDireccion().isEmpty()) {
+                
+                JOptionPane.showMessageDialog(null, "Faltan datos por ingresar.");
+            } else {
                 Connection con = new ConexionBDR().conectar();
-                String sql = "UPDATE clientes SET nombre = '" + nombre + "', apellidos = '" + apellidos + "', telefono = '" + telefono + "', email = '" + email + "', direccion = '" + direccion + "' WHERE id = '" + idStr + "'";
-                //String sql = "INSERT INTO EMPLEADOS(nombre, puesto, salario, estado) VALUES ('" + nombre + "', '" + puesto + "', '" + salario + "', '" + estado + "')";
+                String sql = "UPDATE clientes SET nombre = '" + cliente.getNombre() +
+                             "', apellidos = '" + cliente.getApellidos() +
+                             "', telefono = '" + cliente.getTelefono() +
+                             "', email = '" + cliente.getEmail() +
+                             "', direccion = '" + cliente.getDireccion() +
+                             "' WHERE id = '" + cliente.getId() + "'";
+                
                 Statement st = con.createStatement();
                 st.executeUpdate(sql);
-                JOptionPane.showMessageDialog(null, "Nuevo empleado modificado con exito.");
+                JOptionPane.showMessageDialog(null, "Cliente modificado con éxito.");
             }
         } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Error al editar el cliente: " + e.getMessage());
         }
     }      
     

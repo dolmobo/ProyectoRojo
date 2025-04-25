@@ -7,6 +7,7 @@ package Ventanas;
 import Usos.ConexionBDR;
 import Controlador.ControladorClientes;
 import Controlador.ControladorEmpleados;
+import Modelo.Cliente;
 import Usos.Leer;
 import java.beans.XMLEncoder;
 import java.io.BufferedOutputStream;
@@ -15,6 +16,7 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
@@ -25,6 +27,12 @@ import javax.swing.table.DefaultTableModel;
  */
 public class Clientes extends javax.swing.JFrame {
 
+    private ControladorClientes controladorClientes;
+    private Object[][] matrizDatos;
+    private String[] columnas = {"ID", "Nombre", "Apellidos", "Telefono", "Email", "Direccion"};
+    private DefaultTableModel dtm;    
+    
+    
     /**
      * Creates new form Empleados
      */
@@ -35,12 +43,59 @@ public class Clientes extends javax.swing.JFrame {
     
     
     public Clientes() {
+        
+        controladorClientes = new ControladorClientes();
         initComponents();
-        RefrescarTabla("clientes");
-        Leer.transparenciaBoton(jBotonAtras);
         this.setLocationRelativeTo(null);
+        Leer.transparenciaBoton(jBotonAtras);
+
+        // Inicializamos el modelo de tabla con las columnas vacías
+        dtm = new DefaultTableModel(matrizDatos, columnas);
+        Tabla.setModel(dtm);
+
+        // Llenamos matrizDatos y actualizamos tabla
+        actualizarMatrizDatos();        
         
     }
+        
+    public void actualizarMatrizDatos() {
+
+        ConexionBDR con = new ConexionBDR();
+        Connection conexion = con.conectar();
+
+        String sql = "SELECT * FROM clientes";
+        List<Object[]> datos = new ArrayList<>();
+
+        try (Statement st = conexion.createStatement(); ResultSet rs = st.executeQuery(sql)) {
+            while (rs.next()) {
+                Object[] fila = new Object[6];
+                fila[0] = rs.getInt("id");
+                fila[1] = rs.getString("nombre");
+                fila[2] = rs.getString("apellidos");
+                fila[3] = rs.getString("telefono");
+                fila[4] = rs.getString("email");
+                fila[5] = rs.getString("direccion");
+                datos.add(fila);
+            }
+
+            // Pasamos de lista a matriz
+            matrizDatos = new Object[datos.size()][columnas.length];
+            for (int i = 0; i < datos.size(); i++) {
+                matrizDatos[i] = datos.get(i);
+            }
+
+            // Actualizamos el modelo de la tabla
+            dtm.setDataVector(matrizDatos, columnas);
+
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(this, "Error al cargar empleados: " + e.getMessage());
+        }
+    }    
+    
+    
+    
+    
+    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -453,17 +508,21 @@ public class Clientes extends javax.swing.JFrame {
     private void AñadirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AñadirActionPerformed
         // TODO add your handling code here:
         // Obtener los valores de los campos de texto
-    String nombre = txtNombre.getText();
-    String apellidos = txtApellidos.getText();
-    String telefono = txtTelefono.getText();    
-    String email = txtEmail.getText();
-    String direccion = txtDireccion.getText();
+        String nombre = txtNombre.getText();
+        String apellidos = txtApellidos.getText();
+        String telefono = txtTelefono.getText();
+        String email = txtEmail.getText();
+        String direccion = txtDireccion.getText();
 
-    // Llamar al método del controlador pasando los datos obtenidos de los campos
-    ControladorClientes.añadir(nombre, apellidos, telefono, email, direccion);
+        // Llamar al método del controlador pasando los datos obtenidos de los campos
 
-    // Refrescar la tabla de empleados
-    RefrescarTabla("clientes");
+
+        Cliente cliente = new Cliente(WIDTH, nombre, apellidos, telefono, email, direccion);
+
+        controladorClientes.añadir(cliente);
+
+        // Refrescar la tabla de empleados
+        actualizarMatrizDatos();
         jButtonEliminarVisualizacionActionPerformed(evt);
     }//GEN-LAST:event_AñadirActionPerformed
 
@@ -475,10 +534,23 @@ public class Clientes extends javax.swing.JFrame {
         String email = txtEmail.getText();
         String direccion = txtDireccion.getText();
             
-        ControladorClientes.eliminar(idString,nombre, apellidos, telefono, email, direccion);
-            RefrescarTabla("clientes");
-            jButtonEliminarVisualizacionActionPerformed(evt);       
-    // TODO add your handling code here:
+        
+        int id = 0;
+        try {
+            id = Integer.parseInt(idString);  // Intentamos convertir el id a int
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(this, "Por favor ingresa un id válido");
+            return;  // Salir del método si el id es inválido
+        }
+
+        Cliente cliente = new Cliente(id, nombre, apellidos, telefono, email, direccion);
+        controladorClientes.eliminar(cliente);
+//        ControladorEmpleados.eliminar(idString,nombre,puesto,salario);
+        actualizarMatrizDatos();
+        jButtonEliminarVisualizacionActionPerformed(evt);        
+        
+        
+        
     }//GEN-LAST:event_EliminarActionPerformed
 
     private void TablaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TablaMouseClicked
@@ -506,17 +578,27 @@ public class Clientes extends javax.swing.JFrame {
     }//GEN-LAST:event_TablaMouseClicked
 
     private void modificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_modificarActionPerformed
-        String idStr = id.getText();
+        String idString = id.getText();
         String nombre = txtNombre.getText();
         String apellidos = txtApellidos.getText();
         String telefono = txtTelefono.getText();
         String email = txtEmail.getText();
         String direccion = txtDireccion.getText();
         // Llamar al método del controlador pasando los datos obtenidos de los campos
-        ControladorClientes.editar(idStr,nombre, apellidos, telefono, email, direccion);
-
-        // Refrescar la tabla de empleados
-        RefrescarTabla("clientes");
+        
+        int id = 0;
+        try {
+            id = Integer.parseInt(idString);  // Intentamos convertir el id a int
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(this, "Por favor ingresa un id válido");
+            return;  // Salir del método si el id es inválido
+        }
+        Cliente cliente = new Cliente(id, nombre, apellidos, telefono, email, direccion);
+        
+        controladorClientes.editar(cliente);
+//        ControladorEmpleados.eliminar(idString,nombre,puesto,salario);
+        actualizarMatrizDatos();
+        jButtonEliminarVisualizacionActionPerformed(evt);  
 
         // TODO add your handling code here:
     }//GEN-LAST:event_modificarActionPerformed
@@ -548,7 +630,7 @@ public class Clientes extends javax.swing.JFrame {
     }//GEN-LAST:event_txtDireccionActionPerformed
 
     private void refrescarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_refrescarActionPerformed
-        RefrescarTabla("clientes");
+        actualizarMatrizDatos();
     }//GEN-LAST:event_refrescarActionPerformed
 
     private void cargarDatosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cargarDatosActionPerformed
