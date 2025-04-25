@@ -17,6 +17,7 @@ public class Ventas extends javax.swing.JFrame {
      * Creates new form Empleados
      */
     public Ventas() {
+        //Eliminar por ID
         initComponents();
         Leer.transparenciaBoton(jBotonAtras);
         this.setLocationRelativeTo(null);
@@ -39,6 +40,7 @@ public class Ventas extends javax.swing.JFrame {
         visor = new javax.swing.JTable();
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
+        jButton3 = new javax.swing.JButton();
         SegundoApartado = new javax.swing.JLabel();
         jTextField1 = new javax.swing.JTextField();
         TercerApartado = new javax.swing.JLabel();
@@ -100,11 +102,19 @@ public class Ventas extends javax.swing.JFrame {
 
         jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 70, 440, 400));
 
-        jButton1.setText("jButton1");
+        jButton1.setText("Eliminar");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
         jPanel1.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 480, -1, -1));
 
-        jButton2.setText("jButton1");
-        jPanel1.add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 480, -1, -1));
+        jButton2.setText("Editar");
+        jPanel1.add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 340, -1, -1));
+
+        jButton3.setText("Añadir");
+        jPanel1.add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 340, -1, -1));
 
         SegundoApartado.setText("Cantidad");
         jPanel1.add(SegundoApartado, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 130, -1, -1));
@@ -179,6 +189,10 @@ public class Ventas extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jTextField1ActionPerformed
 
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton1ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -223,6 +237,7 @@ public class Ventas extends javax.swing.JFrame {
     private javax.swing.JButton jBotonAtras;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
+    private javax.swing.JButton jButton3;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabelLogo1;

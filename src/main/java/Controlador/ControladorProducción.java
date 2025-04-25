@@ -40,28 +40,30 @@ public class ControladorProducción {
         }
     }
 
-    public static void eliminar(String id, int cantidad, String producto, String estado_f, String fechaInicio, String fechaFin) {
-        if (id.isEmpty() || producto.isEmpty() || estado_f.isEmpty() || fechaInicio.isEmpty() || fechaFin.isEmpty()) {
-            JOptionPane.showMessageDialog(null, "Faltan datos por ingresar.");
-            return;
-        }
+    public static void eliminar(String idProduccion) {
+        try {
+            if (idProduccion.equals("")) {
+                JOptionPane.showMessageDialog(null, "Falta el ID de producción.");
+                return;  // Si el ID está vacío, salimos del método
+            }
 
-        String sql = "DELETE FROM produccion WHERE empleado_id = ? AND cantidad = ? AND producto = ? AND estado_f = ? AND fecha_inicio = ? AND fecha_fin = ?";
+            Connection con = new ConexionBDR().conectar();
+            // Crear la consulta SQL para eliminar la producción por idProduccion
+            String sql = "DELETE FROM produccion WHERE id = '" + idProduccion + "'";
 
-        try (Connection con = new ConexionBDR().conectar(); PreparedStatement ps = con.prepareStatement(sql)) {
+            Statement st = con.createStatement();
+            st.executeUpdate(sql);
 
-            ps.setString(1, id);
-            ps.setInt(2, cantidad);
-            ps.setString(3, producto);
-            ps.setString(4, estado_f);
-            ps.setString(5, fechaInicio);
-            ps.setString(6, fechaFin);
-
-            int filasAfectadas = ps.executeUpdate();
+            JOptionPane.showMessageDialog(null, "Producción eliminada con éxito.");
 
         } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Error al eliminar la producción: " + e.getMessage());
+            e.printStackTrace();  // Imprimir el error si ocurre
         }
     }
+    
+
+
 
 //    public static void eliminar(String nombre, String apellidos, String email, String direccion) {
 //        try {
