@@ -9,11 +9,21 @@ package Modelo;
  * @author USUARIO
  */
 public class Empleado {
+
     private int id;
     private String nombre;
     private String puesto;
     private int salario;
     private String fechaContratacion;
+    public Estado estado;
+
+    public Estado getEstado() {
+        return estado;
+    }
+
+    public void setEstado(Estado estado) {
+        this.estado = estado;
+    }
 
     public int getId() {
         return id;
@@ -54,10 +64,10 @@ public class Empleado {
     public void setFechaContratacion(String fechaContratacion) {
         this.fechaContratacion = fechaContratacion;
     }
-    enum Especie{ACTIVO, INACTIVO};
 
-    public Empleado() {
-    }
+    public enum Estado {
+        ACTIVO, INACTIVO
+    };
 
     public Empleado(int id, String nombre) {
         this.id = id;
@@ -69,20 +79,25 @@ public class Empleado {
         this.nombre = nombre;
         this.puesto = puesto;
     }
-    
-    
 
-    public Empleado(int id, String nombre, String puesto, int salario, String fechaContratacion) {
+    public Empleado(int id, String nombre, String puesto, int salario) {
+        this.id = id;
+        this.nombre = nombre;
+        this.puesto = puesto;
+        this.salario = salario;
+    }
+
+    public Empleado(int id, String nombre, String puesto, int salario, String fechaContratacion, Estado estado) {
         this.id = id;
         this.nombre = nombre;
         this.puesto = puesto;
         this.salario = salario;
         this.fechaContratacion = fechaContratacion;
+        this.estado = estado;
     }
 
     @Override
     public String toString() {
-        return "Empleado{" + "id=" + id + ", nombre=" + nombre + ", puesto=" + puesto + ", salario=" + salario + ", fechaContratacion=" + fechaContratacion + '}';
+        return "Empleado{" + "id=" + id + ", nombre=" + nombre + ", puesto=" + puesto + ", salario=" + salario + ", fechaContratacion=" + fechaContratacion + ", estado=" + estado + '}';
     }
-    
 }
