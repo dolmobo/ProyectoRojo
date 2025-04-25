@@ -27,10 +27,10 @@ public class Producciones extends javax.swing.JFrame {
     private Object[][] matrizDatos;
     private String[] columnas = {"ID", "Nombre", "Puesto", "Salario", "Fecha Contratacion", "Estado"};
     private DefaultTableModel dtm;
-    
+
     private ControladorProducción controladorproduccion;
     private Object[][] matrizDatosProduccion;
-    private String[] columnaspro = {"ID", "Nombre", "Puesto", "Salario", "Fecha Contratacion", "Estado"};
+    private String[] columnaspro = {"ID Produccion", "Empleado", "Cantidad", "Producto", "Estado", "Fecha Inicio", "Fecha Fin"};
     private DefaultTableModel dtmpro;
 
     /**
@@ -49,17 +49,16 @@ public class Producciones extends javax.swing.JFrame {
 
         // Llenamos matrizDatos y actualizamos tabla
         actualizarMatrizDato();
-        
+
         controladorproduccion = new ControladorProducción();
         // Inicializamos el modelo de tabla con las columnas vacías
         dtmpro = new DefaultTableModel(matrizDatosProduccion, columnaspro);
         TablaProComple.setModel(dtmpro);
-        String idEmpleado = null;
-        
+        int idEmpleado = -1;
+
         // Llenamos matrizDatosProduccion y actualizamos tabla
         actualizarMatrizDatoProduccion(idEmpleado);
-        
-        
+
     }
 
     public void actualizarMatrizDato() {
@@ -96,17 +95,19 @@ public class Producciones extends javax.swing.JFrame {
         }
     }
 
-    public void actualizarMatrizDatoProduccion(String idEmpleado) {
-        
-        //TablaProComple.setVisible(false);
+    public void actualizarMatrizDatoProduccion(int idEmpleado) {
+        if (idEmpleado < 0) {
+            return;
+        }
 
+        //TablaProComple.setVisible(false);
         ConexionBDR con = new ConexionBDR();
         Connection conexion = con.conectar();
 
-        String sql = "SELECT p.id, e.nombre, p.producto, p.cantidad, p.estado_f, p.fecha_inicio, p.fecha_fin " +
-             "FROM produccion p " +
-             "JOIN empleados e ON p.empleado_id = e.id " +
-             "WHERE p.empleado_id = " + idEmpleado;
+        String sql = "SELECT p.id, e.nombre, p.cantidad, p.producto, p.estado_f, p.fecha_inicio, p.fecha_fin "
+                + "FROM produccion p "
+                + "JOIN empleados e ON p.empleado_id = e.id "
+                + "WHERE p.empleado_id = " + idEmpleado;
 
         List<Object[]> datos = new ArrayList<>();
 
@@ -114,12 +115,12 @@ public class Producciones extends javax.swing.JFrame {
             while (rs.next()) {
                 Object[] fila = new Object[7];
                 fila[0] = rs.getInt("id");
-                fila[1] = rs.getString("empleado_id");
-                fila[2] = rs.getInt("producto");
-                fila[3] = rs.getString("cantidad");
-                fila[4] = rs.getString("fecha_inicio");
-                fila[5] = rs.getString("fecha_fin");
-                fila[6] = rs.getString("estado_f");
+                fila[1] = rs.getString("nombre");
+                fila[2] = rs.getInt("cantidad");
+                fila[3] = rs.getString("producto");
+                fila[4] = rs.getString("estado_f");
+                fila[5] = rs.getString("fecha_inicio");
+                fila[6] = rs.getString("fecha_fin");
                 datos.add(fila);
             }
 
@@ -135,7 +136,7 @@ public class Producciones extends javax.swing.JFrame {
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(this, "Error al cargar empleados: " + e.getMessage());
         }
-        
+
     }
 
     /**
@@ -320,9 +321,16 @@ public class Producciones extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
+        TablaProComple.setColumnSelectionAllowed(true);
         TablaProComple.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 TablaProCompleMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                TablaProCompleMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                TablaProCompleMouseExited(evt);
             }
         });
         jScrollPane2.setViewportView(TablaProComple);
@@ -446,7 +454,7 @@ public class Producciones extends javax.swing.JFrame {
 
             if (resultado) {
                 JOptionPane.showMessageDialog(null, "Producción añadida correctamente.");
-                String idEmpleado = jID.getText();
+                int idEmpleado = Integer.parseInt(jID.getText());
                 actualizarMatrizDatoProduccion(idEmpleado);
             }
         } catch (NumberFormatException e) {
@@ -473,17 +481,21 @@ public class Producciones extends javax.swing.JFrame {
 
     private void visorMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_visorMouseClicked
         int filaSeleccionada = visor.getSelectedRow();
-        if (filaSeleccionada == -1) {
-            JOptionPane.showMessageDialog(null, "No se ha seleccionado ningun empleado.");
-        } else {
-            // Obtener el ID del empleado seleccionado
-            String idEmpleado = visor.getValueAt(filaSeleccionada, 0).toString();
-            String empleado = (String) visor.getValueAt(filaSeleccionada, 1);
-            jID.setText(idEmpleado);
-            jempleado.setText(empleado);
-
-            // Llamar al método para mostrar la producción del empleado
-            //mostrarProduccionPorEmpleado(idEmpleado);
+        if (filaSeleccionada >= 0) {
+            int idEmpleado = (int) visor.getValueAt(filaSeleccionada, 0); // columna 0 = ID
+            // empleado
+            String id = visor.getValueAt(filaSeleccionada, 0).toString();
+            jID.setText(id);
+            actualizarMatrizDatoProduccion(idEmpleado);
+            
+            // resetear
+            jIDProduccion.setText("");
+            jempleado.setText("");
+            jproducto.setSelectedIndex(-1);
+            jcantidad.setText("");
+            jestado_f.setSelectedIndex(-1);
+            jfechaInicio.setText("");
+            jfechaFin.setText("");
         }
     }//GEN-LAST:event_visorMouseClicked
 
@@ -506,29 +518,27 @@ public class Producciones extends javax.swing.JFrame {
         // TODO add your handling code here:
         int filaSeleccionada = TablaProComple.getSelectedRow();
         if (filaSeleccionada == -1) {
-            JOptionPane.showMessageDialog(null, "No se ha seleccionado ningun empleado.");
+            JOptionPane.showMessageDialog(null, "No se ha seleccionado ninguna producción.");
         } else {
-            // Cogemos los valores que estan la fila seleccionada
-            String idStr = TablaProComple.getValueAt(filaSeleccionada, 0).toString();
-            String empleado = (String) TablaProComple.getValueAt(filaSeleccionada, 1);
-            String tipoProducto = (String) TablaProComple.getValueAt(filaSeleccionada, 2);
-            String cantidad = (String) TablaProComple.getValueAt(filaSeleccionada, 3);
-            String estado_f = (String) TablaProComple.getValueAt(filaSeleccionada, 4);
-            String fechaInicio = (String) TablaProComple.getValueAt(filaSeleccionada, 5);
-            String fechaFin = (String) TablaProComple.getValueAt(filaSeleccionada, 6);
+            // Obtenemos los valores en el orden correcto según las columnaspro
 
-            //double salario = Double.parseDouble((String) visor.getValueAt(filaSeleccionada, 3).toString());
-            //String fechaContratacion = (String) visor.getValueAt(filaSeleccionada,4);
-            // Se establecen los datos que han sido seleccionados previamente
+            String idStr = TablaProComple.getValueAt(filaSeleccionada, 0).toString();  // ID Producción
+            String empleado = TablaProComple.getValueAt(filaSeleccionada, 1).toString();  // Empleado
+            String cantidad = TablaProComple.getValueAt(filaSeleccionada, 2).toString();  // Cantidad
+            String tipoProducto = TablaProComple.getValueAt(filaSeleccionada, 3).toString();  // Producto
+            String estado_f = TablaProComple.getValueAt(filaSeleccionada, 4).toString();  // Estado
+            String fechaInicio = TablaProComple.getValueAt(filaSeleccionada, 5).toString();  // Fecha Inicio
+            String fechaFin = TablaProComple.getValueAt(filaSeleccionada, 6).toString();  // Fecha Fin
+
+            // Asignamos a los campos del formulario
             jIDProduccion.setText(idStr);
             jempleado.setText(empleado);
-            jproducto.setSelectedItem(tipoProducto);
             jcantidad.setText(cantidad);
+            jproducto.setSelectedItem(tipoProducto);
             jestado_f.setSelectedItem(estado_f);
             jfechaInicio.setText(fechaInicio);
             jfechaFin.setText(fechaFin);
         }
-
     }//GEN-LAST:event_TablaProCompleMouseClicked
 
     private void jIDProduccionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jIDProduccionActionPerformed
@@ -538,6 +548,14 @@ public class Producciones extends javax.swing.JFrame {
     private void jproductoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jproductoActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jproductoActionPerformed
+
+    private void TablaProCompleMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TablaProCompleMouseEntered
+        // TODO add your handling code here:
+    }//GEN-LAST:event_TablaProCompleMouseEntered
+
+    private void TablaProCompleMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TablaProCompleMouseExited
+        // TODO add your handling code here:
+    }//GEN-LAST:event_TablaProCompleMouseExited
 
     /**
      * @param args the command line arguments
