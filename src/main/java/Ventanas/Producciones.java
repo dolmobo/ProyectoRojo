@@ -216,6 +216,7 @@ public class Producciones extends javax.swing.JFrame {
         });
         jPanel1.add(anadirUsuario, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 590, 80, 30));
 
+        jempleado.setEditable(false);
         jempleado.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jempleadoActionPerformed(evt);
