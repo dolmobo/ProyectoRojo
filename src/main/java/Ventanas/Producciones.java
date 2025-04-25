@@ -272,6 +272,16 @@ public class Producciones extends javax.swing.JFrame {
         jPanel1.add(eliminar, new org.netbeans.lib.awtextra.AbsoluteConstraints(560, 590, 80, 30));
 
         modificar.setText("Modificar");
+        modificar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                modificarMouseClicked(evt);
+            }
+        });
+        modificar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                modificarActionPerformed(evt);
+            }
+        });
         jPanel1.add(modificar, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 590, 90, 30));
 
         jBotonAtras.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/atras.png"))); // NOI18N
@@ -486,10 +496,10 @@ public class Producciones extends javax.swing.JFrame {
             String id = visor.getValueAt(filaSeleccionada, 0).toString();
             jID.setText(id);
             actualizarMatrizDatoProduccion(idEmpleado);
-            
+
             String nombre = visor.getValueAt(filaSeleccionada, 1).toString();
             jempleado.setText(nombre);
-            
+
             // resetear
             jIDProduccion.setText("");
             jproducto.setSelectedIndex(-1);
@@ -557,6 +567,44 @@ public class Producciones extends javax.swing.JFrame {
     private void TablaProCompleMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TablaProCompleMouseExited
         // TODO add your handling code here:
     }//GEN-LAST:event_TablaProCompleMouseExited
+
+    private void modificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_modificarActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_modificarActionPerformed
+    private void modificarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_modificarMouseClicked
+        // TODO add your handling code here:
+        int idProduccion = Integer.parseInt(jIDProduccion.getText());  // ID Producción
+        String producto = (String) jproducto.getSelectedItem();        // Producto
+        int cantidad = Integer.parseInt(jcantidad.getText());          // Cantidad
+        String estado_f = (String) jestado_f.getSelectedItem();        // Estado
+        String fechaInicio = jfechaInicio.getText();                   // Fecha Inicio
+        String fechaFin = jfechaFin.getText();                         // Fecha Fin
+
+        try (Connection conexion = new ConexionBDR().conectar()) {
+            Statement stmt = conexion.createStatement();
+            
+            String sql = "UPDATE produccion SET producto = '" + producto
+                    + "', cantidad = " + cantidad
+                    + ", estado_f = '" + estado_f
+                    + "', fecha_inicio = '" + fechaInicio
+                    + "', fecha_fin = '" + fechaFin
+                    + "' WHERE id = " + idProduccion;
+
+
+            int filasAfectadas = stmt.executeUpdate(sql);
+
+            if (filasAfectadas > 0) {
+                JOptionPane.showMessageDialog(this, "Producción actualizada.");
+                int idEmpleado = Integer.parseInt(jID.getText());
+                actualizarMatrizDatoProduccion(idEmpleado);
+            } else {
+                JOptionPane.showMessageDialog(this, "No se encontró la producción con ese ID.");
+            }
+
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(this, "Error al actualizar: " + e.getMessage());
+        }
+    }//GEN-LAST:event_modificarMouseClicked
 
     /**
      * @param args the command line arguments
