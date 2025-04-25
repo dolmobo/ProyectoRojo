@@ -23,17 +23,22 @@ import javax.swing.table.DefaultTableModel;
  */
 public class Producciones extends javax.swing.JFrame {
 
-    private ControladorProducción controladorProducción;
+    private ControladorEmpleados controladorEmpleados;
     private Object[][] matrizDatos;
-    private String[] columnas = {"ID Produccion", "Empleado", "Cantidad", "Producto", "Estado", "Fecha Inicio", "Fecha Fin"};
+    private String[] columnas = {"ID", "Nombre", "Puesto", "Salario", "Fecha Contratacion", "Estado"};
     private DefaultTableModel dtm;
+    
+    private ControladorProducción controladorproduccion;
+    private Object[][] matrizDatosProduccion;
+    private String[] columnaspro = {"ID", "Nombre", "Puesto", "Salario", "Fecha Contratacion", "Estado"};
+    private DefaultTableModel dtmpro;
 
     /**
      * Creates new form Empleados
      */
     public Producciones() {
 
-        controladorProducción = new ControladorProducción();
+        controladorEmpleados = new ControladorEmpleados();
         initComponents();
         this.setLocationRelativeTo(null);
         Leer.transparenciaBoton(jBotonAtras);
@@ -44,9 +49,20 @@ public class Producciones extends javax.swing.JFrame {
 
         // Llenamos matrizDatos y actualizamos tabla
         actualizarMatrizDato();
+        
+        controladorproduccion = new ControladorProducción();
+        // Inicializamos el modelo de tabla con las columnas vacías
+        dtmpro = new DefaultTableModel(matrizDatosProduccion, columnaspro);
+        TablaProComple.setModel(dtmpro);
+        String idEmpleado = null;
+        
+        // Llenamos matrizDatosProduccion y actualizamos tabla
+        actualizarMatrizDatoProduccion(idEmpleado);
+        
+        
     }
 
-    public void actualizarMatrizDatoaaa() {
+    public void actualizarMatrizDato() {
 
         ConexionBDR con = new ConexionBDR();
         Connection conexion = con.conectar();
@@ -80,11 +96,18 @@ public class Producciones extends javax.swing.JFrame {
         }
     }
 
-    public void actualizarMatrizDato() {
+    public void actualizarMatrizDatoProduccion(String idEmpleado) {
+        
+        //TablaProComple.setVisible(false);
+
         ConexionBDR con = new ConexionBDR();
         Connection conexion = con.conectar();
 
-        String sql = "SELECT * FROM produccion";
+        String sql = "SELECT p.id, e.nombre, p.producto, p.cantidad, p.estado_f, p.fecha_inicio, p.fecha_fin " +
+             "FROM produccion p " +
+             "JOIN empleados e ON p.empleado_id = e.id " +
+             "WHERE p.empleado_id = " + idEmpleado;
+
         List<Object[]> datos = new ArrayList<>();
 
         try (Statement st = conexion.createStatement(); ResultSet rs = st.executeQuery(sql)) {
@@ -92,22 +115,22 @@ public class Producciones extends javax.swing.JFrame {
                 Object[] fila = new Object[7];
                 fila[0] = rs.getInt("id");
                 fila[1] = rs.getString("empleado_id");
-                fila[2] = rs.getInt("cantidad");
-                fila[3] = rs.getString("producto");
-                fila[4] = rs.getString("estado_f");
-                fila[5] = rs.getString("fecha_inicio");
-                fila[6] = rs.getString("fecha_fin");
+                fila[2] = rs.getInt("producto");
+                fila[3] = rs.getString("cantidad");
+                fila[4] = rs.getString("fecha_inicio");
+                fila[5] = rs.getString("fecha_fin");
+                fila[6] = rs.getString("estado_f");
                 datos.add(fila);
             }
 
             // Pasamos de lista a matriz
-            matrizDatos = new Object[datos.size()][columnas.length];
+            matrizDatosProduccion = new Object[datos.size()][columnaspro.length];
             for (int i = 0; i < datos.size(); i++) {
-                matrizDatos[i] = datos.get(i);
+                matrizDatosProduccion[i] = datos.get(i);
             }
 
             // Actualizamos el modelo de la tabla
-            dtm.setDataVector(matrizDatos, columnas);
+            dtmpro.setDataVector(matrizDatosProduccion, columnaspro);
 
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(this, "Error al cargar empleados: " + e.getMessage());
@@ -424,7 +447,7 @@ public class Producciones extends javax.swing.JFrame {
             if (resultado) {
                 JOptionPane.showMessageDialog(null, "Producción añadida correctamente.");
                 String idEmpleado = jID.getText();
-                //mostrarProduccionPorEmpleado(idEmpleado);
+                actualizarMatrizDatoProduccion(idEmpleado);
             }
         } catch (NumberFormatException e) {
             JOptionPane.showMessageDialog(null, "La cantidad debe ser un número entero.");
