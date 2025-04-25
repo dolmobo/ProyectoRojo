@@ -4,11 +4,13 @@
  */
 package Modelo;
 
+import java.io.Serializable;
+
 /**
  *
  * @author USUARIO
  */
-public class Empleado {
+public class Empleado implements Serializable{ // Se implementa el Serializable para el uso de XMLENCODER
 
     private int id;
     private String nombre;

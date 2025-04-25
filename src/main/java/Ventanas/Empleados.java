@@ -115,6 +115,8 @@ public class Empleados extends javax.swing.JFrame {
         jfechacontratacion = new javax.swing.JTextField();
         jButtonEliminarVisualizacion = new javax.swing.JButton();
         jButtonEditar = new javax.swing.JButton();
+        guardarDatos = new javax.swing.JButton();
+        cargarDatos = new javax.swing.JButton();
         fondoprincipal = new javax.swing.JLabel();
 
         jLabelLogo1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/logoGestiCor.png"))); // NOI18N
@@ -304,6 +306,22 @@ public class Empleados extends javax.swing.JFrame {
         });
         jPanel1.add(jButtonEditar, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 480, 80, -1));
 
+        guardarDatos.setText("Guardar datos en fichero xml");
+        guardarDatos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                guardarDatosActionPerformed(evt);
+            }
+        });
+        jPanel1.add(guardarDatos, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 520, 210, -1));
+
+        cargarDatos.setText("Cargar datos de fichero xml");
+        cargarDatos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cargarDatosActionPerformed(evt);
+            }
+        });
+        jPanel1.add(cargarDatos, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 550, 210, -1));
+
         fondoprincipal.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/gradient_800_600.png"))); // NOI18N
         jPanel1.add(fondoprincipal, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 800, 590));
 
@@ -485,6 +503,32 @@ public class Empleados extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jComboBoxEstadoActionPerformed
 
+    private void cargarDatosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cargarDatosActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cargarDatosActionPerformed
+
+    private void guardarDatosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_guardarDatosActionPerformed
+        FileOutputStream fos;
+        XMLEncoder xmle;
+
+        // necesitamos pasar el DefaultListModel a List para poder guardarlo como XML
+        //List lista = (List) pasarModeloALista(listaPalabras);
+        try {
+            fos = new FileOutputStream("listadoClientes.xml");
+            xmle = new XMLEncoder(new BufferedOutputStream(fos));
+            // guardar el TableModel
+
+            // crear un ArrayList de Cliences
+            // recorrer el TableModel, ir creando Clientes y añadiendolos a una colección
+
+            xmle.writeObject(Tabla.getModel());
+            xmle.close();
+        } catch (Exception e) {
+            System.err.println("\tERROR en la escritura de datos del archivo: " + "listadoColores.xml");
+        }
+        // TODO add your handling code here:
+    }//GEN-LAST:event_guardarDatosActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -522,7 +566,9 @@ public class Empleados extends javax.swing.JFrame {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton cargarDatos;
     private javax.swing.JLabel fondoprincipal;
+    private javax.swing.JButton guardarDatos;
     private javax.swing.JButton jActualizar;
     private javax.swing.JButton jAñadir;
     private javax.swing.JButton jBotonAtras;
