@@ -31,10 +31,6 @@ public class ConexionBDR {
         leerFicheroConfiguracion();
     }
     
-    
-    
-    
-    
         public Connection conectar() {
         try {
             Connection con = DriverManager.getConnection(url, usuario, clave);

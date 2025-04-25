@@ -62,22 +62,4 @@ public class ControladorProducción {
         }
     }
     
-
-
-
-//    public static void eliminar(String nombre, String apellidos, String email, String direccion) {
-//        try {
-//            if (nombre.equals("") || apellidos.equals("") || email.equals("") || direccion.equals("")) {
-//                JOptionPane.showMessageDialog(null, "Faltan datos por ingresar.");
-//            } else {
-//                Connection con = new ConexionBDR().conectar();
-//                String sql = "DELETE FROM clientes WHERE nombre = '" + nombre + "' AND apellidos = '" + apellidos
-//                        + "' AND email = '" + email + "' AND direccion = '" + direccion + "'";
-//                Statement st = con.createStatement();
-//                st.executeUpdate(sql);
-//                JOptionPane.showMessageDialog(null, "Nuevo empleado eliminado con exito.");
-//            }
-//        } catch (Exception e) {
-//        }
-//    }
 }

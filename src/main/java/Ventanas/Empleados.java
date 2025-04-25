@@ -508,25 +508,25 @@ public class Empleados extends javax.swing.JFrame {
     }//GEN-LAST:event_cargarDatosActionPerformed
 
     private void guardarDatosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_guardarDatosActionPerformed
-        FileOutputStream fos;
-        XMLEncoder xmle;
-
-        // necesitamos pasar el DefaultListModel a List para poder guardarlo como XML
-        //List lista = (List) pasarModeloALista(listaPalabras);
-        try {
-            fos = new FileOutputStream("listadoClientes.xml");
-            xmle = new XMLEncoder(new BufferedOutputStream(fos));
-            // guardar el TableModel
-
-            // crear un ArrayList de Cliences
-            // recorrer el TableModel, ir creando Clientes y añadiendolos a una colección
-
-            xmle.writeObject(Tabla.getModel());
-            xmle.close();
-        } catch (Exception e) {
-            System.err.println("\tERROR en la escritura de datos del archivo: " + "listadoColores.xml");
-        }
-        // TODO add your handling code here:
+//        FileOutputStream fos;
+//        XMLEncoder xmle;
+//
+//        // necesitamos pasar el DefaultListModel a List para poder guardarlo como XML
+//        //List lista = (List) pasarModeloALista(listaPalabras);
+//        try {
+//            fos = new FileOutputStream("listadoClientes.xml");
+//            xmle = new XMLEncoder(new BufferedOutputStream(fos));
+//            // guardar el TableModel
+//
+//            // crear un ArrayList de Cliences
+//            // recorrer el TableModel, ir creando Clientes y añadiendolos a una colección
+//
+//            xmle.writeObject(Tabla.getModel());
+//            xmle.close();
+//        } catch (Exception e) {
+//            System.err.println("\tERROR en la escritura de datos del archivo: " + "listadoColores.xml");
+//        }
+//        // TODO add your handling code here:
     }//GEN-LAST:event_guardarDatosActionPerformed
 
     /**
