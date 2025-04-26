@@ -8,10 +8,16 @@ import Usos.ConexionBDR;
 import Controlador.ControladorClientes;
 import Controlador.ControladorEmpleados;
 import Modelo.Cliente;
+import Modelo.Empleado;
 import Usos.Leer;
+import java.beans.XMLDecoder;
 import java.beans.XMLEncoder;
+import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
+import java.io.FileInputStream;
 import java.io.FileOutputStream;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -128,8 +134,11 @@ public class Clientes extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         Tabla = new javax.swing.JTable();
         jLabel7 = new javax.swing.JLabel();
-        cargarDatos = new javax.swing.JButton();
-        guardarDatos = new javax.swing.JButton();
+        cargarDatosBinario = new javax.swing.JButton();
+        guardarDatosX = new javax.swing.JButton();
+        guardarDatosXML = new javax.swing.JButton();
+        cargarDatosXML = new javax.swing.JButton();
+        jLabel10 = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
         modificar = new javax.swing.JButton();
         Añadir = new javax.swing.JButton();
@@ -345,35 +354,62 @@ public class Clientes extends javax.swing.JFrame {
         jLabel7.setText("GESTIÓN DE CLIENTES GESTICOR");
         jLabel7.setMaximumSize(new java.awt.Dimension(280, 20));
 
-        cargarDatos.setText("Cargar datos de fichero xml");
-        cargarDatos.addActionListener(new java.awt.event.ActionListener() {
+        cargarDatosBinario.setText("Cargar datos de fichero binario");
+        cargarDatosBinario.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                cargarDatosActionPerformed(evt);
+                cargarDatosBinarioActionPerformed(evt);
             }
         });
 
-        guardarDatos.setText("Guardar datos en fichero xml");
-        guardarDatos.addActionListener(new java.awt.event.ActionListener() {
+        guardarDatosX.setText("Guardar datos en fichero binario");
+        guardarDatosX.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                guardarDatosActionPerformed(evt);
+                guardarDatosXActionPerformed(evt);
             }
         });
+
+        guardarDatosXML.setText("Guardar datos en fichero xml");
+        guardarDatosXML.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                guardarDatosXMLActionPerformed(evt);
+            }
+        });
+
+        cargarDatosXML.setText("Cargar datos de fichero xml");
+        cargarDatosXML.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cargarDatosXMLActionPerformed(evt);
+            }
+        });
+
+        jLabel10.setFont(new java.awt.Font("Sylfaen", 1, 18)); // NOI18N
+        jLabel10.setForeground(new java.awt.Color(0, 0, 0));
+        jLabel10.setText("Gestión de archivos ");
+        jLabel10.setMaximumSize(new java.awt.Dimension(280, 20));
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
         jPanel4Layout.setHorizontalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
-                .addContainerGap(89, Short.MAX_VALUE)
-                .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(75, 75, 75))
             .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING)
             .addGroup(jPanel4Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(guardarDatos)
-                    .addComponent(cargarDatos, javax.swing.GroupLayout.PREFERRED_SIZE, 189, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(jPanel4Layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(75, 75, 75))
+                    .addGroup(jPanel4Layout.createSequentialGroup()
+                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(guardarDatosXML, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(cargarDatosXML, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGap(18, 18, 18)
+                        .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(guardarDatosX, javax.swing.GroupLayout.PREFERRED_SIZE, 191, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(cargarDatosBinario, javax.swing.GroupLayout.PREFERRED_SIZE, 189, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addContainerGap(7, Short.MAX_VALUE))))
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -382,11 +418,20 @@ public class Clientes extends javax.swing.JFrame {
                 .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 395, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(30, 30, 30)
-                .addComponent(guardarDatos, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(27, 27, 27)
-                .addComponent(cargarDatos, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(51, Short.MAX_VALUE))
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel4Layout.createSequentialGroup()
+                        .addGap(18, 18, 18)
+                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(guardarDatosXML, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(guardarDatosX, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(32, 32, 32)
+                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(cargarDatosBinario, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(cargarDatosXML, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(jPanel4Layout.createSequentialGroup()
+                        .addGap(59, 59, 59)
+                        .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(56, Short.MAX_VALUE))
         );
 
         jPanel1.add(jPanel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 0, 580, 660));
@@ -633,31 +678,159 @@ public class Clientes extends javax.swing.JFrame {
         actualizarMatrizDatos();
     }//GEN-LAST:event_refrescarActionPerformed
 
-    private void cargarDatosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cargarDatosActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_cargarDatosActionPerformed
+    private void cargarDatosBinarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cargarDatosBinarioActionPerformed
+    try {
+        // Abres el archivo binario
+        FileInputStream fis = new FileInputStream("listadoClientes.bin");
+        ObjectInputStream ois = new ObjectInputStream(fis);
 
-    private void guardarDatosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_guardarDatosActionPerformed
-        FileOutputStream fos;
-        XMLEncoder xmle;
+        // Lees la lista de clientes
+        List<Cliente> listaClientes = (List<Cliente>) ois.readObject();
 
-        // necesitamos pasar el DefaultListModel a List para poder guardarlo como XML
-        //List lista = (List) pasarModeloALista(listaPalabras);
-        try {
-            fos = new FileOutputStream("listadoClientes.xml");
-            xmle = new XMLEncoder(new BufferedOutputStream(fos));
-            // guardar el TableModel
-            
-            // crear un ArrayList de Cliences
-            // recorrer el TableModel, ir creando Clientes y añadiendolos a una colección
-            
-            xmle.writeObject(Tabla.getModel());
-            xmle.close();
-        } catch (Exception e) {
-            System.err.println("\tERROR en la escritura de datos del archivo: " + "listadoColores.xml");
+        ois.close();
+        fis.close();
+
+        DefaultTableModel model = (DefaultTableModel) Tabla.getModel();
+        model.setRowCount(0);        
+        
+
+        // Insertas cada cliente
+        for (Cliente cliente : listaClientes) {
+            controladorClientes.añadir(cliente);
+            actualizarMatrizDatos();
         }
+
+        JOptionPane.showMessageDialog(this, "Datos cargados del binario a la base de datos correctamente.");
+        
+        // Refrescas la tabla
+        
+    } catch (Exception e) {
+        System.err.println("ERROR cargando datos desde binario");
+        e.printStackTrace();
+    }
+
+
+
+
         // TODO add your handling code here:
-    }//GEN-LAST:event_guardarDatosActionPerformed
+    }//GEN-LAST:event_cargarDatosBinarioActionPerformed
+
+    private void guardarDatosXActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_guardarDatosXActionPerformed
+    try {
+        // Creamos el flujo de salida hacia un archivo binario
+        FileOutputStream fos = new FileOutputStream("listadoClientes.bin");
+        ObjectOutputStream oos = new ObjectOutputStream(fos);
+
+        // Creamos la lista de clientes
+        List<Cliente> listaClientes = new ArrayList<>();
+
+        // Obtenemos el modelo de datos de la tabla
+        DefaultTableModel model = (DefaultTableModel) Tabla.getModel();
+        int filas = model.getRowCount();
+
+        // Recorremos las filas
+        for (int i = 0; i < filas; i++) {
+            int id = Integer.parseInt(model.getValueAt(i, 0).toString());
+            String nombre = model.getValueAt(i, 1).toString();
+            String apellidos = model.getValueAt(i, 2).toString();
+            String telefono = model.getValueAt(i, 3).toString();
+            String email = model.getValueAt(i, 4).toString();
+            String direccion = model.getValueAt(i, 5).toString();
+
+            // Creamos el objeto Cliente
+            Cliente cliente = new Cliente(id, nombre, apellidos, telefono, email, direccion);
+            listaClientes.add(cliente);
+        }
+
+        // Guardamos la lista en el archivo binario
+        oos.writeObject(listaClientes);
+
+        // Cerramos el flujo
+        oos.close();
+        
+        JOptionPane.showMessageDialog(this, "Datos guardados correctamente en binario.");
+    } catch (Exception e) {
+        System.err.println("ERROR en la escritura de datos del archivo binario");
+        e.printStackTrace();
+    }
+        // TODO add your handling code here:
+    }//GEN-LAST:event_guardarDatosXActionPerformed
+
+    private void guardarDatosXMLActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_guardarDatosXMLActionPerformed
+        try {
+            // Se crea un flujo de salida para escribir en el archivo "listadoClientes.xml"
+            FileOutputStream fos = new FileOutputStream("listadoClientes.xml");
+
+            // Se crea un codificador XML que escribirá en el flujo de salida, con buffer para mayor eficiencia
+            XMLEncoder xmle = new XMLEncoder(new BufferedOutputStream(fos));
+
+            // Se crea una lista vacía donde se guardarán todos los empleados
+            List<Cliente> listaClientes = new ArrayList<>();
+
+            // Se obtiene el modelo de datos (las filas y columnas) de la tabla "visor"
+            DefaultTableModel model = (DefaultTableModel) Tabla.getModel();
+            int filas = model.getRowCount(); // Se obtiene el número de filas de la tabla
+
+            // Se recorre cada fila de la tabla
+            for (int i = 0; i < filas; i++) {
+                // Se leen y convierten los datos de cada columna de la fila actual
+                int id = Integer.parseInt(model.getValueAt(i, 0).toString());       // Columna 0: ID
+                String nombre = model.getValueAt(i, 1).toString();                  // Columna 1: Nombre
+                String apellidos = model.getValueAt(i, 2).toString();                  // Columna 2: Apellidos
+                String telefono = model.getValueAt(i, 3).toString();                  // Columna 2: Apellidos
+                String email = model.getValueAt(i, 4).toString();                  // Columna 2: Apellidos
+                String direccion = model.getValueAt(i, 5).toString();                  // Columna 2: Apellidos
+
+
+                // Se crea un objeto Empleado con los datos leídos
+                Cliente cliente = new Cliente(id, nombre, apellidos, telefono, email, direccion);
+
+                // Se añade el empleado a la lista
+                listaClientes.add(cliente);
+            }
+
+            // Se escribe la lista completa de empleados en el archivo XML
+            xmle.writeObject(listaClientes);
+
+            // Se cierra el codificador para finalizar la escritura
+            xmle.close();
+            JOptionPane.showMessageDialog(this, "Datos guardados correctamente en XML.");            
+        } catch (Exception e) {
+            // En caso de error, se muestra un mensaje en consola
+            System.err.println("\tERROR en la escritura de datos del archivo: listadoEmpleados.xml");
+            e.printStackTrace(); // Opcional: muestra detalles técnicos del error
+        }
+
+
+        // TODO add your handling code here:
+    }//GEN-LAST:event_guardarDatosXMLActionPerformed
+
+    private void cargarDatosXMLActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cargarDatosXMLActionPerformed
+        try {
+        // Abrimos el archivo XML donde están guardados los empleados
+        FileInputStream fis = new FileInputStream("listadoClientes.xml");
+        XMLDecoder xmld = new XMLDecoder(new BufferedInputStream(fis));
+
+        // Leemos la lista de empleados del archivo
+        List<Cliente> listaClientes = (List<Cliente>) xmld.readObject();
+        xmld.close();
+
+        // Obtenemos el modelo de la tabla
+        DefaultTableModel model = (DefaultTableModel) Tabla.getModel();
+        model.setRowCount(0); // Limpiamos la tabla antes de cargar nuevos datos
+
+        // Recorremos la lista y añadimos cada empleado como una fila en la tabla
+         for (Cliente cliente : listaClientes) {
+            // Llamamos al metodo añadir
+            controladorClientes.añadir(cliente);
+            actualizarMatrizDatos();
+        }
+    } catch (Exception e) {
+        System.err.println("\tERROR al leer el archivo listadoClientes.xml");
+        e.printStackTrace();
+    }   
+
+    }//GEN-LAST:event_cargarDatosXMLActionPerformed
 
     /**
      * @param args the command line arguments
@@ -811,13 +984,16 @@ public class Clientes extends javax.swing.JFrame {
     private javax.swing.JButton Añadir;
     private javax.swing.JButton Eliminar;
     private javax.swing.JTable Tabla;
-    private javax.swing.JButton cargarDatos;
+    private javax.swing.JButton cargarDatosBinario;
+    private javax.swing.JButton cargarDatosXML;
     private javax.swing.JLabel fondoprincipal;
-    private javax.swing.JButton guardarDatos;
+    private javax.swing.JButton guardarDatosX;
+    private javax.swing.JButton guardarDatosXML;
     private javax.swing.JTextField id;
     private javax.swing.JButton jBotonAtras;
     private javax.swing.JButton jButtonEliminarVisualizacion;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
