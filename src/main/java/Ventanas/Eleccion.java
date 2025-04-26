@@ -125,7 +125,7 @@ public class Eleccion extends javax.swing.JFrame {
 
     private void jBotonProduccionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBotonProduccionActionPerformed
         // TODO add your handling code here:
-        Produccion abrir=new Produccion();
+        Producciones abrir=new Producciones();
         abrir.setVisible(true);
         this.setVisible(false);
     }//GEN-LAST:event_jBotonProduccionActionPerformed

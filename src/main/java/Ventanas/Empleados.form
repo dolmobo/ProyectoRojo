@@ -104,7 +104,7 @@
           </AuxValues>
           <Constraints>
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-              <AbsoluteConstraints x="280" y="100" width="510" height="470"/>
+              <AbsoluteConstraints x="310" y="100" width="630" height="440"/>
             </Constraint>
           </Constraints>
 
@@ -171,14 +171,14 @@
         </Container>
         <Component class="javax.swing.JButton" name="jActualizar">
           <Properties>
-            <Property name="text" type="java.lang.String" value="Refrescar"/>
+            <Property name="text" type="java.lang.String" value="Refrescar Empleados"/>
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jActualizarActionPerformed"/>
           </Events>
           <Constraints>
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-              <AbsoluteConstraints x="80" y="390" width="100" height="-1"/>
+              <AbsoluteConstraints x="530" y="550" width="190" height="-1"/>
             </Constraint>
           </Constraints>
         </Component>
@@ -191,7 +191,7 @@
           </Events>
           <Constraints>
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-              <AbsoluteConstraints x="90" y="440" width="80" height="-1"/>
+              <AbsoluteConstraints x="110" y="390" width="90" height="-1"/>
             </Constraint>
           </Constraints>
         </Component>
@@ -204,14 +204,14 @@
           </Events>
           <Constraints>
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-              <AbsoluteConstraints x="140" y="480" width="80" height="-1"/>
+              <AbsoluteConstraints x="180" y="430" width="80" height="-1"/>
             </Constraint>
           </Constraints>
         </Component>
         <Container class="javax.swing.JPanel" name="jPanelDatos">
           <Constraints>
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-              <AbsoluteConstraints x="20" y="100" width="200" height="250"/>
+              <AbsoluteConstraints x="20" y="120" width="220" height="250"/>
             </Constraint>
           </Constraints>
 
@@ -234,7 +234,7 @@
                               </Group>
                               <EmptySpace max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="0" attributes="0">
-                                  <Component id="jComboBoxEstado" pref="124" max="32767" attributes="0"/>
+                                  <Component id="jComboBoxEstado" pref="155" max="32767" attributes="0"/>
                                   <Component id="jTextoSalario" max="32767" attributes="0"/>
                                   <Component id="jTextoNombre" max="32767" attributes="0"/>
                                   <Component id="jTextoPuesto" max="32767" attributes="0"/>
@@ -362,7 +362,7 @@
           </Events>
           <Constraints>
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-              <AbsoluteConstraints x="220" y="190" width="50" height="-1"/>
+              <AbsoluteConstraints x="250" y="250" width="50" height="40"/>
             </Constraint>
           </Constraints>
         </Component>
@@ -375,19 +375,45 @@
           </Events>
           <Constraints>
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-              <AbsoluteConstraints x="40" y="480" width="80" height="-1"/>
+              <AbsoluteConstraints x="50" y="430" width="80" height="-1"/>
+            </Constraint>
+          </Constraints>
+        </Component>
+        <Component class="javax.swing.JButton" name="guardarDatos">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Guardar datos en fichero xml"/>
+          </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="guardarDatosActionPerformed"/>
+          </Events>
+          <Constraints>
+            <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
+              <AbsoluteConstraints x="50" y="480" width="210" height="-1"/>
+            </Constraint>
+          </Constraints>
+        </Component>
+        <Component class="javax.swing.JButton" name="cargarDatos">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Cargar datos de fichero xml"/>
+          </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="cargarDatosActionPerformed"/>
+          </Events>
+          <Constraints>
+            <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
+              <AbsoluteConstraints x="50" y="530" width="210" height="-1"/>
             </Constraint>
           </Constraints>
         </Component>
         <Component class="javax.swing.JLabel" name="fondoprincipal">
           <Properties>
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-              <Image iconType="3" name="/Imagenes/gradient_800_600.png"/>
+              <Image iconType="3" name="/Imagenes/gradient_1920_1080.png"/>
             </Property>
           </Properties>
           <Constraints>
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-              <AbsoluteConstraints x="0" y="0" width="800" height="590"/>
+              <AbsoluteConstraints x="0" y="0" width="950" height="590"/>
             </Constraint>
           </Constraints>
         </Component>

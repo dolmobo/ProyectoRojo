@@ -5,12 +5,21 @@
 package Ventanas;
 
 import Controlador.ControladorEmpleados;
+import Controlador.ControladorProducción;
 import Usos.ConexionBDR;
 import Usos.Leer;
+import java.beans.XMLDecoder;
+import java.beans.XMLEncoder;
+import java.io.BufferedInputStream;
+import java.io.BufferedOutputStream;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
@@ -18,89 +27,122 @@ import javax.swing.table.DefaultTableModel;
  *
  * @author USUARIO
  */
-public class Produccion extends javax.swing.JFrame {
+public class Producciones extends javax.swing.JFrame {
+
+    private ControladorEmpleados controladorEmpleados;
+    private Object[][] matrizDatos;
+    private String[] columnas = {"ID", "Nombre", "Puesto", "Salario", "Fecha Contratacion", "Estado"};
+    private DefaultTableModel dtm;
+
+    private ControladorProducción controladorproduccion;
+    private Object[][] matrizDatosProduccion;
+    private String[] columnaspro = {"ID Produccion", "Empleado", "Cantidad", "Producto", "Estado", "Fecha Inicio", "Fecha Fin"};
+    private DefaultTableModel dtmpro;
 
     /**
      * Creates new form Empleados
      */
-    public Produccion() {
+    public Producciones() {
+
+        controladorEmpleados = new ControladorEmpleados();
         initComponents();
-        RefrescarTablaEmpleados("empleados");
-        Leer.transparenciaBoton(jBotonAtras);
         this.setLocationRelativeTo(null);
+        Leer.transparenciaBoton(jBotonAtras);
+
+        // Inicializamos el modelo de tabla con las columnas vacías
+        dtm = new DefaultTableModel(matrizDatos, columnas);
+        visor.setModel(dtm);
+
+        // Llenamos matrizDatos y actualizamos tabla
+        actualizarMatrizDato();
+
+        controladorproduccion = new ControladorProducción();
+        // Inicializamos el modelo de tabla con las columnas vacías
+        dtmpro = new DefaultTableModel(matrizDatosProduccion, columnaspro);
+        TablaProComple.setModel(dtmpro);
+        int idEmpleado = -1;
+
+        // Llenamos matrizDatosProduccion y actualizamos tabla
+        actualizarMatrizDatoProduccion(idEmpleado);
+
     }
 
-    public void RefrescarTablaEmpleados(String tabla) {
-        String sql = "select * from " + tabla;
-        Statement st;
-        ConexionBDR con = new ConexionBDR();
-        Connection ConexionBDR = con.conectar();
-        System.out.println(sql);
-        DefaultTableModel model = new DefaultTableModel();
-        model.addColumn("ID");
-        model.addColumn("Nombre");
-        model.addColumn("Puesto");
-        model.addColumn("Salario");
-        model.addColumn("Fecha Contratacion");
-        model.addColumn("Estado");
-        visor.setModel(model);
+    public void actualizarMatrizDato() {
 
-        String[] datos = new String[6];
-        try {
-            st = ConexionBDR.createStatement();
-            ResultSet rs = st.executeQuery(sql);
+        ConexionBDR con = new ConexionBDR();
+        Connection conexion = con.conectar();
+
+        String sql = "SELECT * FROM empleados";
+        List<Object[]> datos = new ArrayList<>();
+
+        try (Statement st = conexion.createStatement(); ResultSet rs = st.executeQuery(sql)) {
             while (rs.next()) {
-                datos[0] = rs.getString(1);
-                datos[1] = rs.getString(2);
-                datos[2] = rs.getString(3);
-                datos[3] = rs.getString(4);
-                datos[4] = rs.getString(5);
-                datos[5] = rs.getString(6);
-                model.addRow(datos);
+                Object[] fila = new Object[6];
+                fila[0] = rs.getInt("id");
+                fila[1] = rs.getString("nombre");
+                fila[2] = rs.getString("puesto");
+                fila[3] = rs.getInt("salario");
+                fila[4] = rs.getString("fecha_contratacion");
+                fila[5] = rs.getString("estado");
+                datos.add(fila);
             }
+
+            // Pasamos de lista a matriz
+            matrizDatos = new Object[datos.size()][columnas.length];
+            for (int i = 0; i < datos.size(); i++) {
+                matrizDatos[i] = datos.get(i);
+            }
+
+            // Actualizamos el modelo de la tabla
+            dtm.setDataVector(matrizDatos, columnas);
+
         } catch (SQLException e) {
-            JOptionPane.showMessageDialog(null, "Error" + e.toString());
+            JOptionPane.showMessageDialog(this, "Error al cargar empleados: " + e.getMessage());
         }
     }
 
-    // Método para mostrar la producción de un empleado
-    public void mostrarProduccionPorEmpleado(String idEmpleado) {
-        // Modificamos la consulta SQL para obtener los datos que necesitas
-        String sql = "SELECT p.id, e.nombre, p.producto, p.cantidad, p.estado_f, p.fecha_inicio, p.fecha_fin "
+    public void actualizarMatrizDatoProduccion(int idEmpleado) {
+        if (idEmpleado < 0) {
+            return;
+        }
+
+        //TablaProComple.setVisible(false);
+        ConexionBDR con = new ConexionBDR();
+        Connection conexion = con.conectar();
+
+        String sql = "SELECT p.id, e.nombre, p.cantidad, p.producto, p.estado_f, p.fecha_inicio, p.fecha_fin "
                 + "FROM produccion p "
                 + "JOIN empleados e ON p.empleado_id = e.id "
                 + "WHERE p.empleado_id = " + idEmpleado;
 
-        Statement st;
-        ConexionBDR con = new ConexionBDR();
-        Connection conexionBDR = con.conectar();
-        DefaultTableModel model = new DefaultTableModel();
-        model.addColumn("ID Produccion");
-        model.addColumn("Empleado");
-        model.addColumn("Producto");
-        model.addColumn("Cantidad");
-        model.addColumn("Estado");
-        model.addColumn("Fecha Inicio");
-        model.addColumn("Fecha Fin");
-        TablaProComple.setModel(model);
+        List<Object[]> datos = new ArrayList<>();
 
-        String[] datos = new String[7]; // Ahora tenemos 7 columnas
-        try {
-            st = conexionBDR.createStatement();
-            ResultSet rs = st.executeQuery(sql);
+        try (Statement st = conexion.createStatement(); ResultSet rs = st.executeQuery(sql)) {
             while (rs.next()) {
-                datos[0] = rs.getString("id");
-                datos[1] = rs.getString("nombre");  // Nombre del empleado
-                datos[2] = rs.getString("producto");  // Nombre del producto
-                datos[3] = rs.getString("cantidad");
-                datos[4] = rs.getString("estado_f");
-                datos[5] = rs.getString("fecha_inicio");
-                datos[6] = rs.getString("fecha_fin");
-                model.addRow(datos);
+                Object[] fila = new Object[7];
+                fila[0] = rs.getInt("id");
+                fila[1] = rs.getString("nombre");
+                fila[2] = rs.getInt("cantidad");
+                fila[3] = rs.getString("producto");
+                fila[4] = rs.getString("estado_f");
+                fila[5] = rs.getString("fecha_inicio");
+                fila[6] = rs.getString("fecha_fin");
+                datos.add(fila);
             }
+
+            // Pasamos de lista a matriz
+            matrizDatosProduccion = new Object[datos.size()][columnaspro.length];
+            for (int i = 0; i < datos.size(); i++) {
+                matrizDatosProduccion[i] = datos.get(i);
+            }
+
+            // Actualizamos el modelo de la tabla
+            dtmpro.setDataVector(matrizDatosProduccion, columnaspro);
+
         } catch (SQLException e) {
-            JOptionPane.showMessageDialog(null, "Error: " + e.toString());
+            JOptionPane.showMessageDialog(this, "Error al cargar empleados: " + e.getMessage());
         }
+
     }
 
     /**
@@ -139,6 +181,8 @@ public class Produccion extends javax.swing.JFrame {
         TablaProComple = new javax.swing.JTable();
         jLabel3 = new javax.swing.JLabel();
         jLabel10 = new javax.swing.JLabel();
+        CargarDatos = new javax.swing.JButton();
+        guardaDatos = new javax.swing.JButton();
         jLabel11 = new javax.swing.JLabel();
         jLabel12 = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
@@ -158,19 +202,19 @@ public class Produccion extends javax.swing.JFrame {
         jPanel1.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 270, -1, -1));
 
         jLabel4.setText("[Cantidad] ");
-        jPanel1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 350, -1, -1));
+        jPanel1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 330, -1, -1));
 
         jLabel6.setText("[Fecha Inicio]");
-        jPanel1.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 430, -1, -1));
+        jPanel1.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 390, -1, -1));
 
         jLabel7.setText("[Estado]");
-        jPanel1.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 390, -1, -1));
+        jPanel1.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 360, -1, -1));
 
         jLabel8.setText("[Fecha Fin]");
-        jPanel1.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 470, -1, -1));
+        jPanel1.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 420, -1, -1));
 
         jLabel9.setText("[Producto]");
-        jPanel1.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 310, -1, -1));
+        jPanel1.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 300, -1, -1));
 
         anadirUsuario.setText("Añadir");
         anadirUsuario.addActionListener(new java.awt.event.ActionListener() {
@@ -180,6 +224,7 @@ public class Produccion extends javax.swing.JFrame {
         });
         jPanel1.add(anadirUsuario, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 590, 80, 30));
 
+        jempleado.setEditable(false);
         jempleado.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jempleadoActionPerformed(evt);
@@ -192,27 +237,32 @@ public class Produccion extends javax.swing.JFrame {
                 jcantidadActionPerformed(evt);
             }
         });
-        jPanel1.add(jcantidad, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 350, 120, -1));
+        jPanel1.add(jcantidad, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 330, 120, -1));
 
         jestado_f.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Finalizado", "En Proceso" }));
-        jPanel1.add(jestado_f, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 390, 120, -1));
+        jPanel1.add(jestado_f, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 360, 120, -1));
 
         jproducto.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Bandejas", "Cajones", "Palets" }));
-        jPanel1.add(jproducto, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 310, 120, -1));
+        jproducto.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jproductoActionPerformed(evt);
+            }
+        });
+        jPanel1.add(jproducto, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 300, 120, -1));
 
         jfechaInicio.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jfechaInicioActionPerformed(evt);
             }
         });
-        jPanel1.add(jfechaInicio, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 430, 120, -1));
+        jPanel1.add(jfechaInicio, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 390, 120, -1));
 
         jfechaFin.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jfechaFinActionPerformed(evt);
             }
         });
-        jPanel1.add(jfechaFin, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 470, 120, -1));
+        jPanel1.add(jfechaFin, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 420, 120, -1));
 
         resetear.setText("Resetear");
         resetear.addActionListener(new java.awt.event.ActionListener() {
@@ -231,6 +281,16 @@ public class Produccion extends javax.swing.JFrame {
         jPanel1.add(eliminar, new org.netbeans.lib.awtextra.AbsoluteConstraints(560, 590, 80, 30));
 
         modificar.setText("Modificar");
+        modificar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                modificarMouseClicked(evt);
+            }
+        });
+        modificar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                modificarActionPerformed(evt);
+            }
+        });
         jPanel1.add(modificar, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 590, 90, 30));
 
         jBotonAtras.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/atras.png"))); // NOI18N
@@ -284,6 +344,12 @@ public class Produccion extends javax.swing.JFrame {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 TablaProCompleMouseClicked(evt);
             }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                TablaProCompleMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                TablaProCompleMouseExited(evt);
+            }
         });
         jScrollPane2.setViewportView(TablaProComple);
         TablaProComple.getColumnModel().getSelectionModel().setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
@@ -298,8 +364,24 @@ public class Produccion extends javax.swing.JFrame {
         jLabel10.setText("Formulario De Producción");
         jPanel1.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 180, 170, -1));
 
+        CargarDatos.setText("Cargar datos de fichero XML  ");
+        CargarDatos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                CargarDatosActionPerformed(evt);
+            }
+        });
+        jPanel1.add(CargarDatos, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 493, -1, 20));
+
+        guardaDatos.setText("Guardar datos en fichero XML");
+        guardaDatos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                guardaDatosActionPerformed(evt);
+            }
+        });
+        jPanel1.add(guardaDatos, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 463, -1, 20));
+
         jLabel11.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/RecuaGris.jpg"))); // NOI18N
-        jPanel1.add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 170, 280, 360));
+        jPanel1.add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 170, 280, 350));
 
         jLabel12.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/fondoPanel.png"))); // NOI18N
         jPanel1.add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 570, 450, 70));
@@ -406,19 +488,19 @@ public class Produccion extends javax.swing.JFrame {
 
             if (resultado) {
                 JOptionPane.showMessageDialog(null, "Producción añadida correctamente.");
-                String idEmpleado = jID.getText();
-                mostrarProduccionPorEmpleado(idEmpleado);
+                int idEmpleado = Integer.parseInt(jID.getText());
+                actualizarMatrizDatoProduccion(idEmpleado);
             }
         } catch (NumberFormatException e) {
             JOptionPane.showMessageDialog(null, "La cantidad debe ser un número entero.");
         }
-        
+
     }//GEN-LAST:event_anadirUsuarioActionPerformed
 
     private void eliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_eliminarActionPerformed
         // TODO add your handling code here:
         String idProduccion = jIDProduccion.getText();
-        
+
         // Probar mas tarde a ver si funcionan juntas:
         String idEmpleado = jID.getText();
         String tipoProducto = (String) jproducto.getSelectedItem();
@@ -427,23 +509,29 @@ public class Produccion extends javax.swing.JFrame {
         //
 
         Controlador.ControladorProducción.eliminar(idProduccion);
-        
-        mostrarProduccionPorEmpleado(idEmpleado);
+
+        //mostrarProduccionPorEmpleado(idEmpleado);
     }//GEN-LAST:event_eliminarActionPerformed
 
     private void visorMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_visorMouseClicked
         int filaSeleccionada = visor.getSelectedRow();
-        if (filaSeleccionada == -1) {
-            JOptionPane.showMessageDialog(null, "No se ha seleccionado ningun empleado.");
-        } else {
-            // Obtener el ID del empleado seleccionado
-            String idEmpleado = visor.getValueAt(filaSeleccionada, 0).toString();
-            String empleado = (String) visor.getValueAt(filaSeleccionada, 1);
-            jID.setText(idEmpleado);
-            jempleado.setText(empleado);
-            
-            // Llamar al método para mostrar la producción del empleado
-            mostrarProduccionPorEmpleado(idEmpleado);
+        if (filaSeleccionada >= 0) {
+            int idEmpleado = (int) visor.getValueAt(filaSeleccionada, 0); // columna 0 = ID
+            // empleado
+            String id = visor.getValueAt(filaSeleccionada, 0).toString();
+            jID.setText(id);
+            actualizarMatrizDatoProduccion(idEmpleado);
+
+            String nombre = visor.getValueAt(filaSeleccionada, 1).toString();
+            jempleado.setText(nombre);
+
+            // resetear
+            jIDProduccion.setText("");
+            jproducto.setSelectedIndex(-1);
+            jcantidad.setText("");
+            jestado_f.setSelectedIndex(-1);
+            jfechaInicio.setText("");
+            jfechaFin.setText("");
         }
     }//GEN-LAST:event_visorMouseClicked
 
@@ -451,9 +539,9 @@ public class Produccion extends javax.swing.JFrame {
         jID.setText("");
         jIDProduccion.setText("");
         jempleado.setText("");
-        jproducto.setSelectedItem(-1);
+        jproducto.setSelectedIndex(-1);
         jcantidad.setText("");
-        jestado_f.setSelectedItem(-1);
+        jestado_f.setSelectedIndex(-1);
         jfechaInicio.setText("");
         jfechaFin.setText("");
     }//GEN-LAST:event_resetearActionPerformed
@@ -466,34 +554,123 @@ public class Produccion extends javax.swing.JFrame {
         // TODO add your handling code here:
         int filaSeleccionada = TablaProComple.getSelectedRow();
         if (filaSeleccionada == -1) {
-            JOptionPane.showMessageDialog(null, "No se ha seleccionado ningun empleado.");
+            JOptionPane.showMessageDialog(null, "No se ha seleccionado ninguna producción.");
         } else {
-            // Cogemos los valores que estan la fila seleccionada
-            String idStr = TablaProComple.getValueAt(filaSeleccionada, 0).toString();
-            String empleado = (String) TablaProComple.getValueAt(filaSeleccionada, 1);
-            String tipoProducto = (String) TablaProComple.getValueAt(filaSeleccionada, 2);
-            String cantidad = (String) TablaProComple.getValueAt(filaSeleccionada, 3);
-            String estado_f = (String) TablaProComple.getValueAt(filaSeleccionada, 4);
-            String fechaInicio = (String) TablaProComple.getValueAt(filaSeleccionada, 5);
-            String fechaFin = (String) TablaProComple.getValueAt(filaSeleccionada, 6);
+            // Obtenemos los valores en el orden correcto según las columnaspro
 
-            //double salario = Double.parseDouble((String) visor.getValueAt(filaSeleccionada, 3).toString());
-            //String fechaContratacion = (String) visor.getValueAt(filaSeleccionada,4);
-            // Se establecen los datos que han sido seleccionados previamente
+            String idStr = TablaProComple.getValueAt(filaSeleccionada, 0).toString();  // ID Producción
+            //String empleado = TablaProComple.getValueAt(filaSeleccionada, 1).toString();  // Empleado
+            String cantidad = TablaProComple.getValueAt(filaSeleccionada, 2).toString();  // Cantidad
+            String tipoProducto = TablaProComple.getValueAt(filaSeleccionada, 3).toString();  // Producto
+            String estado_f = TablaProComple.getValueAt(filaSeleccionada, 4).toString();  // Estado
+            String fechaInicio = TablaProComple.getValueAt(filaSeleccionada, 5).toString();  // Fecha Inicio
+            String fechaFin = TablaProComple.getValueAt(filaSeleccionada, 6).toString();  // Fecha Fin
+
+            // Asignamos a los campos del formulario
             jIDProduccion.setText(idStr);
-            jempleado.setText(empleado);
-            jproducto.setSelectedItem(tipoProducto);
+            //jempleado.setText(empleado);
             jcantidad.setText(cantidad);
+            jproducto.setSelectedItem(tipoProducto);
             jestado_f.setSelectedItem(estado_f);
             jfechaInicio.setText(fechaInicio);
             jfechaFin.setText(fechaFin);
         }
-
     }//GEN-LAST:event_TablaProCompleMouseClicked
 
     private void jIDProduccionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jIDProduccionActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jIDProduccionActionPerformed
+
+    private void jproductoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jproductoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jproductoActionPerformed
+
+    private void TablaProCompleMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TablaProCompleMouseEntered
+        // TODO add your handling code here:
+    }//GEN-LAST:event_TablaProCompleMouseEntered
+
+    private void TablaProCompleMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TablaProCompleMouseExited
+        // TODO add your handling code here:
+    }//GEN-LAST:event_TablaProCompleMouseExited
+
+    private void modificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_modificarActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_modificarActionPerformed
+    private void modificarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_modificarMouseClicked
+        // TODO add your handling code here:
+        int idProduccion = Integer.parseInt(jIDProduccion.getText());  // ID Producción
+        String producto = (String) jproducto.getSelectedItem();        // Producto
+        int cantidad = Integer.parseInt(jcantidad.getText());          // Cantidad
+        String estado_f = (String) jestado_f.getSelectedItem();        // Estado
+        String fechaInicio = jfechaInicio.getText();                   // Fecha Inicio
+        String fechaFin = jfechaFin.getText();                         // Fecha Fin
+
+        try (Connection conexion = new ConexionBDR().conectar()) {
+            Statement stmt = conexion.createStatement();
+
+            String sql = "UPDATE produccion SET producto = '" + producto
+                    + "', cantidad = " + cantidad
+                    + ", estado_f = '" + estado_f
+                    + "', fecha_inicio = '" + fechaInicio
+                    + "', fecha_fin = '" + fechaFin
+                    + "' WHERE id = " + idProduccion;
+
+            int filasAfectadas = stmt.executeUpdate(sql);
+
+            if (filasAfectadas > 0) {
+                JOptionPane.showMessageDialog(this, "Producción actualizada.");
+                int idEmpleado = Integer.parseInt(jID.getText());
+                actualizarMatrizDatoProduccion(idEmpleado);
+            } else {
+                JOptionPane.showMessageDialog(this, "No se encontró la producción con ese ID.");
+            }
+
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(this, "Error al actualizar: " + e.getMessage());
+        }
+    }//GEN-LAST:event_modificarMouseClicked
+
+    private void CargarDatosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CargarDatosActionPerformed
+        // TODO add your handling code here:
+        try {
+            // Crear un FileInputStream para leer el archivo XML
+            FileInputStream fis = new FileInputStream("C:/Users/halla/Desktop/listadoproducciones.xml");
+            XMLDecoder xmld = new XMLDecoder(new BufferedInputStream(fis));
+
+            // Leer el objeto directamente (una lista o arreglo de filas de la tabla)
+            Object data = xmld.readObject();
+
+            // Verificamos si lo que leímos es un arreglo o lista de objetos
+            if (data instanceof Object[][]) {
+                Object[][] dataArray = (Object[][]) data; // Suponiendo que es un arreglo bidimensional
+
+                // Actualizar el TableModel con los datos leídos
+                dtm.setDataVector(dataArray, columnaspro);  // columnaspro es el arreglo de nombres de las columnas
+
+                JOptionPane.showMessageDialog(this, "Datos cargados correctamente.");
+            }
+
+            xmld.close(); // Cerrar el XMLDecoder
+
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "Error al cargar los datos: " + e.getMessage());
+        }
+    }//GEN-LAST:event_CargarDatosActionPerformed
+
+    private void guardaDatosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_guardaDatosActionPerformed
+        // TODO add your handling code here:
+        try (FileOutputStream fos = new FileOutputStream("C:/Users/halla/Desktop/listadoproducciones.xml"); XMLEncoder xmle = new XMLEncoder(new BufferedOutputStream(fos))) {
+
+            // Obtener los datos del TableModel y guardarlos directamente en el archivo XML
+            xmle.writeObject(dtm.getDataVector());
+
+            // Confirmación
+            JOptionPane.showMessageDialog(this, "Datos guardados correctamente.");
+
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "Error al guardar los datos: " + e.getMessage());
+        }
+    }//GEN-LAST:event_guardaDatosActionPerformed
 
     /**
      * @param args the command line arguments
@@ -512,14 +689,18 @@ public class Produccion extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(Produccion.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Producciones.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(Produccion.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Producciones.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(Produccion.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Producciones.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(Produccion.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Producciones.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
         //</editor-fold>
         //</editor-fold>
         //</editor-fold>
@@ -528,16 +709,18 @@ public class Produccion extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new Produccion().setVisible(true);
+                new Producciones().setVisible(true);
             }
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton CargarDatos;
     private javax.swing.JTable TablaProComple;
     private javax.swing.JButton anadirUsuario;
     private javax.swing.JButton eliminar;
     private javax.swing.JLabel fondoprincipal;
+    private javax.swing.JButton guardaDatos;
     private javax.swing.JButton jBotonAtras;
     private javax.swing.JTextField jID;
     private javax.swing.JTextField jIDProduccion;

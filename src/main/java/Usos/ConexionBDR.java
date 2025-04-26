@@ -20,7 +20,7 @@ public class ConexionBDR {
     private Statement sentencia;
     private String usuario = "root";
     private String clave = "";
-    private String url = "";  // Asegúrate de que el nombre de la base de datos sea correcto
+    private String url = "jdbc:mysql://localhost:3306/prueba4";  // Asegúrate de que el nombre de la base de datos sea correcto
 
    
     
@@ -31,18 +31,14 @@ public class ConexionBDR {
         leerFicheroConfiguracion();
     }
     
-    
-    
-    
-    
         public Connection conectar() {
         try {
             Connection con = DriverManager.getConnection(url, usuario, clave);
             System.out.println("Conexión establecida con " + url);
-            return con;  // Retorna la conexión
+            return con;  
         } catch (SQLException e) {
             System.err.println("Error de conexión: " + e.getMessage());
-            return null;  // Retorna null si falla la conexión
+            return null;  
         }
     }
 

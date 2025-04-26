@@ -5,7 +5,12 @@
 package Ventanas;
 
 import Usos.Leer;
-import javax.swing.JOptionPane;
+import Controlador.ControladorVentas;
+import Modelo.Venta;
+import javax.swing.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.List;
 
 /**
  *
@@ -17,10 +22,10 @@ public class Ventas extends javax.swing.JFrame {
      * Creates new form Empleados
      */
     public Ventas() {
-        //Eliminar por ID
+        // Inicializar los componentes y aplicar transparencia al botón
         initComponents();
         Leer.transparenciaBoton(jBotonAtras);
-        this.setLocationRelativeTo(null);
+        this.setLocationRelativeTo(null);  // Centrar la ventana
     }
 
     /**
@@ -75,11 +80,11 @@ public class Ventas extends javax.swing.JFrame {
 
             },
             new String [] {
-                "ID", "Nombre", "Puesto", "Salario", "Fecha Contratacion", "Estado"
+                "ID", "Nombre", "Cantidad", "Precio", "Vendedor", "Fecha"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.Integer.class, java.lang.String.class, java.lang.String.class
+                java.lang.Integer.class, java.lang.String.class, java.lang.Integer.class, java.lang.Float.class, java.lang.String.class, java.lang.Integer.class
             };
             boolean[] canEdit = new boolean [] {
                 false, false, false, false, false, false
