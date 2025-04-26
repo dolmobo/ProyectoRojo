@@ -43,17 +43,19 @@ public class Ventas extends javax.swing.JFrame {
         jBotonAtras = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         visor = new javax.swing.JTable();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
+        Añadir = new javax.swing.JButton();
+        Editar = new javax.swing.JButton();
+        Eliminar = new javax.swing.JButton();
+        ExportarXML = new javax.swing.JButton();
+        ExportarBIN = new javax.swing.JButton();
+        PrimerApartado = new javax.swing.JLabel();
+        TextFieldNombre = new javax.swing.JTextField();
         SegundoApartado = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
+        TextFieldCantidad = new javax.swing.JTextField();
         TercerApartado = new javax.swing.JLabel();
-        jTextField2 = new javax.swing.JTextField();
+        TextFieldPrecio = new javax.swing.JTextField();
         CuartoApartado = new javax.swing.JLabel();
-        jTextField3 = new javax.swing.JTextField();
-        jLabel5 = new javax.swing.JLabel();
-        jTextField4 = new javax.swing.JTextField();
+        TextFieldVendedor = new javax.swing.JTextField();
         fondoprincipal = new javax.swing.JLabel();
 
         jLabelLogo1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/logoGestiCor.png"))); // NOI18N
@@ -107,47 +109,63 @@ public class Ventas extends javax.swing.JFrame {
 
         jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 70, 440, 400));
 
-        jButton1.setText("Eliminar");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        Añadir.setText("Añadir");
+        jPanel1.add(Añadir, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 340, -1, -1));
+
+        Editar.setText("Editar");
+        jPanel1.add(Editar, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 340, -1, -1));
+
+        Eliminar.setText("Eliminar");
+        Eliminar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                EliminarActionPerformed(evt);
             }
         });
-        jPanel1.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 480, -1, -1));
+        jPanel1.add(Eliminar, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 340, -1, -1));
 
-        jButton2.setText("Editar");
-        jPanel1.add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 340, -1, -1));
+        ExportarXML.setText("Exportar XML");
+        ExportarXML.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ExportarXMLActionPerformed(evt);
+            }
+        });
+        jPanel1.add(ExportarXML, new org.netbeans.lib.awtextra.AbsoluteConstraints(680, 480, -1, -1));
 
-        jButton3.setText("Añadir");
-        jPanel1.add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 340, -1, -1));
+        ExportarBIN.setText("Exportar BIN");
+        ExportarBIN.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ExportarBINActionPerformed(evt);
+            }
+        });
+        jPanel1.add(ExportarBIN, new org.netbeans.lib.awtextra.AbsoluteConstraints(680, 510, -1, -1));
+
+        PrimerApartado.setText("Nombre");
+        jPanel1.add(PrimerApartado, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 70, -1, -1));
+
+        TextFieldNombre.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                TextFieldNombreActionPerformed(evt);
+            }
+        });
+        jPanel1.add(TextFieldNombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 100, 200, -1));
 
         SegundoApartado.setText("Cantidad");
         jPanel1.add(SegundoApartado, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 130, -1, -1));
 
-        jTextField1.addActionListener(new java.awt.event.ActionListener() {
+        TextFieldCantidad.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField1ActionPerformed(evt);
+                TextFieldCantidadActionPerformed(evt);
             }
         });
-        jPanel1.add(jTextField1, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 160, 200, -1));
+        jPanel1.add(TextFieldCantidad, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 160, 200, -1));
 
         TercerApartado.setText("Precio");
         jPanel1.add(TercerApartado, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 200, -1, -1));
-        jPanel1.add(jTextField2, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 280, 200, -1));
+        jPanel1.add(TextFieldPrecio, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 220, 200, -1));
 
         CuartoApartado.setText("Vendedor");
         jPanel1.add(CuartoApartado, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 260, -1, -1));
-
-        jTextField3.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField3ActionPerformed(evt);
-            }
-        });
-        jPanel1.add(jTextField3, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 100, 200, -1));
-
-        jLabel5.setText("Nombre");
-        jPanel1.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 70, -1, -1));
-        jPanel1.add(jTextField4, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 220, 200, -1));
+        jPanel1.add(TextFieldVendedor, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 280, 200, -1));
 
         fondoprincipal.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/gradient_800_600.png"))); // NOI18N
         jPanel1.add(fondoprincipal, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 800, 590));
@@ -168,7 +186,7 @@ public class Ventas extends javax.swing.JFrame {
 
     private void jBotonAtrasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBotonAtrasActionPerformed
         // TODO add your handling code here:
-        Eleccion abrir=new Eleccion();
+        Eleccion abrir = new Eleccion();
         abrir.setVisible(true);
         this.setVisible(false);
     }//GEN-LAST:event_jBotonAtrasActionPerformed
@@ -176,82 +194,54 @@ public class Ventas extends javax.swing.JFrame {
     private void visorMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_visorMouseClicked
         int filaSeleccionada = visor.getSelectedRow();
         if (filaSeleccionada == -1) {
-//            JOptionPane.showMessageDialog(null, "No se ha seleccionado ningun empleado.");
         } else {
-            // Obtener el ID del empleado seleccionado
-            String idEmpleado = visor.getValueAt(filaSeleccionada, 0).toString();
-
-            // Llamar al método para mostrar la producción del empleado
-//            mostrarProduccionPorEmpleado(idEmpleado);
+            // Obtener el ID de la venta
+            String idVenta = visor.getValueAt(filaSeleccionada, 0).toString();
         }
     }//GEN-LAST:event_visorMouseClicked
 
-    private void jTextField3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField3ActionPerformed
+    private void TextFieldNombreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TextFieldNombreActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField3ActionPerformed
+    }//GEN-LAST:event_TextFieldNombreActionPerformed
 
-    private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
+    private void TextFieldCantidadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TextFieldCantidadActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField1ActionPerformed
+    }//GEN-LAST:event_TextFieldCantidadActionPerformed
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void ExportarBINActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ExportarBINActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_ExportarBINActionPerformed
 
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(Ventas.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(Ventas.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(Ventas.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(Ventas.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-        //</editor-fold>
+    private void EliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_EliminarActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_EliminarActionPerformed
 
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new Ventas().setVisible(true);
-            }
-        });
-    }
+    private void ExportarXMLActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ExportarXMLActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_ExportarXMLActionPerformed
+
+ 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton Añadir;
     private javax.swing.JLabel CuartoApartado;
+    private javax.swing.JButton Editar;
+    private javax.swing.JButton Eliminar;
+    private javax.swing.JButton ExportarBIN;
+    private javax.swing.JButton ExportarXML;
+    private javax.swing.JLabel PrimerApartado;
     private javax.swing.JLabel SegundoApartado;
     private javax.swing.JLabel TercerApartado;
+    private javax.swing.JTextField TextFieldCantidad;
+    private javax.swing.JTextField TextFieldNombre;
+    private javax.swing.JTextField TextFieldPrecio;
+    private javax.swing.JTextField TextFieldVendedor;
     private javax.swing.JLabel fondoprincipal;
     private javax.swing.JButton jBotonAtras;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
     private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabelLogo1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField2;
-    private javax.swing.JTextField jTextField3;
-    private javax.swing.JTextField jTextField4;
     public javax.swing.JTable visor;
     // End of variables declaration//GEN-END:variables
 }

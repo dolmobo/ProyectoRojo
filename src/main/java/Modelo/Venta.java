@@ -4,31 +4,38 @@
  */
 package Modelo;
 
-import java.util.ArrayList;
-import java.util.List;
 
 public class Venta {
 
     private int idVenta;
-    private String nombre;  // Renombrado de 'idCliente'
+    private String nombre;  
     private int cantidad;
-    private float precio;  // Nuevo campo para el precio
-    private String vendedor;  // Renombrado de 'estado'
+    private float precio;  
+    private String vendedor;  
     private String fechaVenta;
-    
-    private static List<Venta> ventas = new ArrayList<>(); // Simulando una base de datos en memoria
+    private float precioFinal;
+    private int iva;
 
     // Constructor
-    public Venta(int idVenta, String nombre, int cantidad, float precio, String vendedor, String fechaVenta) {
+
+    public Venta(String nombre, int cantidad, float precio, String vendedor) {
+        this.nombre = nombre;
+        this.cantidad = cantidad;
+        this.precio = precio;
+        this.vendedor = vendedor;
+    }
+
+    public Venta(int idVenta, String nombre, int cantidad, float precio, String vendedor, String fechaVenta, float precioFinal, int iva) {
         this.idVenta = idVenta;
         this.nombre = nombre;
         this.cantidad = cantidad;
         this.precio = precio;
         this.vendedor = vendedor;
         this.fechaVenta = fechaVenta;
+        this.precioFinal = precioFinal;
+        this.iva = iva;
     }
 
-    // Getters y Setters
     public int getIdVenta() {
         return idVenta;
     }
@@ -77,40 +84,29 @@ public class Venta {
         this.fechaVenta = fechaVenta;
     }
 
-    // Método para insertar una nueva venta
-    public static void insertarVenta(Venta venta) {
-        ventas.add(venta);
-        System.out.println("Venta añadida: " + venta.toString());
+    public float getPrecioFinal() {
+        return precioFinal;
     }
 
-    // Método para eliminar una venta por su ID
-    public static void eliminarVenta(int idVenta) {
-        for (Venta v : ventas) {
-            if (v.getIdVenta() == idVenta) {
-                ventas.remove(v);
-                System.out.println("Venta eliminada: " + v.toString());
-                return;
-            }
-        }
-        System.out.println("Venta con ID " + idVenta + " no encontrada.");
+    public void setPrecioFinal(float precioFinal) {
+        this.precioFinal = precioFinal;
     }
 
-    // Método para obtener todas las ventas
-    public static List<Venta> obtenerVentas() {
-        return ventas;
+    public int getIva() {
+        return iva;
+    }
+
+    public void setIva(int iva) {
+        this.iva = iva;
     }
 
     @Override
     public String toString() {
-        return "Venta{" +
-                "idVenta=" + idVenta +
-                ", nombre='" + nombre + '\'' +
-                ", cantidad=" + cantidad +
-                ", precio=" + precio +
-                ", vendedor='" + vendedor + '\'' +
-                ", fechaVenta='" + fechaVenta + '\'' +
-                '}';
+        return "Venta{" + "idVenta=" + idVenta + ", nombre=" + nombre + ", cantidad=" + cantidad + ", precio=" + precio + ", vendedor=" + vendedor + ", fechaVenta=" + fechaVenta + ", precioFinal=" + precioFinal + ", iva=" + iva + '}';
     }
+    
+    
+    
 }
 
 
