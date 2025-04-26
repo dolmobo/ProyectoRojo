@@ -2,6 +2,10 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
+ /*
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileTemplates/Classes/Class.java to edit this template
+ */
 package Controlador;
 
 import Usos.ConexionBDR;
@@ -12,14 +16,14 @@ import javax.swing.JOptionPane;
 public class ControladorVentas {
 
     // Añadir nueva venta
-    public static void añadir(int idVenta, String idCliente, String producto, int cantidad, String estado, String fechaVenta) {
+    public static void añadir(int idVenta, String nombre, int cantidad, float precio, String vendedor, int fechaVenta, float precioFinal, int iva) {
         try {
-            if (idCliente.equals("") || producto.equals("") || cantidad <= 0 || estado.equals("") || fechaVenta.equals("")) {
+            if (idVenta <= 0 || nombre.isEmpty() || cantidad <= 0 || precio <= 0 || vendedor.isEmpty() || fechaVenta <= 0 || precioFinal <= 0 || iva <= 0) {
                 JOptionPane.showMessageDialog(null, "Faltan datos por ingresar.");
             } else {
                 Connection con = new ConexionBDR().conectar();
-                String sql = "INSERT INTO ventas(idVenta, idCliente, producto, cantidad, estado, fechaVenta) "
-                        + "VALUES (" + idVenta + ", '" + idCliente + "', '" + producto + "', " + cantidad + ", '" + estado + "', '" + fechaVenta + "')";
+                String sql = "INSERT INTO ventas (idVenta, nombre, cantidad, precio, vendedor, fechaVenta, precioFinal, iva) "
+                        + "VALUES (" + idVenta + ", '" + nombre + "', " + cantidad + ", " + precio + ", '" + vendedor + "', " + fechaVenta + ", " + precioFinal + ", " + iva + ")";
                 Statement st = con.createStatement();
                 st.executeUpdate(sql);
                 JOptionPane.showMessageDialog(null, "Venta añadida con éxito.");
@@ -47,14 +51,16 @@ public class ControladorVentas {
     }
 
     // Editar información de una venta existente
-    public static void editar(int idVenta, String idCliente, String producto, int cantidad, String estado, String fechaVenta) {
+    public static void editar(int idVenta, String nombre, int cantidad, float precio, String vendedor, int fechaVenta, float precioFinal, int iva) {
         try {
-            if (idCliente.equals("") || producto.equals("") || cantidad <= 0 || estado.equals("") || fechaVenta.equals("")) {
+            if (idVenta <= 0 || nombre.isEmpty() || cantidad <= 0 || precio <= 0 || vendedor.isEmpty() || fechaVenta <= 0 || precioFinal <= 0 || iva <= 0) {
                 JOptionPane.showMessageDialog(null, "Faltan datos por ingresar.");
             } else {
                 Connection con = new ConexionBDR().conectar();
-                String sql = "UPDATE ventas SET idCliente = '" + idCliente + "', producto = '" + producto + "', "
-                        + "cantidad = " + cantidad + ", estado = '" + estado + "', fechaVenta = '" + fechaVenta + "' "
+                String sql = "UPDATE ventas SET nombre = '" + nombre + "', "
+                        + "cantidad = " + cantidad + ", precio = " + precio + ", "
+                        + "vendedor = '" + vendedor + "', fechaVenta = " + fechaVenta + ", "
+                        + "precioFinal = " + precioFinal + ", iva = " + iva + " "
                         + "WHERE idVenta = " + idVenta;
                 Statement st = con.createStatement();
                 st.executeUpdate(sql);
@@ -65,11 +71,4 @@ public class ControladorVentas {
         }
     }
 
-    // Aquí podrías agregar más métodos para obtener datos de ventas, buscar ventas específicas, etc.
 }
-
-
-
-
-
-
