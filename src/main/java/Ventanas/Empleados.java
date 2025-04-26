@@ -8,6 +8,12 @@ import Usos.ConexionBDR;
 import Controlador.ControladorEmpleados;
 import Modelo.Empleado;
 import Usos.Leer;
+import java.beans.XMLDecoder;
+import java.beans.XMLEncoder;
+import java.io.BufferedInputStream;
+import java.io.BufferedOutputStream;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -182,15 +188,15 @@ public class Empleados extends javax.swing.JFrame {
             visor.getColumnModel().getColumn(5).setResizable(false);
         }
 
-        jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 100, 510, 470));
+        jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 100, 630, 440));
 
-        jActualizar.setText("Refrescar");
+        jActualizar.setText("Refrescar Empleados");
         jActualizar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jActualizarActionPerformed(evt);
             }
         });
-        jPanel1.add(jActualizar, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 390, 100, -1));
+        jPanel1.add(jActualizar, new org.netbeans.lib.awtextra.AbsoluteConstraints(530, 550, 190, -1));
 
         jAñadir.setText("Añadir");
         jAñadir.addActionListener(new java.awt.event.ActionListener() {
@@ -198,7 +204,7 @@ public class Empleados extends javax.swing.JFrame {
                 jAñadirActionPerformed(evt);
             }
         });
-        jPanel1.add(jAñadir, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 440, 80, -1));
+        jPanel1.add(jAñadir, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 390, 90, -1));
 
         jEliminar.setText("Eliminar");
         jEliminar.addActionListener(new java.awt.event.ActionListener() {
@@ -206,7 +212,7 @@ public class Empleados extends javax.swing.JFrame {
                 jEliminarActionPerformed(evt);
             }
         });
-        jPanel1.add(jEliminar, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 480, 80, -1));
+        jPanel1.add(jEliminar, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 430, 80, -1));
 
         jLabel2.setText("Nombre:");
 
@@ -247,7 +253,7 @@ public class Empleados extends javax.swing.JFrame {
                             .addComponent(jLabel7))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanelDatosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jComboBoxEstado, 0, 124, Short.MAX_VALUE)
+                            .addComponent(jComboBoxEstado, 0, 155, Short.MAX_VALUE)
                             .addComponent(jTextoSalario)
                             .addComponent(jTextoNombre)
                             .addComponent(jTextoPuesto)
@@ -288,7 +294,7 @@ public class Empleados extends javax.swing.JFrame {
                 .addGap(23, 23, 23))
         );
 
-        jPanel1.add(jPanelDatos, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 100, 200, 250));
+        jPanel1.add(jPanelDatos, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 120, 220, 250));
 
         jButtonEliminarVisualizacion.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/actualizar.png"))); // NOI18N
         jButtonEliminarVisualizacion.addActionListener(new java.awt.event.ActionListener() {
@@ -296,7 +302,7 @@ public class Empleados extends javax.swing.JFrame {
                 jButtonEliminarVisualizacionActionPerformed(evt);
             }
         });
-        jPanel1.add(jButtonEliminarVisualizacion, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 190, 50, -1));
+        jPanel1.add(jButtonEliminarVisualizacion, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 250, 50, 40));
 
         jButtonEditar.setText("Editar");
         jButtonEditar.addActionListener(new java.awt.event.ActionListener() {
@@ -304,7 +310,7 @@ public class Empleados extends javax.swing.JFrame {
                 jButtonEditarActionPerformed(evt);
             }
         });
-        jPanel1.add(jButtonEditar, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 480, 80, -1));
+        jPanel1.add(jButtonEditar, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 430, 80, -1));
 
         guardarDatos.setText("Guardar datos en fichero xml");
         guardarDatos.addActionListener(new java.awt.event.ActionListener() {
@@ -312,7 +318,7 @@ public class Empleados extends javax.swing.JFrame {
                 guardarDatosActionPerformed(evt);
             }
         });
-        jPanel1.add(guardarDatos, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 520, 210, -1));
+        jPanel1.add(guardarDatos, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 480, 210, -1));
 
         cargarDatos.setText("Cargar datos de fichero xml");
         cargarDatos.addActionListener(new java.awt.event.ActionListener() {
@@ -320,10 +326,10 @@ public class Empleados extends javax.swing.JFrame {
                 cargarDatosActionPerformed(evt);
             }
         });
-        jPanel1.add(cargarDatos, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 550, 210, -1));
+        jPanel1.add(cargarDatos, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 530, 210, -1));
 
-        fondoprincipal.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/gradient_800_600.png"))); // NOI18N
-        jPanel1.add(fondoprincipal, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 800, 590));
+        fondoprincipal.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/gradient_1920_1080.png"))); // NOI18N
+        jPanel1.add(fondoprincipal, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 950, 590));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -449,52 +455,52 @@ public class Empleados extends javax.swing.JFrame {
 
     private void jButtonEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonEditarActionPerformed
         // TODO add your handling code here:
-    // Obtener los valores de los campos de texto
-    String idStr = jTextoID.getText();
-    String nombre = jTextoNombre.getText();
-    String puesto = jTextoPuesto.getText();
-    String salarioStr = jTextoSalario.getText();
-    String fechaContratacion = jfechacontratacion.getText();
-    String estadoStr = (String) jComboBoxEstado.getSelectedItem();
+        // Obtener los valores de los campos de texto
+        String idStr = jTextoID.getText();
+        String nombre = jTextoNombre.getText();
+        String puesto = jTextoPuesto.getText();
+        String salarioStr = jTextoSalario.getText();
+        String fechaContratacion = jfechacontratacion.getText();
+        String estadoStr = (String) jComboBoxEstado.getSelectedItem();
 
-    // Intentamos convertir el salario a int
-    int salario = 0;
-    try {
-        salario = Integer.parseInt(salarioStr);  // Intentamos convertir el salario a int
-    } catch (NumberFormatException e) {
-        JOptionPane.showMessageDialog(this, "Por favor ingresa un salario válido");
-        return;  // Salir del método si el salario es inválido
-    }
+        // Intentamos convertir el salario a int
+        int salario = 0;
+        try {
+            salario = Integer.parseInt(salarioStr);  // Intentamos convertir el salario a int
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(this, "Por favor ingresa un salario válido");
+            return;  // Salir del método si el salario es inválido
+        }
 
-    // Intentamos convertir el id a int
-    int id = 0;
-    try {
-        id = Integer.parseInt(idStr);  // Intentamos convertir el id a int
-    } catch (NumberFormatException e) {
-        JOptionPane.showMessageDialog(this, "Por favor ingresa un id válido");
-        return;  // Salir del método si el id es inválido
-    }
+        // Intentamos convertir el id a int
+        int id = 0;
+        try {
+            id = Integer.parseInt(idStr);  // Intentamos convertir el id a int
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(this, "Por favor ingresa un id válido");
+            return;  // Salir del método si el id es inválido
+        }
 
-    // Convertir el estado de String a Enum (ACTIVO o INACTIVO)
-    Empleado.Estado estado = null;
-    try {
-        estado = Empleado.Estado.valueOf(estadoStr.toUpperCase());  // Convertimos el String a Enum
-    } catch (IllegalArgumentException e) {
-        JOptionPane.showMessageDialog(this, "Estado inválido.");
-        return;  // Salir si el estado no es válido
-    }
+        // Convertir el estado de String a Enum (ACTIVO o INACTIVO)
+        Empleado.Estado estado = null;
+        try {
+            estado = Empleado.Estado.valueOf(estadoStr.toUpperCase());  // Convertimos el String a Enum
+        } catch (IllegalArgumentException e) {
+            JOptionPane.showMessageDialog(this, "Estado inválido.");
+            return;  // Salir si el estado no es válido
+        }
 
-    // Crear un objeto Empleado con los datos obtenidos
-    Empleado empleadomodificado = new Empleado(id, nombre, puesto, salario, fechaContratacion, estado);
+        // Crear un objeto Empleado con los datos obtenidos
+        Empleado empleadomodificado = new Empleado(id, nombre, puesto, salario, fechaContratacion, estado);
 
-    // Convertir el Enum a String para pasarlo a la base de datos
-    String estadoDb = estado.name();  
-    
-    // Llamar al método del controlador para editar el empleado
-    controladorEmpleados.editar(empleadomodificado, estadoDb);  
+        // Convertir el Enum a String para pasarlo a la base de datos
+        String estadoDb = estado.name();
 
-    // Refrescar la tabla de empleados
-    actualizarMatrizDatos();
+        // Llamar al método del controlador para editar el empleado
+        controladorEmpleados.editar(empleadomodificado, estadoDb);
+
+        // Refrescar la tabla de empleados
+        actualizarMatrizDatos();
 
 
     }//GEN-LAST:event_jButtonEditarActionPerformed
@@ -505,28 +511,76 @@ public class Empleados extends javax.swing.JFrame {
 
     private void cargarDatosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cargarDatosActionPerformed
         // TODO add your handling code here:
+        try {
+        // Abrimos el archivo XML donde están guardados los empleados
+        FileInputStream fis = new FileInputStream("listadoEmpleados.xml");
+        XMLDecoder xmld = new XMLDecoder(new BufferedInputStream(fis));
+
+        // Leemos la lista de empleados del archivo
+        List<Empleado> listaEmpleados = (List<Empleado>) xmld.readObject();
+        xmld.close();
+
+        // Obtenemos el modelo de la tabla
+        DefaultTableModel model = (DefaultTableModel) visor.getModel();
+        model.setRowCount(0); // Limpiamos la tabla antes de cargar nuevos datos
+
+        // Recorremos la lista y añadimos cada empleado como una fila en la tabla
+         for (Empleado empleado : listaEmpleados) {
+            // Llamamos al metodo añadir
+            controladorEmpleados.añadir(empleado, empleado.getEstado().name());
+            actualizarMatrizDatos();
+        }
+    } catch (Exception e) {
+        System.err.println("\tERROR al leer el archivo listadoEmpleados.xml");
+        e.printStackTrace();
+    }
     }//GEN-LAST:event_cargarDatosActionPerformed
 
     private void guardarDatosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_guardarDatosActionPerformed
-//        FileOutputStream fos;
-//        XMLEncoder xmle;
-//
-//        // necesitamos pasar el DefaultListModel a List para poder guardarlo como XML
-//        //List lista = (List) pasarModeloALista(listaPalabras);
-//        try {
-//            fos = new FileOutputStream("listadoClientes.xml");
-//            xmle = new XMLEncoder(new BufferedOutputStream(fos));
-//            // guardar el TableModel
-//
-//            // crear un ArrayList de Cliences
-//            // recorrer el TableModel, ir creando Clientes y añadiendolos a una colección
-//
-//            xmle.writeObject(Tabla.getModel());
-//            xmle.close();
-//        } catch (Exception e) {
-//            System.err.println("\tERROR en la escritura de datos del archivo: " + "listadoColores.xml");
-//        }
-//        // TODO add your handling code here:
+        try {
+            // Se crea un flujo de salida para escribir en el archivo "listadoEmpleados.xml"
+            FileOutputStream fos = new FileOutputStream("listadoEmpleados.xml");
+
+            // Se crea un codificador XML que escribirá en el flujo de salida, con buffer para mayor eficiencia
+            XMLEncoder xmle = new XMLEncoder(new BufferedOutputStream(fos));
+
+            // Se crea una lista vacía donde se guardarán todos los empleados
+            List<Empleado> listaEmpleados = new ArrayList<>();
+
+            // Se obtiene el modelo de datos (las filas y columnas) de la tabla "visor"
+            DefaultTableModel model = (DefaultTableModel) visor.getModel();
+            int filas = model.getRowCount(); // Se obtiene el número de filas de la tabla
+
+            // Se recorre cada fila de la tabla
+            for (int i = 0; i < filas; i++) {
+                // Se leen y convierten los datos de cada columna de la fila actual
+                int id = Integer.parseInt(model.getValueAt(i, 0).toString());       // Columna 0: ID
+                String nombre = model.getValueAt(i, 1).toString();                  // Columna 1: Nombre
+                String puesto = model.getValueAt(i, 2).toString();                  // Columna 2: Puesto
+                int salario = Integer.parseInt(model.getValueAt(i, 3).toString());  // Columna 3: Salario
+                String fechaContratacion = model.getValueAt(i, 4).toString();       // Columna 4: Fecha de contratación
+
+                // Asegurarse de que en la clase Empleado los enum, se vean igual que en la tabla
+                Empleado.Estado estado = Empleado.Estado.valueOf(model.getValueAt(i, 5).toString()); // Columna 5: Estado (Activo/Inactivo)
+
+                // Se crea un objeto Empleado con los datos leídos
+                Empleado empleado = new Empleado(id, nombre, puesto, salario, fechaContratacion, estado);
+
+                // Se añade el empleado a la lista
+                listaEmpleados.add(empleado);
+            }
+
+            // Se escribe la lista completa de empleados en el archivo XML
+            xmle.writeObject(listaEmpleados);
+
+            // Se cierra el codificador para finalizar la escritura
+            xmle.close();
+        } catch (Exception e) {
+            // En caso de error, se muestra un mensaje en consola
+            System.err.println("\tERROR en la escritura de datos del archivo: listadoEmpleados.xml");
+            e.printStackTrace(); // Opcional: muestra detalles técnicos del error
+        }
+        // TODO add your handling code here:
     }//GEN-LAST:event_guardarDatosActionPerformed
 
     /**

@@ -10,7 +10,7 @@ import java.io.Serializable;
  *
  * @author USUARIO
  */
-public class Empleado implements Serializable{ // Se implementa el Serializable para el uso de XMLENCODER
+public class Empleado implements Serializable { // Se implementa el Serializable para el uso de XMLENCODER
 
     private int id;
     private String nombre;
@@ -68,8 +68,11 @@ public class Empleado implements Serializable{ // Se implementa el Serializable 
     }
 
     public enum Estado {
-        ACTIVO, INACTIVO
+        Activo, Inactivo
     };
+
+    public Empleado() {
+    }
 
     public Empleado(int id, String nombre) {
         this.id = id;
