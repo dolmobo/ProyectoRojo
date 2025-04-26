@@ -7,10 +7,19 @@ package Ventanas;
 import Usos.Leer;
 import Controlador.ControladorVentas;
 import Modelo.Venta;
+import Usos.ConexionBDR;
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.beans.XMLEncoder;
+import java.io.BufferedOutputStream;
+import java.io.FileOutputStream;
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.List;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -24,6 +33,7 @@ public class Ventas extends javax.swing.JFrame {
     public Ventas() {
         // Inicializar los componentes y aplicar transparencia al botón
         initComponents();
+        RefrescarTabla("ventas");
         Leer.transparenciaBoton(jBotonAtras);
         this.setLocationRelativeTo(null);  // Centrar la ventana
     }
@@ -48,6 +58,7 @@ public class Ventas extends javax.swing.JFrame {
         Eliminar = new javax.swing.JButton();
         ExportarXML = new javax.swing.JButton();
         ExportarBIN = new javax.swing.JButton();
+        Limpiar = new javax.swing.JButton();
         PrimerApartado = new javax.swing.JLabel();
         TextFieldNombre = new javax.swing.JTextField();
         SegundoApartado = new javax.swing.JLabel();
@@ -82,14 +93,14 @@ public class Ventas extends javax.swing.JFrame {
 
             },
             new String [] {
-                "ID", "Nombre", "Cantidad", "Precio", "Vendedor", "Fecha"
+                "ID", "Nombre", "Cantidad", "Precio", "Vendedor", "Fecha", "PrecioTotal"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.Integer.class, java.lang.String.class, java.lang.Integer.class, java.lang.Float.class, java.lang.String.class, java.lang.Integer.class
+                java.lang.Integer.class, java.lang.String.class, java.lang.Integer.class, java.lang.Float.class, java.lang.String.class, java.lang.Integer.class, java.lang.Object.class
             };
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false
+                false, false, false, false, false, false, false
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -107,12 +118,22 @@ public class Ventas extends javax.swing.JFrame {
         });
         jScrollPane1.setViewportView(visor);
 
-        jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 70, 440, 400));
+        jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 70, 490, 400));
 
         Añadir.setText("Añadir");
+        Añadir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                AñadirActionPerformed(evt);
+            }
+        });
         jPanel1.add(Añadir, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 340, -1, -1));
 
         Editar.setText("Editar");
+        Editar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                EditarActionPerformed(evt);
+            }
+        });
         jPanel1.add(Editar, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 340, -1, -1));
 
         Eliminar.setText("Eliminar");
@@ -121,7 +142,7 @@ public class Ventas extends javax.swing.JFrame {
                 EliminarActionPerformed(evt);
             }
         });
-        jPanel1.add(Eliminar, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 340, -1, -1));
+        jPanel1.add(Eliminar, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 340, -1, -1));
 
         ExportarXML.setText("Exportar XML");
         ExportarXML.addActionListener(new java.awt.event.ActionListener() {
@@ -138,6 +159,14 @@ public class Ventas extends javax.swing.JFrame {
             }
         });
         jPanel1.add(ExportarBIN, new org.netbeans.lib.awtextra.AbsoluteConstraints(680, 510, -1, -1));
+
+        Limpiar.setText("Limpiar");
+        Limpiar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                LimpiarActionPerformed(evt);
+            }
+        });
+        jPanel1.add(Limpiar, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 380, -1, -1));
 
         PrimerApartado.setText("Nombre");
         jPanel1.add(PrimerApartado, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 70, -1, -1));
@@ -194,9 +223,16 @@ public class Ventas extends javax.swing.JFrame {
     private void visorMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_visorMouseClicked
         int filaSeleccionada = visor.getSelectedRow();
         if (filaSeleccionada == -1) {
+            JOptionPane.showMessageDialog(null,"No se ha seleccionado ninguna venta.");
         } else {
             // Obtener el ID de la venta
             String idVenta = visor.getValueAt(filaSeleccionada, 0).toString();
+            String nombre = (String) visor.getValueAt(filaSeleccionada, 1);
+            int cantidad = (int) visor.getValueAt(filaSeleccionada, 2);
+            int precio = (int) visor.getValueAt(filaSeleccionada, 3);
+            String vendedor = (String) visor.getValueAt(filaSeleccionada, 4);
+            int fecha = (int) visor.getValueAt(filaSeleccionada, 5);
+            int precioTotal = (int) visor.getValueAt(filaSeleccionada, 6);
         }
     }//GEN-LAST:event_visorMouseClicked
 
@@ -218,10 +254,98 @@ public class Ventas extends javax.swing.JFrame {
 
     private void ExportarXMLActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ExportarXMLActionPerformed
         // TODO add your handling code here:
+        FileOutputStream fos;
+        XMLEncoder xmle;
+
+        // necesitamos pasar el DefaultListModel a List para poder guardarlo como XML
+        //List lista = (List) pasarModeloALista(listaPalabras);
+        try {
+            fos = new FileOutputStream("ListadoVentas.xml");
+            xmle = new XMLEncoder(new BufferedOutputStream(fos));
+            // guardar el TableModel
+
+            // crear un ArrayList de Cliences
+            // recorrer el TableModel, ir creando Clientes y añadiendolos a una colección
+            xmle.writeObject(visor.getModel());
+            xmle.close();
+        } catch (Exception e) {
+            System.err.println("\tERROR en la escritura de datos del archivo: " + "listadoColores.xml");
+        }
+        // TODO add your handling code here:
     }//GEN-LAST:event_ExportarXMLActionPerformed
 
- 
+    private void AñadirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AñadirActionPerformed
+        String nombre = TextFieldNombre.getText();
+        String cantidad = TextFieldCantidad.getText();
+        String precio = TextFieldPrecio.getText();
+        String vendedor = TextFieldVendedor.getText();
+        float Resultado = PrecioFinal(cantidad, precio);
+        
+        
+        // Llamar al método del controlador pasando los datos obtenidos de los campos
+        ControladorVentas.añadir(0, nombre, 0, 0f, vendedor, 0, Resultado, 0);
 
+        // Refrescar la tabla de empleados
+        RefrescarTabla("ventas");
+    }//GEN-LAST:event_AñadirActionPerformed
+
+    private void EditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_EditarActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_EditarActionPerformed
+
+    private void LimpiarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_LimpiarActionPerformed
+        TextFieldNombre.setText("");
+        TextFieldCantidad.setText("");
+        TextFieldPrecio.setText("");
+        TextFieldVendedor.setText("");
+    }//GEN-LAST:event_LimpiarActionPerformed
+
+    private float PrecioFinal(String cantidadStr, String precioStr) {
+        float Resultado = 0;
+        try {
+            int cantidad = Integer.parseInt(cantidadStr);
+            float precio = Float.parseFloat(precioStr);
+            Resultado = cantidad * precio;
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(this, "Cantidad y Precio deben ser números válidos.");
+        }
+        return Resultado;
+    }
+
+    public void RefrescarTabla(String tabla) {
+        String sql = "select * from " + tabla;
+        Statement st;
+        ConexionBDR con = new ConexionBDR();
+        Connection ConexionBDR = con.conectar();
+        System.out.println(sql);
+        DefaultTableModel model = new DefaultTableModel();
+        model.addColumn("IdVenta");
+        model.addColumn("Nombre");
+        model.addColumn("Cantidad");
+        model.addColumn("Precio");
+        model.addColumn("Vendedor");
+        model.addColumn("FechaVenta");
+        model.addColumn("PrecioFinal");
+        model.addColumn("Iva");
+        visor.setModel(model);
+
+        String[] datos = new String[6];
+        try {
+            st = ConexionBDR.createStatement();
+            ResultSet rs = st.executeQuery(sql);
+            while (rs.next()) {
+                datos[0] = rs.getString(1);
+                datos[1] = rs.getString(2);
+                datos[2] = rs.getString(3);
+                datos[3] = rs.getString(4);
+                datos[4] = rs.getString(5);
+                datos[5] = rs.getString(6);
+                model.addRow(datos);
+            }
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "Error" + e.toString());
+        }
+    }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton Añadir;
     private javax.swing.JLabel CuartoApartado;
@@ -229,6 +353,7 @@ public class Ventas extends javax.swing.JFrame {
     private javax.swing.JButton Eliminar;
     private javax.swing.JButton ExportarBIN;
     private javax.swing.JButton ExportarXML;
+    private javax.swing.JButton Limpiar;
     private javax.swing.JLabel PrimerApartado;
     private javax.swing.JLabel SegundoApartado;
     private javax.swing.JLabel TercerApartado;
