@@ -4,8 +4,10 @@
  */
 package Modelo;
 
+import java.io.Serializable;
 
-public class Venta {
+
+public class Venta implements Serializable{
 
     private int idVenta;
     private String nombre;  
@@ -18,6 +20,9 @@ public class Venta {
 
     // Constructor
 
+    public Venta() {
+    }
+    
     public Venta(String nombre, int cantidad, float precio, String vendedor) {
         this.nombre = nombre;
         this.cantidad = cantidad;

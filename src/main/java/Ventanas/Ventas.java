@@ -14,6 +14,8 @@ import java.awt.event.ActionListener;
 import java.beans.XMLEncoder;
 import java.io.BufferedOutputStream;
 import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectOutputStream;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -222,17 +224,17 @@ public class Ventas extends javax.swing.JFrame {
 
     private void visorMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_visorMouseClicked
         int filaSeleccionada = visor.getSelectedRow();
+
         if (filaSeleccionada == -1) {
-            JOptionPane.showMessageDialog(null,"No se ha seleccionado ninguna venta.");
+            JOptionPane.showMessageDialog(null, "No se ha seleccionado ninguna venta.");
         } else {
             // Obtener el ID de la venta
-            String idVenta = visor.getValueAt(filaSeleccionada, 0).toString();
-            String nombre = (String) visor.getValueAt(filaSeleccionada, 1);
-            int cantidad = (int) visor.getValueAt(filaSeleccionada, 2);
-            int precio = (int) visor.getValueAt(filaSeleccionada, 3);
-            String vendedor = (String) visor.getValueAt(filaSeleccionada, 4);
-            int fecha = (int) visor.getValueAt(filaSeleccionada, 5);
-            int precioTotal = (int) visor.getValueAt(filaSeleccionada, 6);
+            TextFieldNombre.setText(visor.getValueAt(filaSeleccionada, 1).toString());
+            TextFieldCantidad.setText(visor.getValueAt(filaSeleccionada, 2).toString());
+            TextFieldPrecio.setText(visor.getValueAt(filaSeleccionada, 3).toString());
+            TextFieldVendedor.setText(visor.getValueAt(filaSeleccionada, 4).toString());
+//            int fecha = (int) visor.getValueAt(filaSeleccionada, 5);
+//            int precioTotal = (int) visor.getValueAt(filaSeleccionada, 6);
         }
     }//GEN-LAST:event_visorMouseClicked
 
@@ -245,7 +247,17 @@ public class Ventas extends javax.swing.JFrame {
     }//GEN-LAST:event_TextFieldCantidadActionPerformed
 
     private void ExportarBINActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ExportarBINActionPerformed
-        // TODO add your handling code here:
+        try {
+            FileOutputStream fos = new FileOutputStream("ListadoVentas.bin");
+            ObjectOutputStream oos = new ObjectOutputStream(fos);
+
+            oos.writeObject(visor.getModel());  // Guarda el modelo de la tabla en binario
+            oos.close();
+
+            JOptionPane.showMessageDialog(this, "Datos exportados correctamente a binario.");
+        } catch (IOException e) {
+            JOptionPane.showMessageDialog(this, "Error al exportar a binario: " + e.getMessage());
+        }
     }//GEN-LAST:event_ExportarBINActionPerformed
 
     private void EliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_EliminarActionPerformed
@@ -280,11 +292,10 @@ public class Ventas extends javax.swing.JFrame {
         String precio = TextFieldPrecio.getText();
         String vendedor = TextFieldVendedor.getText();
         float Resultado = PrecioFinal(cantidad, precio);
-        
-        
-        // Llamar al método del controlador pasando los datos obtenidos de los campos
-        ControladorVentas.añadir(0, nombre, 0, 0f, vendedor, 0, Resultado, 0);
 
+        // Llamar al método del controlador pasando los datos obtenidos de los campos
+        // ----- por hacer ---- 
+        //ControladorVentas.añadir(0, nombre, 0, 0f, vendedor, 0, Resultado, 0);
         // Refrescar la tabla de empleados
         RefrescarTabla("ventas");
     }//GEN-LAST:event_AñadirActionPerformed
