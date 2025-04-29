@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<java version="23.0.1" class="java.beans.XMLDecoder">
+ <object class="java.util.ArrayList">
+  <void method="add">
+   <object class="Modelo.Empleado" id="Empleado0">
+    <void class="Modelo.Empleado" method="getField">
+     <string>estado</string>
+     <void method="set">
+      <object idref="Empleado0"/>
+      <object class="java.lang.Enum" id="Empleado$Estado0" method="valueOf">
+       <class>Modelo.Empleado$Estado</class>
+       <string>Activo</string>
+      </object>
+     </void>
+    </void>
+    <void property="fechaContratacion">
+     <string>2023-03-01</string>
+    </void>
+    <void property="id">
+     <int>17</int>
+    </void>
+    <void property="nombre">
+     <string>Lucía</string>
+    </void>
+    <void property="puesto">
+     <string>Recolectora</string>
+    </void>
+    <void property="salario">
+     <int>1200</int>
+    </void>
+   </object>
+  </void>
+  <void method="add">
+   <object class="Modelo.Empleado" id="Empleado1">
+    <void class="Modelo.Empleado" method="getField">
+     <string>estado</string>
+     <void method="set">
+      <object idref="Empleado1"/>
+      <object idref="Empleado$Estado0"/>
+     </void>
+    </void>
+    <void property="fechaContratacion">
+     <string>2022-06-15</string>
+    </void>
+    <void property="id">
+     <int>18</int>
+    </void>
+    <void property="nombre">
+     <string>Carlos</string>
+    </void>
+    <void property="puesto">
+     <string>Supervisor</string>
+    </void>
+    <void property="salario">
+     <int>1800</int>
+    </void>
+   </object>
+  </void>
+  <void method="add">
+   <object class="Modelo.Empleado" id="Empleado2">
+    <void class="Modelo.Empleado" method="getField">
+     <string>estado</string>
+     <void method="set">
+      <object idref="Empleado2"/>
+      <object idref="Empleado$Estado0"/>
+     </void>
+    </void>
+    <void property="fechaContratacion">
+     <string>2024-01-10</string>
+    </void>
+    <void property="id">
+     <int>19</int>
+    </void>
+    <void property="nombre">
+     <string>Marta</string>
+    </void>
+    <void property="puesto">
+     <string>Empaquetadora</string>
+    </void>
+    <void property="salario">
+     <int>1100</int>
+    </void>
+   </object>
+  </void>
+  <void method="add">
+   <object class="Modelo.Empleado" id="Empleado3">
+    <void class="Modelo.Empleado" method="getField">
+     <string>estado</string>
+     <void method="set">
+      <object idref="Empleado3"/>
+      <object class="java.lang.Enum" method="valueOf">
+       <class>Modelo.Empleado$Estado</class>
+       <string>Inactivo</string>
+      </object>
+     </void>
+    </void>
+    <void property="fechaContratacion">
+     <string>2023-11-20</string>
+    </void>
+    <void property="id">
+     <int>20</int>
+    </void>
+    <void property="nombre">
+     <string>Juan</string>
+    </void>
+    <void property="puesto">
+     <string>Transportista</string>
+    </void>
+    <void property="salario">
+     <int>1300</int>
+    </void>
+   </object>
+  </void>
+ </object>
+</java>

@@ -68,7 +68,7 @@ public class Empleado implements Serializable { // Se implementa el Serializable
     }
 
     public enum Estado {
-        Activo, Inactivo
+        ACTIVO, INACTIVO
     };
 
     public Empleado() {

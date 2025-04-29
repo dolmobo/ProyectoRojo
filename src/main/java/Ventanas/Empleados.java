@@ -14,6 +14,8 @@ import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -103,9 +105,6 @@ public class Empleados extends javax.swing.JFrame {
         jBotonAtras = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         visor = new javax.swing.JTable();
-        jActualizar = new javax.swing.JButton();
-        jAñadir = new javax.swing.JButton();
-        jEliminar = new javax.swing.JButton();
         jPanelDatos = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
@@ -119,11 +118,21 @@ public class Empleados extends javax.swing.JFrame {
         jTextoID = new javax.swing.JTextField();
         jLabel8 = new javax.swing.JLabel();
         jfechacontratacion = new javax.swing.JTextField();
+        jLabel10 = new javax.swing.JLabel();
         jButtonEliminarVisualizacion = new javax.swing.JButton();
+        jPanelDatos3 = new javax.swing.JPanel();
+        jEliminar = new javax.swing.JButton();
         jButtonEditar = new javax.swing.JButton();
+        jAñadir = new javax.swing.JButton();
+        jLabel9 = new javax.swing.JLabel();
+        jPanelDatos1 = new javax.swing.JPanel();
         guardarDatos = new javax.swing.JButton();
         cargarDatos = new javax.swing.JButton();
+        jGuardarBinario = new javax.swing.JButton();
+        jCargarBinario = new javax.swing.JButton();
+        jLabel11 = new javax.swing.JLabel();
         fondoprincipal = new javax.swing.JLabel();
+        jActualizar = new javax.swing.JButton();
 
         jLabelLogo1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/logoGestiCor.png"))); // NOI18N
 
@@ -135,12 +144,12 @@ public class Empleados extends javax.swing.JFrame {
         jLabel3.setForeground(new java.awt.Color(0, 0, 0));
         jLabel3.setText("GESTIÓN DE EMPLEADOS GESTICOR");
         jLabel3.setMaximumSize(new java.awt.Dimension(280, 20));
-        jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, -10, 450, 80));
+        jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 0, 450, 80));
 
         jLabel4.setFont(new java.awt.Font("Georgia Pro", 1, 14)); // NOI18N
         jLabel4.setForeground(new java.awt.Color(0, 0, 0));
         jLabel4.setText("¡Le damos la Bienvenida Administrador/a!");
-        jPanel1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 40, 310, 20));
+        jPanel1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 40, 310, 20));
 
         jBotonAtras.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/atras.png"))); // NOI18N
         jBotonAtras.addActionListener(new java.awt.event.ActionListener() {
@@ -188,31 +197,7 @@ public class Empleados extends javax.swing.JFrame {
             visor.getColumnModel().getColumn(5).setResizable(false);
         }
 
-        jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 100, 630, 440));
-
-        jActualizar.setText("Refrescar Empleados");
-        jActualizar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jActualizarActionPerformed(evt);
-            }
-        });
-        jPanel1.add(jActualizar, new org.netbeans.lib.awtextra.AbsoluteConstraints(530, 550, 190, -1));
-
-        jAñadir.setText("Añadir");
-        jAñadir.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jAñadirActionPerformed(evt);
-            }
-        });
-        jPanel1.add(jAñadir, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 390, 90, -1));
-
-        jEliminar.setText("Eliminar");
-        jEliminar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jEliminarActionPerformed(evt);
-            }
-        });
-        jPanel1.add(jEliminar, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 430, 80, -1));
+        jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 100, 620, 320));
 
         jLabel2.setText("Nombre:");
 
@@ -235,6 +220,11 @@ public class Empleados extends javax.swing.JFrame {
 
         jLabel8.setText("Contratacion: ");
 
+        jLabel10.setFont(new java.awt.Font("Sylfaen", 1, 18)); // NOI18N
+        jLabel10.setForeground(new java.awt.Color(0, 0, 0));
+        jLabel10.setText("Datos");
+        jLabel10.setMaximumSize(new java.awt.Dimension(280, 20));
+
         javax.swing.GroupLayout jPanelDatosLayout = new javax.swing.GroupLayout(jPanelDatos);
         jPanelDatos.setLayout(jPanelDatosLayout);
         jPanelDatosLayout.setHorizontalGroup(
@@ -246,14 +236,14 @@ public class Empleados extends javax.swing.JFrame {
                         .addGroup(jPanelDatosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel5)
                             .addComponent(jLabel2)
-                            .addGroup(jPanelDatosLayout.createSequentialGroup()
-                                .addGap(16, 16, 16)
-                                .addComponent(jLabel1))
                             .addComponent(jLabel6)
-                            .addComponent(jLabel7))
+                            .addComponent(jLabel7)
+                            .addGroup(jPanelDatosLayout.createSequentialGroup()
+                                .addGap(13, 13, 13)
+                                .addComponent(jLabel1)))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanelDatosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jComboBoxEstado, 0, 155, Short.MAX_VALUE)
+                            .addComponent(jComboBoxEstado, 0, 185, Short.MAX_VALUE)
                             .addComponent(jTextoSalario)
                             .addComponent(jTextoNombre)
                             .addComponent(jTextoPuesto)
@@ -263,14 +253,20 @@ public class Empleados extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jfechacontratacion)))
                 .addContainerGap())
+            .addGroup(jPanelDatosLayout.createSequentialGroup()
+                .addGap(102, 102, 102)
+                .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanelDatosLayout.setVerticalGroup(
             jPanelDatosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanelDatosLayout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(jPanelDatosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel1)
-                    .addComponent(jTextoID, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(28, Short.MAX_VALUE)
+                .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanelDatosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jTextoID, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel1))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanelDatosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
@@ -294,7 +290,7 @@ public class Empleados extends javax.swing.JFrame {
                 .addGap(23, 23, 23))
         );
 
-        jPanel1.add(jPanelDatos, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 120, 220, 250));
+        jPanel1.add(jPanelDatos, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 110, 250, 280));
 
         jButtonEliminarVisualizacion.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/actualizar.png"))); // NOI18N
         jButtonEliminarVisualizacion.addActionListener(new java.awt.event.ActionListener() {
@@ -302,7 +298,14 @@ public class Empleados extends javax.swing.JFrame {
                 jButtonEliminarVisualizacionActionPerformed(evt);
             }
         });
-        jPanel1.add(jButtonEliminarVisualizacion, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 250, 50, 40));
+        jPanel1.add(jButtonEliminarVisualizacion, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 230, 50, 40));
+
+        jEliminar.setText("Eliminar");
+        jEliminar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jEliminarActionPerformed(evt);
+            }
+        });
 
         jButtonEditar.setText("Editar");
         jButtonEditar.addActionListener(new java.awt.event.ActionListener() {
@@ -310,7 +313,51 @@ public class Empleados extends javax.swing.JFrame {
                 jButtonEditarActionPerformed(evt);
             }
         });
-        jPanel1.add(jButtonEditar, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 430, 80, -1));
+
+        jAñadir.setText("Añadir");
+        jAñadir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jAñadirActionPerformed(evt);
+            }
+        });
+
+        jLabel9.setFont(new java.awt.Font("Sylfaen", 1, 18)); // NOI18N
+        jLabel9.setForeground(new java.awt.Color(0, 0, 0));
+        jLabel9.setText("Panel de control");
+        jLabel9.setMaximumSize(new java.awt.Dimension(280, 20));
+
+        javax.swing.GroupLayout jPanelDatos3Layout = new javax.swing.GroupLayout(jPanelDatos3);
+        jPanelDatos3.setLayout(jPanelDatos3Layout);
+        jPanelDatos3Layout.setHorizontalGroup(
+            jPanelDatos3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanelDatos3Layout.createSequentialGroup()
+                .addGroup(jPanelDatos3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanelDatos3Layout.createSequentialGroup()
+                        .addGap(28, 28, 28)
+                        .addGroup(jPanelDatos3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jAñadir, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jButtonEditar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jEliminar, javax.swing.GroupLayout.DEFAULT_SIZE, 190, Short.MAX_VALUE)))
+                    .addGroup(jPanelDatos3Layout.createSequentialGroup()
+                        .addGap(61, 61, 61)
+                        .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(32, Short.MAX_VALUE))
+        );
+        jPanelDatos3Layout.setVerticalGroup(
+            jPanelDatos3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelDatos3Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jAñadir)
+                .addGap(18, 18, 18)
+                .addComponent(jButtonEditar)
+                .addGap(18, 18, 18)
+                .addComponent(jEliminar)
+                .addContainerGap(20, Short.MAX_VALUE))
+        );
+
+        jPanel1.add(jPanelDatos3, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 410, 250, 170));
 
         guardarDatos.setText("Guardar datos en fichero xml");
         guardarDatos.addActionListener(new java.awt.event.ActionListener() {
@@ -318,7 +365,6 @@ public class Empleados extends javax.swing.JFrame {
                 guardarDatosActionPerformed(evt);
             }
         });
-        jPanel1.add(guardarDatos, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 480, 210, -1));
 
         cargarDatos.setText("Cargar datos de fichero xml");
         cargarDatos.addActionListener(new java.awt.event.ActionListener() {
@@ -326,20 +372,83 @@ public class Empleados extends javax.swing.JFrame {
                 cargarDatosActionPerformed(evt);
             }
         });
-        jPanel1.add(cargarDatos, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 530, 210, -1));
+
+        jGuardarBinario.setText("Guardar datos en binario");
+        jGuardarBinario.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jGuardarBinarioActionPerformed(evt);
+            }
+        });
+
+        jCargarBinario.setText("Cargar datos en binario");
+        jCargarBinario.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jCargarBinarioActionPerformed(evt);
+            }
+        });
+
+        jLabel11.setFont(new java.awt.Font("Sylfaen", 1, 18)); // NOI18N
+        jLabel11.setForeground(new java.awt.Color(0, 0, 0));
+        jLabel11.setText("Gestión de archivos ");
+        jLabel11.setMaximumSize(new java.awt.Dimension(280, 20));
+
+        javax.swing.GroupLayout jPanelDatos1Layout = new javax.swing.GroupLayout(jPanelDatos1);
+        jPanelDatos1.setLayout(jPanelDatos1Layout);
+        jPanelDatos1Layout.setHorizontalGroup(
+            jPanelDatos1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelDatos1Layout.createSequentialGroup()
+                .addGap(15, 15, 15)
+                .addGroup(jPanelDatos1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(guardarDatos, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jGuardarBinario, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 28, Short.MAX_VALUE)
+                .addGroup(jPanelDatos1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(cargarDatos, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jCargarBinario, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(17, 17, 17))
+            .addGroup(jPanelDatos1Layout.createSequentialGroup()
+                .addGap(155, 155, 155)
+                .addComponent(jLabel11, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        jPanelDatos1Layout.setVerticalGroup(
+            jPanelDatos1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanelDatos1Layout.createSequentialGroup()
+                .addGap(16, 16, 16)
+                .addGroup(jPanelDatos1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(guardarDatos)
+                    .addComponent(cargarDatos))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 21, Short.MAX_VALUE)
+                .addComponent(jLabel11, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addGroup(jPanelDatos1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jCargarBinario)
+                    .addComponent(jGuardarBinario))
+                .addGap(14, 14, 14))
+        );
+
+        jPanel1.add(jPanelDatos1, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 440, 480, 140));
 
         fondoprincipal.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/gradient_1920_1080.png"))); // NOI18N
-        jPanel1.add(fondoprincipal, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 950, 590));
+        jPanel1.add(fondoprincipal, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 980, 590));
+
+        jActualizar.setText("Refrescar Empleados");
+        jActualizar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jActualizarActionPerformed(evt);
+            }
+        });
+        jPanel1.add(jActualizar, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 430, 190, -1));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
 
         pack();
@@ -529,7 +638,9 @@ public class Empleados extends javax.swing.JFrame {
                 // Llamamos al metodo añadir
                 controladorEmpleados.añadir(empleado, empleado.getEstado().name());
                 actualizarMatrizDatos();
+
             }
+            JOptionPane.showMessageDialog(this, "Datos cargados del xml a la base de datos correctamente.");
         } catch (Exception e) {
             System.err.println("\tERROR al leer el archivo listadoEmpleados.xml");
             e.printStackTrace();
@@ -575,6 +686,9 @@ public class Empleados extends javax.swing.JFrame {
 
             // Se cierra el codificador para finalizar la escritura
             xmle.close();
+
+            JOptionPane.showMessageDialog(this, "Datos guardados correctamente en el fichero xml.");
+
         } catch (Exception e) {
             // En caso de error, se muestra un mensaje en consola
             System.err.println("\tERROR en la escritura de datos del archivo: listadoEmpleados.xml");
@@ -582,6 +696,81 @@ public class Empleados extends javax.swing.JFrame {
         }
         // TODO add your handling code here:
     }//GEN-LAST:event_guardarDatosActionPerformed
+
+    private void jGuardarBinarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jGuardarBinarioActionPerformed
+        // TODO add your handling code here:
+        try {
+            // Creamos el flujo de salida hacia un archivo binario
+            FileOutputStream fos = new FileOutputStream("listadoEmpleados.bin");
+            ObjectOutputStream oos = new ObjectOutputStream(fos);
+
+            // Creamos la lista de clientes
+            List<Empleado> listaEmpleados = new ArrayList<>();
+
+            // Obtenemos el modelo de datos de la tabla
+            DefaultTableModel model = (DefaultTableModel) visor.getModel();
+            int filas = model.getRowCount();
+
+            // Recorremos las filas
+            for (int i = 0; i < filas; i++) {
+                int id = Integer.parseInt(model.getValueAt(i, 0).toString());       // Columna 0: ID
+                String nombre = model.getValueAt(i, 1).toString();                  // Columna 1: Nombre
+                String puesto = model.getValueAt(i, 2).toString();                  // Columna 2: Puesto
+                int salario = Integer.parseInt(model.getValueAt(i, 3).toString());  // Columna 3: Salario
+                String fechaContratacion = model.getValueAt(i, 4).toString();
+
+                // Asegurarse de que en la clase Empleado los enum, se vean igual que en la tabla
+                Empleado.Estado estado = Empleado.Estado.valueOf(model.getValueAt(i, 5).toString()); // Columna 5: Estado (Activo/Inactivo)
+
+                // Creamos el objeto Cliente
+                Empleado empleado = new Empleado(id, nombre, puesto, salario, fechaContratacion, estado);
+                listaEmpleados.add(empleado);
+            }
+
+            // Guardamos la lista en el archivo binario
+            oos.writeObject(listaEmpleados);
+
+            // Cerramos el flujo
+            oos.close();
+
+            JOptionPane.showMessageDialog(this, "Datos guardados correctamente en binario.");
+        } catch (Exception e) {
+            System.err.println("ERROR en la escritura de datos del archivo binario");
+            e.printStackTrace();
+        }
+    }//GEN-LAST:event_jGuardarBinarioActionPerformed
+
+    private void jCargarBinarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCargarBinarioActionPerformed
+        // TODO add your handling code here:
+        try {
+            // Abres el archivo binario
+            FileInputStream fis = new FileInputStream("listadoClientes.bin");
+            ObjectInputStream ois = new ObjectInputStream(fis);
+
+            // Lees la lista de clientes
+            List<Empleado> listaEnEmpleados = (List<Empleado>) ois.readObject();
+
+            ois.close();
+            fis.close();
+
+            DefaultTableModel model = (DefaultTableModel) visor.getModel();
+            model.setRowCount(0);
+
+            // Insertas cada cliente
+            for (Empleado empleado : listaEnEmpleados) {
+                controladorEmpleados.añadir(empleado, empleado.getEstado().name());
+                actualizarMatrizDatos();
+            }
+
+            JOptionPane.showMessageDialog(this, "Datos cargados del binario a la base de datos correctamente.");
+
+            // Refrescas la tabla
+        } catch (Exception e) {
+            System.err.println("ERROR cargando datos desde binario");
+            e.printStackTrace();
+        }
+
+    }//GEN-LAST:event_jCargarBinarioActionPerformed
 
     /**
      * @param args the command line arguments
@@ -609,6 +798,9 @@ public class Empleados extends javax.swing.JFrame {
             java.util.logging.Logger.getLogger(Empleados.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
@@ -628,9 +820,13 @@ public class Empleados extends javax.swing.JFrame {
     private javax.swing.JButton jBotonAtras;
     private javax.swing.JButton jButtonEditar;
     private javax.swing.JButton jButtonEliminarVisualizacion;
+    private javax.swing.JButton jCargarBinario;
     private javax.swing.JComboBox<String> jComboBoxEstado;
     private javax.swing.JButton jEliminar;
+    private javax.swing.JButton jGuardarBinario;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel10;
+    private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -638,9 +834,12 @@ public class Empleados extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
     private javax.swing.JLabel jLabelLogo1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanelDatos;
+    private javax.swing.JPanel jPanelDatos1;
+    private javax.swing.JPanel jPanelDatos3;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTextField jTextoID;
     private javax.swing.JTextField jTextoNombre;
