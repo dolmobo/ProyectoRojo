@@ -18,9 +18,9 @@ public class ConexionBDR {
     // Variables de conexión
     private Connection con;
     private Statement sentencia;
-    private String usuario = "root";
+    private String usuario = "";
     private String clave = "";
-    private String url = "jdbc:mysql://localhost:3306/prueba4";  // Asegúrate de que el nombre de la base de datos sea correcto
+    private String url = "";  // Asegúrate de que el nombre de la base de datos sea correcto
 
    
     
@@ -47,46 +47,43 @@ public class ConexionBDR {
         ConexionBDR conexion = new ConexionBDR();
         
         
-        conexion.conectar();  // Llamamos al método conectar
+        conexion.conectar();  // Llamamos al método conectar    
     }
     
      public void leerFicheroConfiguracion() {
-        String cadena, nombreFich = "\\configuracion.txt";
-        String cadenaTroceada[];
-        
-        System.out.println("\nLEYENDO CONTENIDO DEL ARCHIVO '" + nombreFich + "':\n");
-        try (BufferedReader fichBuf = new BufferedReader(new FileReader(nombreFich))) {
-            cadena = fichBuf.readLine();
-            while (cadena != null) {
-                //System.out.println(cadena);
-                
-                // Extracción de los datos
-                cadenaTroceada = cadena.split(";");
-                if (cadenaTroceada[0].equalsIgnoreCase("usuario"))
-                    usuario = cadenaTroceada[1];
-                else if (cadenaTroceada[0].equalsIgnoreCase("clave"))
-                    clave = cadenaTroceada[1];
-                 else if (cadenaTroceada[0].equalsIgnoreCase("url"))
-                    url = cadenaTroceada[1];               
-                
-                cadena = fichBuf.readLine();
+    String archivo = "configuracion.txt";  // Asumimos que está en la raíz del proyecto
+    String linea;
+    String[] partes;
+
+    System.out.println("\nLEYENDO CONTENIDO DEL ARCHIVO '" + archivo + "':\n");
+
+    try (BufferedReader br = new BufferedReader(new FileReader(archivo))) {
+        while ((linea = br.readLine()) != null) {
+            partes = linea.split(";");
+            if (partes.length < 2) continue;
+
+            switch (partes[0].toLowerCase()) {
+                case "usuario":
+                    usuario = partes[1];
+                    break;
+                case "clave":
+                    clave = partes[1];
+                    break;
+                case "url":
+                    url = partes[1];
+                    break;
             }
-            // se cierra el archivo
-            fichBuf.close();
-        } catch (IOException e) {
-            System.out.println(e.getMessage());
         }
-        System.out.println("Datos leídos:");
-        System.out.println("Usuario: " + usuario);
-        System.out.println("Clave: "+ clave);
-        System.out.println("url:" +url);       
-         
-         
-         
-         
-         
-         
-    }   
+    } catch (IOException e) {
+        System.out.println("Error leyendo el archivo: " + e.getMessage());
+    }
+
+    System.out.println("Datos leídos:");
+    System.out.println("Usuario: " + usuario);
+    System.out.println("Clave: " + clave);
+    System.out.println("URL: " + url);
+}
+
     
     
     

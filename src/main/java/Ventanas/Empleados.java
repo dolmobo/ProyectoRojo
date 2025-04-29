@@ -638,7 +638,9 @@ public class Empleados extends javax.swing.JFrame {
                 // Llamamos al metodo añadir
                 controladorEmpleados.añadir(empleado, empleado.getEstado().name());
                 actualizarMatrizDatos();
+                
             }
+            JOptionPane.showMessageDialog(this, "Datos cargados del xml a la base de datos correctamente.");
         } catch (Exception e) {
             System.err.println("\tERROR al leer el archivo listadoEmpleados.xml");
             e.printStackTrace();
@@ -684,6 +686,9 @@ public class Empleados extends javax.swing.JFrame {
 
             // Se cierra el codificador para finalizar la escritura
             xmle.close();
+            
+            JOptionPane.showMessageDialog(this, "Datos guardados correctamente en el fichero xml.");
+            
         } catch (Exception e) {
             // En caso de error, se muestra un mensaje en consola
             System.err.println("\tERROR en la escritura de datos del archivo: listadoEmpleados.xml");
