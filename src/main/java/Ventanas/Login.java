@@ -164,7 +164,7 @@ public class Login extends javax.swing.JFrame {
         admin.setVisible(true);
     } else {
         JOptionPane.showMessageDialog(this, "Inicio de sesión exitoso.");
-        Eleccion_NO abrir = new Eleccion_NO(); // Aquí se abre la ventana del usuario normal
+        Eleccion_user abrir = new Eleccion_user(); // Aquí se abre la ventana del usuario normal
         abrir.setVisible(true);
     }
 

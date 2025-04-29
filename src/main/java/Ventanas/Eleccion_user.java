@@ -13,12 +13,12 @@ import javax.swing.ImageIcon;
  *
  * @author USUARIO
  */
-public class Eleccion_NO extends javax.swing.JFrame {
+public class Eleccion_user extends javax.swing.JFrame {
 
     /**
      * Creates new form Login
      */
-    public Eleccion_NO() {
+    public Eleccion_user() {
         initComponents();
         this.setLocationRelativeTo(null);
     }
@@ -103,21 +103,21 @@ public class Eleccion_NO extends javax.swing.JFrame {
 
     private void jBotonProduccionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBotonProduccionActionPerformed
         // TODO add your handling code here:
-        Producciones abrir=new Producciones();
+        Producciones_user abrir=new Producciones_user();
         abrir.setVisible(true);
         this.setVisible(false);
     }//GEN-LAST:event_jBotonProduccionActionPerformed
 
     private void jBotonVentasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBotonVentasActionPerformed
         // TODO add your handling code here:
-        Ventas abrir=new Ventas();
+        Ventas_user abrir=new Ventas_user();
         abrir.setVisible(true);
         this.setVisible(false);
     }//GEN-LAST:event_jBotonVentasActionPerformed
 
     private void jBotonClientesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBotonClientesActionPerformed
         // TODO add your handling code here:
-        Clientes abrir=new Clientes();
+        Clientes_user abrir=new Clientes_user();
         abrir.setVisible(true);
         this.setVisible(false);
     }//GEN-LAST:event_jBotonClientesActionPerformed
@@ -139,14 +139,18 @@ public class Eleccion_NO extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(Eleccion_NO.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Eleccion_user.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(Eleccion_NO.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Eleccion_user.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(Eleccion_NO.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Eleccion_user.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(Eleccion_NO.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Eleccion_user.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
         //</editor-fold>
         //</editor-fold>
         //</editor-fold>
@@ -155,7 +159,7 @@ public class Eleccion_NO extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new Eleccion_NO().setVisible(true);
+                new Eleccion_user().setVisible(true);
             }
         });
     }
