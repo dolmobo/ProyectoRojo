@@ -4,11 +4,13 @@
  */
 package Modelo;
 
+import java.io.Serializable;
+
 /**
  *
  * @author halla
  */
-public class Produccion {
+public class Produccion implements Serializable {
    private int idProduccion;
    private String empleado;
    private int cantidad;

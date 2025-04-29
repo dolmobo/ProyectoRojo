@@ -6,7 +6,10 @@ package Ventanas;
 
 import Controlador.ControladorEmpleados;
 import Controlador.ControladorProducción;
+import Modelo.Empleado;
+import Modelo.Empleado.Estado;
 import Modelo.Produccion;
+import Modelo.Produccion.Producto;
 import Usos.ConexionBDR;
 import Usos.Leer;
 import java.beans.XMLDecoder;
@@ -14,7 +17,10 @@ import java.beans.XMLEncoder;
 import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -245,7 +251,7 @@ public class Producciones extends javax.swing.JFrame {
         });
         jPanel1.add(jcantidad, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 260, 120, -1));
 
-        jestado_f.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Finalizado", "En Proceso" }));
+        jestado_f.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Finalizado", "Proceso" }));
         jPanel1.add(jestado_f, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 290, 120, -1));
 
         jproducto.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Bandejas", "Cajones", "Palets" }));
@@ -588,20 +594,19 @@ public class Producciones extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "No se ha seleccionado ninguna producción.");
         } else {
             // Obtenemos los valores en el orden correcto según las columnaspro
-
-            String idStr = TablaProComple.getValueAt(filaSeleccionada, 0).toString();  // ID Producción
-            //String empleado = TablaProComple.getValueAt(filaSeleccionada, 1).toString();  // Empleado
-            String cantidad = TablaProComple.getValueAt(filaSeleccionada, 2).toString();  // Cantidad
-            String tipoProducto = TablaProComple.getValueAt(filaSeleccionada, 3).toString();  // Producto
-            String estado_f = TablaProComple.getValueAt(filaSeleccionada, 4).toString();  // Estado
-            String fechaInicio = TablaProComple.getValueAt(filaSeleccionada, 5).toString();  // Fecha Inicio
-            String fechaFin = TablaProComple.getValueAt(filaSeleccionada, 6).toString();  // Fecha Fin
+            String idStr = TablaProComple.getValueAt(filaSeleccionada, 0).toString();
+            String empleado = TablaProComple.getValueAt(filaSeleccionada, 1).toString();
+            String cantidad = TablaProComple.getValueAt(filaSeleccionada, 2).toString();
+            String tipoProducto = TablaProComple.getValueAt(filaSeleccionada, 3).toString();
+            String estado_f = TablaProComple.getValueAt(filaSeleccionada, 4).toString();
+            String fechaInicio = TablaProComple.getValueAt(filaSeleccionada, 5).toString();
+            String fechaFin = TablaProComple.getValueAt(filaSeleccionada, 6).toString();
 
             // Asignamos a los campos del formulario
             jIDProduccion.setText(idStr);
-            //jempleado.setText(empleado);
-            jcantidad.setText(cantidad);
+            jempleado.setText(empleado);
             jproducto.setSelectedItem(tipoProducto);
+            jcantidad.setText(cantidad);
             jestado_f.setSelectedItem(estado_f);
             jfechaInicio.setText(fechaInicio);
             jfechaFin.setText(fechaFin);
@@ -651,7 +656,7 @@ public class Producciones extends javax.swing.JFrame {
             if (filasAfectadas > 0) {
                 JOptionPane.showMessageDialog(this, "Producción actualizada.");
                 int idEmpleado = Integer.parseInt(jID.getText());
-                actualizarMatrizDatoProduccion(idEmpleado);
+                actualizarMatrizDatoProduccion(idProduccion);
             } else {
                 JOptionPane.showMessageDialog(this, "No se encontró la producción con ese ID.");
             }
@@ -663,16 +668,109 @@ public class Producciones extends javax.swing.JFrame {
 
     private void CargarDatosBinActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CargarDatosBinActionPerformed
         // TODO add your handling code here:
+        try {
+            // Creamos el flujo de entrada desde un archivo binario
+            FileInputStream fis = new FileInputStream("listadoProduccion.bin");
+            ObjectInputStream ois = new ObjectInputStream(fis);
+
+            // Leemos la lista de producciones desde el archivo binario
+            List<Produccion> listaProduccion = (List<Produccion>) ois.readObject();
+
+            // Cerramos el flujo de entrada
+            ois.close();
+
+            // Obtenemos el modelo de datos de la tabla
+            DefaultTableModel model = (DefaultTableModel) TablaProComple.getModel();
+            model.setRowCount(0); // Limpiamos la tabla antes de cargar los nuevos datos
+
+            // Recorremos la lista de producciones y las agregamos a la tabla
+            for (Produccion produccion : listaProduccion) {
+                // Creamos un arreglo con los datos de cada Produccion
+                Object[] fila = {
+                    produccion.getIdProduccion(),
+                    produccion.getEmpleado(),
+                    produccion.getCantidad(),
+                    produccion.getProducto().toString(), // Convertimos el Producto a String
+                    produccion.getEstado().toString(), // Convertimos el Estado a String
+                    produccion.getFechaInicio(),
+                    produccion.getFechaFin()
+                };
+
+                // Agregamos la fila al modelo de la tabla
+                model.addRow(fila);
+            }
+
+            // Mostramos un mensaje de éxito
+            JOptionPane.showMessageDialog(this, "Datos de producción cargados correctamente desde binario.");
+        } catch (Exception e) {
+            System.err.println("ERROR al cargar los datos del archivo binario");
+            e.printStackTrace();
+        }
+
     }//GEN-LAST:event_CargarDatosBinActionPerformed
 
     private void guardaDatosBinActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_guardaDatosBinActionPerformed
-        // TODO add your handling code here:
+        try {
+            // Creamos el flujo de salida hacia un archivo binario
+            FileOutputStream fos = new FileOutputStream("listadoProduccion.bin");
+            ObjectOutputStream oos = new ObjectOutputStream(fos);
+
+            // Creamos la lista de producciones
+            List<Produccion> listaProduccion = new ArrayList<>();
+
+            // Obtenemos el modelo de datos de la tabla
+            DefaultTableModel model = (DefaultTableModel) TablaProComple.getModel();
+            int filas = model.getRowCount();
+
+            // Recorremos las filas de la tabla
+            for (int i = 0; i < filas; i++) {
+                int idProduccion = Integer.parseInt(model.getValueAt(i, 0).toString());
+                String empleado = model.getValueAt(i, 1).toString();
+                int cantidad = Integer.parseInt(model.getValueAt(i, 2).toString());
+
+                // Convertir Producto de String a Enum
+                Producto producto;
+                try {
+                    producto = Producto.valueOf(model.getValueAt(i, 3).toString().toUpperCase()); // Convertimos a mayúsculas
+                } catch (IllegalArgumentException e) {
+                    producto = Producto.Bandejas;  // Valor predeterminado en caso de error
+                    System.err.println("Producto no válido en la fila " + i + ". Asignado valor predeterminado: " + producto);
+                }
+
+                // Convertir Estado de String a Enum
+                Estado estado;
+                try {
+                    estado = Estado.valueOf(model.getValueAt(i, 4).toString().toUpperCase()); // Convertimos a mayúsculas
+                } catch (IllegalArgumentException e) {
+                    estado = Estado.Proceso;  // Valor predeterminado si la conversión falla
+                    System.err.println("Estado no válido en la fila " + i + ". Asignado valor predeterminado: " + estado);
+                }
+
+                String fechaInicio = model.getValueAt(i, 5).toString();
+                String fechaFin = model.getValueAt(i, 6).toString();
+
+                // Creamos el objeto Produccion
+                Produccion produccion = new Produccion(idProduccion, empleado, cantidad, producto, Produccion.Estado.Proceso, fechaInicio, fechaFin);
+                listaProduccion.add(produccion);
+            }
+
+            // Guardamos la lista de producciones en el archivo binario
+            oos.writeObject(listaProduccion);
+
+            // Cerramos el flujo
+            oos.close();
+
+            // Mostramos mensaje de éxito
+            JOptionPane.showMessageDialog(this, "Datos de producción guardados correctamente en binario.");
+        } catch (Exception e) {
+            System.err.println("ERROR en la escritura de datos del archivo binario");
+            e.printStackTrace();
+        }
     }//GEN-LAST:event_guardaDatosBinActionPerformed
 
     private void CargarDatosXMLActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CargarDatosXMLActionPerformed
-        // TODO add your handling code here:
         try {
-            // Abrimos el archivo XML con las producciones
+            // Abrimos el archivo XML donde están guardadas las producciones
             FileInputStream fis = new FileInputStream("listadoProduccion.xml");
             XMLDecoder xmld = new XMLDecoder(new BufferedInputStream(fis));
 
@@ -680,25 +778,31 @@ public class Producciones extends javax.swing.JFrame {
             List<Produccion> listaProduccion = (List<Produccion>) xmld.readObject();
             xmld.close();
 
-            // Obtenemos el modelo de la tabla de producciones
+            // Obtenemos el modelo de la tabla donde se mostrarán los datos
             DefaultTableModel model = (DefaultTableModel) TablaProComple.getModel();
-            model.setRowCount(0); // Limpiar la tabla antes de cargar
+            model.setRowCount(0); // Limpiamos la tabla antes de cargar nuevos datos
 
-            // Añadir cada producción como una fila
+            // Recorremos la lista y añadimos cada producción como una fila en la tabla
             for (Produccion produccion : listaProduccion) {
+                // Crear un arreglo de objetos para la fila de la tabla
                 Object[] fila = {
                     produccion.getIdProduccion(),
                     produccion.getEmpleado(),
-                    produccion.getProducto(),
                     produccion.getCantidad(),
-                    produccion.getEstado(),
+                    produccion.getProducto().toString(), // Convertimos el Producto a String
+                    produccion.getEstado().toString(), // Convertimos el Estado a String
                     produccion.getFechaInicio(),
                     produccion.getFechaFin()
                 };
+
+                // Añadimos la fila al modelo de la tabla
                 model.addRow(fila);
             }
 
+            // Opcional: actualizar cualquier otra cosa después de cargar los datos
+            // actualizarMatrizDatos();  // Si tienes algún método adicional para actualizar datos
         } catch (Exception e) {
+            // En caso de error, mostramos el error en consola
             System.err.println("\tERROR al leer el archivo listadoProduccion.xml");
             e.printStackTrace();
         }
@@ -706,42 +810,54 @@ public class Producciones extends javax.swing.JFrame {
 
     private void guardaDatosXMLActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_guardaDatosXMLActionPerformed
         try {
-            // Se crea un flujo de salida para escribir en el archivo "listadoEmpleados.xml"
+            // Se crea un flujo de salida para escribir en el archivo "listadoProduccion.xml"
             FileOutputStream fos = new FileOutputStream("listadoProduccion.xml");
 
             // Se crea un codificador XML que escribirá en el flujo de salida, con buffer para mayor eficiencia
             XMLEncoder xmle = new XMLEncoder(new BufferedOutputStream(fos));
 
-            // Se crea una lista vacía donde se guardarán todos los empleados
+            // Se crea una lista vacía donde se guardarán todas las producciones
             List<Produccion> listaProduccion = new ArrayList<>();
 
-            // Se obtiene el modelo de datos (las filas y columnas) de la tabla "visor"
+            // Se obtiene el modelo de datos (las filas y columnas) de la tabla "TablaProComple"
             DefaultTableModel model = (DefaultTableModel) TablaProComple.getModel();
             int filas = model.getRowCount(); // Se obtiene el número de filas de la tabla
 
             // Se recorre cada fila de la tabla
-            for (int i = 0; i < model.getRowCount(); i++) {
-                int IDproduccion = Integer.parseInt(model.getValueAt(i, 0).toString());      // Columna 0: ID Producción
-                String empleado = ""; // Si no se usa en la tabla, puedes ignorar o ajustar según sea necesario
-                int cantidad = Integer.parseInt(model.getValueAt(i, 2).toString());          // Columna 2: Cantidad
-                Produccion.Producto producto = Produccion.Producto.valueOf(model.getValueAt(i, 3).toString()); // Columna 3: Producto
-                Produccion.Estado estado = Produccion.Estado.valueOf(model.getValueAt(i, 4).toString());       // Columna 4: Estado
-                String fechaInicio = model.getValueAt(i, 5).toString();                     // Columna 5: Fecha Inicio
-                String fechaFin = model.getValueAt(i, 6).toString();                        // Columna 6: Fecha Fin
+            for (int i = 0; i < filas; i++) {
+                // Se leen y convierten los datos de cada columna de la fila actual
+                int idProduccion = Integer.parseInt(model.getValueAt(i, 0).toString());  // Columna 0: ID Producción
+                String empleado = model.getValueAt(i, 1).toString();  // Columna 1: Empleado
+                int cantidad = Integer.parseInt(model.getValueAt(i, 2).toString());  // Columna 2: Cantidad
+                String tipoProductoStr = model.getValueAt(i, 3).toString();  // Columna 3: Producto
+                String estadoStr = model.getValueAt(i, 4).toString();  // Columna 4: Estado
+                String fechaInicio = model.getValueAt(i, 5).toString();  // Columna 5: Fecha Inicio
+                String fechaFin = model.getValueAt(i, 6).toString();  // Columna 6: Fecha Fin
 
-                Produccion produccion = new Produccion(IDproduccion, empleado, cantidad, producto, estado, fechaInicio, fechaFin);
-                listaProduccion.add(produccion);    
+                // Convertir el tipo de producto y estado usando los enumerados
+                Produccion.Producto producto = Produccion.Producto.valueOf(tipoProductoStr);
+                Produccion.Estado estado = Produccion.Estado.valueOf(estadoStr);
+
+                // Se crea un objeto Produccion con los datos leídos
+                Produccion produccion = new Produccion(idProduccion, empleado, cantidad, producto, estado, fechaInicio, fechaFin);
+
+                // Se añade la producción a la lista
+                listaProduccion.add(produccion);
             }
 
-            // Se escribe la lista completa de empleados en el archivo XML
+            // Se escribe la lista completa de producciones en el archivo XML
             xmle.writeObject(listaProduccion);
 
             // Se cierra el codificador para finalizar la escritura
             xmle.close();
+
+            // Muestra un mensaje de éxito
+            JOptionPane.showMessageDialog(this, "Datos guardados correctamente en el fichero XML.");
+
         } catch (Exception e) {
             // En caso de error, se muestra un mensaje en consola
-            System.err.println("\tERROR en la escritura de datos del archivo: listadoEmpleados.xml");
-            e.printStackTrace(); // Opcional: muestra detalles técnicos del error
+            System.err.println("\tERROR en la escritura de datos del archivo: listadoProduccion.xml");
+            e.printStackTrace(); // Muestra detalles técnicos del error
         }
     }//GEN-LAST:event_guardaDatosXMLActionPerformed
 
