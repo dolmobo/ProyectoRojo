@@ -1,0 +1,212 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<java version="23.0.1" class="java.beans.XMLDecoder">
+ <object class="java.util.ArrayList">
+  <void method="add">
+   <object class="Modelo.Produccion" id="Produccion0">
+    <void class="Modelo.Produccion" method="getField">
+     <string>producto</string>
+     <void method="set">
+      <object idref="Produccion0"/>
+      <object class="java.lang.Enum" method="valueOf">
+       <class>Modelo.Produccion$Producto</class>
+       <string>Bandejas</string>
+      </object>
+     </void>
+    </void>
+    <void class="Modelo.Produccion" method="getField">
+     <string>estado</string>
+     <void method="set">
+      <object idref="Produccion0"/>
+      <object class="java.lang.Enum" id="Produccion$Estado0" method="valueOf">
+       <class>Modelo.Produccion$Estado</class>
+       <string>Proceso</string>
+      </object>
+     </void>
+    </void>
+    <void property="cantidad">
+     <int>150</int>
+    </void>
+    <void property="empleado">
+     <string></string>
+    </void>
+    <void property="fechaFin">
+     <string>2025-04-15</string>
+    </void>
+    <void property="fechaInicio">
+     <string>2025-04-15</string>
+    </void>
+    <void property="idProduccion">
+     <int>1</int>
+    </void>
+   </object>
+  </void>
+  <void method="add">
+   <object class="Modelo.Produccion" id="Produccion1">
+    <void class="Modelo.Produccion" method="getField">
+     <string>producto</string>
+     <void method="set">
+      <object idref="Produccion1"/>
+      <object class="java.lang.Enum" id="Produccion$Producto0" method="valueOf">
+       <class>Modelo.Produccion$Producto</class>
+       <string>Cajones</string>
+      </object>
+     </void>
+    </void>
+    <void class="Modelo.Produccion" method="getField">
+     <string>estado</string>
+     <void method="set">
+      <object idref="Produccion1"/>
+      <object idref="Produccion$Estado0"/>
+     </void>
+    </void>
+    <void property="cantidad">
+     <int>35</int>
+    </void>
+    <void property="empleado">
+     <string></string>
+    </void>
+    <void property="fechaFin">
+     <string>2025-04-16</string>
+    </void>
+    <void property="fechaInicio">
+     <string>2025-04-16</string>
+    </void>
+    <void property="idProduccion">
+     <int>5</int>
+    </void>
+   </object>
+  </void>
+  <void method="add">
+   <object class="Modelo.Produccion" id="Produccion2">
+    <void class="Modelo.Produccion" method="getField">
+     <string>producto</string>
+     <void method="set">
+      <object idref="Produccion2"/>
+      <object idref="Produccion$Producto0"/>
+     </void>
+    </void>
+    <void class="Modelo.Produccion" method="getField">
+     <string>estado</string>
+     <void method="set">
+      <object idref="Produccion2"/>
+      <object idref="Produccion$Estado0"/>
+     </void>
+    </void>
+    <void property="cantidad">
+     <int>121</int>
+    </void>
+    <void property="empleado">
+     <string></string>
+    </void>
+    <void property="fechaFin">
+     <string>2025-04-15</string>
+    </void>
+    <void property="fechaInicio">
+     <string>2025-04-15</string>
+    </void>
+    <void property="idProduccion">
+     <int>9</int>
+    </void>
+   </object>
+  </void>
+  <void method="add">
+   <object class="Modelo.Produccion" id="Produccion3">
+    <void class="Modelo.Produccion" method="getField">
+     <string>producto</string>
+     <void method="set">
+      <object idref="Produccion3"/>
+      <object idref="Produccion$Producto0"/>
+     </void>
+    </void>
+    <void class="Modelo.Produccion" method="getField">
+     <string>estado</string>
+     <void method="set">
+      <object idref="Produccion3"/>
+      <object idref="Produccion$Estado0"/>
+     </void>
+    </void>
+    <void property="cantidad">
+     <int>121</int>
+    </void>
+    <void property="empleado">
+     <string></string>
+    </void>
+    <void property="fechaFin">
+     <string>2025-04-15</string>
+    </void>
+    <void property="fechaInicio">
+     <string>2025-04-15</string>
+    </void>
+    <void property="idProduccion">
+     <int>10</int>
+    </void>
+   </object>
+  </void>
+  <void method="add">
+   <object class="Modelo.Produccion" id="Produccion4">
+    <void class="Modelo.Produccion" method="getField">
+     <string>producto</string>
+     <void method="set">
+      <object idref="Produccion4"/>
+      <object idref="Produccion$Producto0"/>
+     </void>
+    </void>
+    <void class="Modelo.Produccion" method="getField">
+     <string>estado</string>
+     <void method="set">
+      <object idref="Produccion4"/>
+      <object idref="Produccion$Estado0"/>
+     </void>
+    </void>
+    <void property="cantidad">
+     <int>222</int>
+    </void>
+    <void property="empleado">
+     <string></string>
+    </void>
+    <void property="fechaFin">
+     <string>2025-04-16</string>
+    </void>
+    <void property="fechaInicio">
+     <string>2025-04-16</string>
+    </void>
+    <void property="idProduccion">
+     <int>11</int>
+    </void>
+   </object>
+  </void>
+  <void method="add">
+   <object class="Modelo.Produccion" id="Produccion5">
+    <void class="Modelo.Produccion" method="getField">
+     <string>producto</string>
+     <void method="set">
+      <object idref="Produccion5"/>
+      <object idref="Produccion$Producto0"/>
+     </void>
+    </void>
+    <void class="Modelo.Produccion" method="getField">
+     <string>estado</string>
+     <void method="set">
+      <object idref="Produccion5"/>
+      <object idref="Produccion$Estado0"/>
+     </void>
+    </void>
+    <void property="cantidad">
+     <int>333</int>
+    </void>
+    <void property="empleado">
+     <string></string>
+    </void>
+    <void property="fechaFin">
+     <string>2025-04-15</string>
+    </void>
+    <void property="fechaInicio">
+     <string>2025-04-15</string>
+    </void>
+    <void property="idProduccion">
+     <int>12</int>
+    </void>
+   </object>
+  </void>
+ </object>
+</java>

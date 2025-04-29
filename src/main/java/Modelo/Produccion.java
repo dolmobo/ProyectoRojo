@@ -74,11 +74,11 @@ public class Produccion {
     }
    
    public enum Estado{
-       FINALIZADO, ENPROCESO
+       Finalizado, Proceso
    };
    
    public enum Producto{
-       BANDEJAS, CAJONES, PALETS
+       Bandejas, Cajones, Palets
    };
 
     public Produccion() {

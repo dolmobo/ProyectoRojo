@@ -512,28 +512,28 @@ public class Empleados extends javax.swing.JFrame {
     private void cargarDatosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cargarDatosActionPerformed
         // TODO add your handling code here:
         try {
-        // Abrimos el archivo XML donde están guardados los empleados
-        FileInputStream fis = new FileInputStream("listadoEmpleados.xml");
-        XMLDecoder xmld = new XMLDecoder(new BufferedInputStream(fis));
+            // Abrimos el archivo XML donde están guardados los empleados
+            FileInputStream fis = new FileInputStream("listadoEmpleados.xml");
+            XMLDecoder xmld = new XMLDecoder(new BufferedInputStream(fis));
 
-        // Leemos la lista de empleados del archivo
-        List<Empleado> listaEmpleados = (List<Empleado>) xmld.readObject();
-        xmld.close();
+            // Leemos la lista de empleados del archivo
+            List<Empleado> listaEmpleados = (List<Empleado>) xmld.readObject();
+            xmld.close();
 
-        // Obtenemos el modelo de la tabla
-        DefaultTableModel model = (DefaultTableModel) visor.getModel();
-        model.setRowCount(0); // Limpiamos la tabla antes de cargar nuevos datos
+            // Obtenemos el modelo de la tabla
+            DefaultTableModel model = (DefaultTableModel) visor.getModel();
+            model.setRowCount(0); // Limpiamos la tabla antes de cargar nuevos datos
 
-        // Recorremos la lista y añadimos cada empleado como una fila en la tabla
-         for (Empleado empleado : listaEmpleados) {
-            // Llamamos al metodo añadir
-            controladorEmpleados.añadir(empleado, empleado.getEstado().name());
-            actualizarMatrizDatos();
+            // Recorremos la lista y añadimos cada empleado como una fila en la tabla
+            for (Empleado empleado : listaEmpleados) {
+                // Llamamos al metodo añadir
+                controladorEmpleados.añadir(empleado, empleado.getEstado().name());
+                actualizarMatrizDatos();
+            }
+        } catch (Exception e) {
+            System.err.println("\tERROR al leer el archivo listadoEmpleados.xml");
+            e.printStackTrace();
         }
-    } catch (Exception e) {
-        System.err.println("\tERROR al leer el archivo listadoEmpleados.xml");
-        e.printStackTrace();
-    }
     }//GEN-LAST:event_cargarDatosActionPerformed
 
     private void guardarDatosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_guardarDatosActionPerformed

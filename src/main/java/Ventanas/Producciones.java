@@ -6,6 +6,7 @@ package Ventanas;
 
 import Controlador.ControladorEmpleados;
 import Controlador.ControladorProducción;
+import Modelo.Produccion;
 import Usos.ConexionBDR;
 import Usos.Leer;
 import java.beans.XMLDecoder;
@@ -181,8 +182,12 @@ public class Producciones extends javax.swing.JFrame {
         TablaProComple = new javax.swing.JTable();
         jLabel3 = new javax.swing.JLabel();
         jLabel10 = new javax.swing.JLabel();
-        CargarDatos = new javax.swing.JButton();
-        guardaDatos = new javax.swing.JButton();
+        CargarDatosBin = new javax.swing.JButton();
+        guardaDatosBin = new javax.swing.JButton();
+        CargarDatosXML = new javax.swing.JButton();
+        guardaDatosXML = new javax.swing.JButton();
+        jLabel18 = new javax.swing.JLabel();
+        jLabel17 = new javax.swing.JLabel();
         jLabel11 = new javax.swing.JLabel();
         jLabel12 = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
@@ -190,6 +195,7 @@ public class Producciones extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         visor = new javax.swing.JTable();
         jLabel13 = new javax.swing.JLabel();
+        jLabel16 = new javax.swing.JLabel();
         fondoprincipal = new javax.swing.JLabel();
 
         jLabelLogo1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/logoGestiCor.png"))); // NOI18N
@@ -199,22 +205,22 @@ public class Producciones extends javax.swing.JFrame {
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel5.setText("[Empleado]");
-        jPanel1.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 270, -1, -1));
+        jPanel1.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 200, -1, -1));
 
         jLabel4.setText("[Cantidad] ");
-        jPanel1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 330, -1, -1));
+        jPanel1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 260, -1, -1));
 
         jLabel6.setText("[Fecha Inicio]");
-        jPanel1.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 390, -1, -1));
+        jPanel1.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 320, -1, -1));
 
         jLabel7.setText("[Estado]");
-        jPanel1.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 360, -1, -1));
+        jPanel1.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 290, -1, -1));
 
         jLabel8.setText("[Fecha Fin]");
-        jPanel1.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 420, -1, -1));
+        jPanel1.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 350, -1, -1));
 
         jLabel9.setText("[Producto]");
-        jPanel1.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 300, -1, -1));
+        jPanel1.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 230, -1, -1));
 
         anadirUsuario.setText("Añadir");
         anadirUsuario.addActionListener(new java.awt.event.ActionListener() {
@@ -230,17 +236,17 @@ public class Producciones extends javax.swing.JFrame {
                 jempleadoActionPerformed(evt);
             }
         });
-        jPanel1.add(jempleado, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 270, 120, -1));
+        jPanel1.add(jempleado, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 200, 120, -1));
 
         jcantidad.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jcantidadActionPerformed(evt);
             }
         });
-        jPanel1.add(jcantidad, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 330, 120, -1));
+        jPanel1.add(jcantidad, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 260, 120, -1));
 
         jestado_f.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Finalizado", "En Proceso" }));
-        jPanel1.add(jestado_f, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 360, 120, -1));
+        jPanel1.add(jestado_f, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 290, 120, -1));
 
         jproducto.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Bandejas", "Cajones", "Palets" }));
         jproducto.addActionListener(new java.awt.event.ActionListener() {
@@ -248,21 +254,21 @@ public class Producciones extends javax.swing.JFrame {
                 jproductoActionPerformed(evt);
             }
         });
-        jPanel1.add(jproducto, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 300, 120, -1));
+        jPanel1.add(jproducto, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 230, 120, -1));
 
         jfechaInicio.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jfechaInicioActionPerformed(evt);
             }
         });
-        jPanel1.add(jfechaInicio, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 390, 120, -1));
+        jPanel1.add(jfechaInicio, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 320, 120, -1));
 
         jfechaFin.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jfechaFinActionPerformed(evt);
             }
         });
-        jPanel1.add(jfechaFin, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 420, 120, -1));
+        jPanel1.add(jfechaFin, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 350, 120, -1));
 
         resetear.setText("Resetear");
         resetear.addActionListener(new java.awt.event.ActionListener() {
@@ -307,7 +313,7 @@ public class Producciones extends javax.swing.JFrame {
                 jIDActionPerformed(evt);
             }
         });
-        jPanel1.add(jID, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 210, 120, -1));
+        jPanel1.add(jID, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 140, 120, -1));
 
         jIDProduccion.setEditable(false);
         jIDProduccion.addActionListener(new java.awt.event.ActionListener() {
@@ -315,13 +321,13 @@ public class Producciones extends javax.swing.JFrame {
                 jIDProduccionActionPerformed(evt);
             }
         });
-        jPanel1.add(jIDProduccion, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 240, 120, -1));
+        jPanel1.add(jIDProduccion, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 170, 120, -1));
 
         jLabel15.setText("[ID Produccion]");
-        jPanel1.add(jLabel15, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 240, -1, -1));
+        jPanel1.add(jLabel15, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 170, -1, -1));
 
         jLabel14.setText("[ID Empleado]");
-        jPanel1.add(jLabel14, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 210, -1, -1));
+        jPanel1.add(jLabel14, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 140, -1, -1));
 
         TablaProComple.setAutoCreateRowSorter(true);
         TablaProComple.setModel(new javax.swing.table.DefaultTableModel(
@@ -354,7 +360,7 @@ public class Producciones extends javax.swing.JFrame {
         jScrollPane2.setViewportView(TablaProComple);
         TablaProComple.getColumnModel().getSelectionModel().setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
 
-        jPanel1.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 360, 680, 190));
+        jPanel1.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 390, 680, 160));
 
         jLabel3.setFont(new java.awt.Font("Yu Gothic Medium", 1, 24)); // NOI18N
         jLabel3.setText("GESTIÓN DE PRODUCCION GESTICOR");
@@ -362,35 +368,57 @@ public class Producciones extends javax.swing.JFrame {
         jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 0, 480, 80));
 
         jLabel10.setText("Formulario De Producción");
-        jPanel1.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 180, 170, -1));
+        jPanel1.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 110, 170, -1));
 
-        CargarDatos.setText("Cargar datos de fichero XML  ");
-        CargarDatos.addActionListener(new java.awt.event.ActionListener() {
+        CargarDatosBin.setText("Cargar Datos  ");
+        CargarDatosBin.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                CargarDatosActionPerformed(evt);
+                CargarDatosBinActionPerformed(evt);
             }
         });
-        jPanel1.add(CargarDatos, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 493, -1, 20));
+        jPanel1.add(CargarDatosBin, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 500, -1, 30));
 
-        guardaDatos.setText("Guardar datos en fichero XML");
-        guardaDatos.addActionListener(new java.awt.event.ActionListener() {
+        guardaDatosBin.setText("Guardar Datos");
+        guardaDatosBin.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                guardaDatosActionPerformed(evt);
+                guardaDatosBinActionPerformed(evt);
             }
         });
-        jPanel1.add(guardaDatos, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 463, -1, 20));
+        jPanel1.add(guardaDatosBin, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 460, -1, 30));
+
+        CargarDatosXML.setText("Cargar Datos  ");
+        CargarDatosXML.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                CargarDatosXMLActionPerformed(evt);
+            }
+        });
+        jPanel1.add(CargarDatosXML, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 500, -1, 30));
+
+        guardaDatosXML.setText("Guardar Datos");
+        guardaDatosXML.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                guardaDatosXMLActionPerformed(evt);
+            }
+        });
+        jPanel1.add(guardaDatosXML, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 460, -1, 30));
+
+        jLabel18.setText("BIN");
+        jPanel1.add(jLabel18, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 430, -1, -1));
+
+        jLabel17.setText("XML");
+        jPanel1.add(jLabel17, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 430, -1, -1));
 
         jLabel11.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/RecuaGris.jpg"))); // NOI18N
-        jPanel1.add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 170, 280, 350));
+        jPanel1.add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 420, 280, 140));
 
         jLabel12.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/fondoPanel.png"))); // NOI18N
         jPanel1.add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 570, 450, 70));
 
         jLabel1.setText("Consulta");
-        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(590, 340, 50, 20));
+        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(640, 360, 50, 20));
 
         jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/gradient_800_600.png"))); // NOI18N
-        jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 340, 700, 220));
+        jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 360, 700, 200));
 
         visor.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -425,7 +453,10 @@ public class Producciones extends javax.swing.JFrame {
         jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 100, 700, 230));
 
         jLabel13.setText("Informacion Del Empleado");
-        jPanel1.add(jLabel13, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 80, -1, -1));
+        jPanel1.add(jLabel13, new org.netbeans.lib.awtextra.AbsoluteConstraints(600, 80, -1, -1));
+
+        jLabel16.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/RecuaGris.jpg"))); // NOI18N
+        jPanel1.add(jLabel16, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 100, 280, 300));
 
         fondoprincipal.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/gradient_1920_1080.png"))); // NOI18N
         jPanel1.add(fondoprincipal, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, -20, 1030, 680));
@@ -630,47 +661,89 @@ public class Producciones extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_modificarMouseClicked
 
-    private void CargarDatosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CargarDatosActionPerformed
+    private void CargarDatosBinActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CargarDatosBinActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_CargarDatosBinActionPerformed
+
+    private void guardaDatosBinActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_guardaDatosBinActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_guardaDatosBinActionPerformed
+
+    private void CargarDatosXMLActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CargarDatosXMLActionPerformed
         // TODO add your handling code here:
         try {
-            // Crear un FileInputStream para leer el archivo XML
-            FileInputStream fis = new FileInputStream("C:/Users/halla/Desktop/listadoproducciones.xml");
+            // Abrimos el archivo XML con las producciones
+            FileInputStream fis = new FileInputStream("listadoProduccion.xml");
             XMLDecoder xmld = new XMLDecoder(new BufferedInputStream(fis));
 
-            // Leer el objeto directamente (una lista o arreglo de filas de la tabla)
-            Object data = xmld.readObject();
+            // Leemos la lista de producciones del archivo
+            List<Produccion> listaProduccion = (List<Produccion>) xmld.readObject();
+            xmld.close();
 
-            // Verificamos si lo que leímos es un arreglo o lista de objetos
-            if (data instanceof Object[][]) {
-                Object[][] dataArray = (Object[][]) data; // Suponiendo que es un arreglo bidimensional
+            // Obtenemos el modelo de la tabla de producciones
+            DefaultTableModel model = (DefaultTableModel) TablaProComple.getModel();
+            model.setRowCount(0); // Limpiar la tabla antes de cargar
 
-                // Actualizar el TableModel con los datos leídos
-                dtm.setDataVector(dataArray, columnaspro);  // columnaspro es el arreglo de nombres de las columnas
-
-                JOptionPane.showMessageDialog(this, "Datos cargados correctamente.");
+            // Añadir cada producción como una fila
+            for (Produccion produccion : listaProduccion) {
+                Object[] fila = {
+                    produccion.getIdProduccion(),
+                    produccion.getEmpleado(),
+                    produccion.getProducto(),
+                    produccion.getCantidad(),
+                    produccion.getEstado(),
+                    produccion.getFechaInicio(),
+                    produccion.getFechaFin()
+                };
+                model.addRow(fila);
             }
 
-            xmld.close(); // Cerrar el XMLDecoder
-
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(this, "Error al cargar los datos: " + e.getMessage());
+            System.err.println("\tERROR al leer el archivo listadoProduccion.xml");
+            e.printStackTrace();
         }
-    }//GEN-LAST:event_CargarDatosActionPerformed
+    }//GEN-LAST:event_CargarDatosXMLActionPerformed
 
-    private void guardaDatosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_guardaDatosActionPerformed
-        // TODO add your handling code here:
-        try (FileOutputStream fos = new FileOutputStream("C:/Users/halla/Desktop/listadoproducciones.xml"); XMLEncoder xmle = new XMLEncoder(new BufferedOutputStream(fos))) {
+    private void guardaDatosXMLActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_guardaDatosXMLActionPerformed
+        try {
+            // Se crea un flujo de salida para escribir en el archivo "listadoEmpleados.xml"
+            FileOutputStream fos = new FileOutputStream("listadoProduccion.xml");
 
-            // Obtener los datos del TableModel y guardarlos directamente en el archivo XML
-            xmle.writeObject(dtm.getDataVector());
+            // Se crea un codificador XML que escribirá en el flujo de salida, con buffer para mayor eficiencia
+            XMLEncoder xmle = new XMLEncoder(new BufferedOutputStream(fos));
 
-            // Confirmación
-            JOptionPane.showMessageDialog(this, "Datos guardados correctamente.");
+            // Se crea una lista vacía donde se guardarán todos los empleados
+            List<Produccion> listaProduccion = new ArrayList<>();
 
+            // Se obtiene el modelo de datos (las filas y columnas) de la tabla "visor"
+            DefaultTableModel model = (DefaultTableModel) TablaProComple.getModel();
+            int filas = model.getRowCount(); // Se obtiene el número de filas de la tabla
+
+            // Se recorre cada fila de la tabla
+            for (int i = 0; i < model.getRowCount(); i++) {
+                int IDproduccion = Integer.parseInt(model.getValueAt(i, 0).toString());      // Columna 0: ID Producción
+                String empleado = ""; // Si no se usa en la tabla, puedes ignorar o ajustar según sea necesario
+                int cantidad = Integer.parseInt(model.getValueAt(i, 2).toString());          // Columna 2: Cantidad
+                Produccion.Producto producto = Produccion.Producto.valueOf(model.getValueAt(i, 3).toString()); // Columna 3: Producto
+                Produccion.Estado estado = Produccion.Estado.valueOf(model.getValueAt(i, 4).toString());       // Columna 4: Estado
+                String fechaInicio = model.getValueAt(i, 5).toString();                     // Columna 5: Fecha Inicio
+                String fechaFin = model.getValueAt(i, 6).toString();                        // Columna 6: Fecha Fin
+
+                Produccion produccion = new Produccion(IDproduccion, empleado, cantidad, producto, estado, fechaInicio, fechaFin);
+                listaProduccion.add(produccion);    
+            }
+
+            // Se escribe la lista completa de empleados en el archivo XML
+            xmle.writeObject(listaProduccion);
+
+            // Se cierra el codificador para finalizar la escritura
+            xmle.close();
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(this, "Error al guardar los datos: " + e.getMessage());
+            // En caso de error, se muestra un mensaje en consola
+            System.err.println("\tERROR en la escritura de datos del archivo: listadoEmpleados.xml");
+            e.printStackTrace(); // Opcional: muestra detalles técnicos del error
         }
-    }//GEN-LAST:event_guardaDatosActionPerformed
+    }//GEN-LAST:event_guardaDatosXMLActionPerformed
 
     /**
      * @param args the command line arguments
@@ -715,12 +788,14 @@ public class Producciones extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton CargarDatos;
+    private javax.swing.JButton CargarDatosBin;
+    private javax.swing.JButton CargarDatosXML;
     private javax.swing.JTable TablaProComple;
     private javax.swing.JButton anadirUsuario;
     private javax.swing.JButton eliminar;
     private javax.swing.JLabel fondoprincipal;
-    private javax.swing.JButton guardaDatos;
+    private javax.swing.JButton guardaDatosBin;
+    private javax.swing.JButton guardaDatosXML;
     private javax.swing.JButton jBotonAtras;
     private javax.swing.JTextField jID;
     private javax.swing.JTextField jIDProduccion;
@@ -731,6 +806,9 @@ public class Producciones extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel15;
+    private javax.swing.JLabel jLabel16;
+    private javax.swing.JLabel jLabel17;
+    private javax.swing.JLabel jLabel18;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
