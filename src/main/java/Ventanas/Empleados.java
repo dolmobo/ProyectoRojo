@@ -638,7 +638,7 @@ public class Empleados extends javax.swing.JFrame {
                 // Llamamos al metodo añadir
                 controladorEmpleados.añadir(empleado, empleado.getEstado().name());
                 actualizarMatrizDatos();
-                
+
             }
             JOptionPane.showMessageDialog(this, "Datos cargados del xml a la base de datos correctamente.");
         } catch (Exception e) {
@@ -686,9 +686,9 @@ public class Empleados extends javax.swing.JFrame {
 
             // Se cierra el codificador para finalizar la escritura
             xmle.close();
-            
+
             JOptionPane.showMessageDialog(this, "Datos guardados correctamente en el fichero xml.");
-            
+
         } catch (Exception e) {
             // En caso de error, se muestra un mensaje en consola
             System.err.println("\tERROR en la escritura de datos del archivo: listadoEmpleados.xml");
@@ -719,7 +719,7 @@ public class Empleados extends javax.swing.JFrame {
                 int salario = Integer.parseInt(model.getValueAt(i, 3).toString());  // Columna 3: Salario
                 String fechaContratacion = model.getValueAt(i, 4).toString();
 
-// Asegurarse de que en la clase Empleado los enum, se vean igual que en la tabla
+                // Asegurarse de que en la clase Empleado los enum, se vean igual que en la tabla
                 Empleado.Estado estado = Empleado.Estado.valueOf(model.getValueAt(i, 5).toString()); // Columna 5: Estado (Activo/Inactivo)
 
                 // Creamos el objeto Cliente
@@ -743,35 +743,33 @@ public class Empleados extends javax.swing.JFrame {
     private void jCargarBinarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCargarBinarioActionPerformed
         // TODO add your handling code here:
         try {
-        // Abres el archivo binario
-        FileInputStream fis = new FileInputStream("listadoClientes.bin");
-        ObjectInputStream ois = new ObjectInputStream(fis);
+            // Abres el archivo binario
+            FileInputStream fis = new FileInputStream("listadoClientes.bin");
+            ObjectInputStream ois = new ObjectInputStream(fis);
 
-        // Lees la lista de clientes
-        List<Empleado> listaEnEmpleados = (List<Empleado>) ois.readObject();
+            // Lees la lista de clientes
+            List<Empleado> listaEnEmpleados = (List<Empleado>) ois.readObject();
 
-        ois.close();
-        fis.close();
+            ois.close();
+            fis.close();
 
-        DefaultTableModel model = (DefaultTableModel) visor.getModel();
-        model.setRowCount(0);        
-        
+            DefaultTableModel model = (DefaultTableModel) visor.getModel();
+            model.setRowCount(0);
 
-        // Insertas cada cliente
-        for (Empleado empleado : listaEnEmpleados) {
-            controladorEmpleados.añadir(empleado, empleado.getEstado().name());
-            actualizarMatrizDatos();
+            // Insertas cada cliente
+            for (Empleado empleado : listaEnEmpleados) {
+                controladorEmpleados.añadir(empleado, empleado.getEstado().name());
+                actualizarMatrizDatos();
+            }
+
+            JOptionPane.showMessageDialog(this, "Datos cargados del binario a la base de datos correctamente.");
+
+            // Refrescas la tabla
+        } catch (Exception e) {
+            System.err.println("ERROR cargando datos desde binario");
+            e.printStackTrace();
         }
 
-        JOptionPane.showMessageDialog(this, "Datos cargados del binario a la base de datos correctamente.");
-        
-        // Refrescas la tabla
-        
-    } catch (Exception e) {
-        System.err.println("ERROR cargando datos desde binario");
-        e.printStackTrace();
-    }
-        
     }//GEN-LAST:event_jCargarBinarioActionPerformed
 
     /**
