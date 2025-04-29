@@ -619,32 +619,48 @@ public class Empleados extends javax.swing.JFrame {
     }//GEN-LAST:event_jComboBoxEstadoActionPerformed
 
     private void cargarDatosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cargarDatosActionPerformed
-        // TODO add your handling code here:
-        try {
-            // Abrimos el archivo XML donde están guardados los empleados
-            FileInputStream fis = new FileInputStream("listadoEmpleados.xml");
-            XMLDecoder xmld = new XMLDecoder(new BufferedInputStream(fis));
+            // TODO add your handling code here:
+try {
+    // Abrimos el archivo XML donde están guardados los empleados
+    FileInputStream fis = new FileInputStream("listadoEmpleados.xml");
+    XMLDecoder xmld = new XMLDecoder(new BufferedInputStream(fis));
 
-            // Leemos la lista de empleados del archivo
-            List<Empleado> listaEmpleados = (List<Empleado>) xmld.readObject();
-            xmld.close();
+    // Leemos la lista de empleados del archivo
+    List<Empleado> listaEmpleados = (List<Empleado>) xmld.readObject();
+    xmld.close();
 
-            // Obtenemos el modelo de la tabla
-            DefaultTableModel model = (DefaultTableModel) visor.getModel();
-            model.setRowCount(0); // Limpiamos la tabla antes de cargar nuevos datos
+    // Obtenemos el modelo de la tabla
+    DefaultTableModel model = (DefaultTableModel) visor.getModel();
+    model.setRowCount(0); // Limpiamos la tabla antes de cargar nuevos datos
 
-            // Recorremos la lista y añadimos cada empleado como una fila en la tabla
-            for (Empleado empleado : listaEmpleados) {
-                // Llamamos al metodo añadir
-                controladorEmpleados.añadir(empleado, empleado.getEstado().name());
-                actualizarMatrizDatos();
+    // Recorremos la lista y añadimos cada empleado como una fila en la tabla
+    for (Empleado empleado : listaEmpleados) {
+        // Verificamos si el estado es null antes de convertirlo
+        
+        if (empleado.getEstado() != null) {
+            // Si el estado no es null, convertimos el estado a mayúsculas para que se guarde en la base de datos correctamente
+            String estadoEnMayusculas = empleado.getEstado().name().toUpperCase();
 
-            }
-            JOptionPane.showMessageDialog(this, "Datos cargados del xml a la base de datos correctamente.");
-        } catch (Exception e) {
-            System.err.println("\tERROR al leer el archivo listadoEmpleados.xml");
-            e.printStackTrace();
+            // Llamamos al metodo añadir, pasando el estado en mayúsculas
+            controladorEmpleados.añadir(empleado, estadoEnMayusculas);
+        } else {
+            // Si el estado es null, asignamos un valor predeterminado (por ejemplo, 'ACTIVO')
+            System.err.println("Estado nulo para el empleado con ID: " + empleado.getId() + ". Asignando estado predeterminado.");
+            
+            // Asignamos 'ACTIVO' como estado predeterminado
+            controladorEmpleados.añadir(empleado, Empleado.Estado.ACTIVO.name().toUpperCase());
         }
+
+        // Actualizamos la tabla después de cada inserción
+        actualizarMatrizDatos();
+    }
+
+    JOptionPane.showMessageDialog(this, "Datos cargados del xml a la base de datos correctamente.");
+} catch (Exception e) {
+    System.err.println("\tERROR al leer el archivo listadoEmpleados.xml");
+    e.printStackTrace();
+}
+
     }//GEN-LAST:event_cargarDatosActionPerformed
 
     private void guardarDatosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_guardarDatosActionPerformed
@@ -719,8 +735,8 @@ public class Empleados extends javax.swing.JFrame {
                 int salario = Integer.parseInt(model.getValueAt(i, 3).toString());  // Columna 3: Salario
                 String fechaContratacion = model.getValueAt(i, 4).toString();
 
-                // Asegurarse de que en la clase Empleado los enum, se vean igual que en la tabla
-                Empleado.Estado estado = Empleado.Estado.valueOf(model.getValueAt(i, 5).toString()); // Columna 5: Estado (Activo/Inactivo)
+                // Asegurarse de que el valor en la tabla coincide con los valores de enum (ACTIVO/INACTIVO)
+                Empleado.Estado estado = Empleado.Estado.valueOf(model.getValueAt(i, 5).toString().toUpperCase());
 
                 // Creamos el objeto Cliente
                 Empleado empleado = new Empleado(id, nombre, puesto, salario, fechaContratacion, estado);
@@ -744,7 +760,7 @@ public class Empleados extends javax.swing.JFrame {
         // TODO add your handling code here:
         try {
             // Abres el archivo binario
-            FileInputStream fis = new FileInputStream("listadoClientes.bin");
+            FileInputStream fis = new FileInputStream("listadoEmpleados.bin");
             ObjectInputStream ois = new ObjectInputStream(fis);
 
             // Lees la lista de clientes
