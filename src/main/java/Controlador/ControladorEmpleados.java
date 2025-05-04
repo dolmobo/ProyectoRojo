@@ -13,6 +13,10 @@ import javax.swing.JOptionPane;
  */
 public class ControladorEmpleados {
 
+    /*
+  Este método sirve para añadir a la BDR un nuevo empleado, usando
+    una sentencia SQL.
+     */
     public void añadir(Empleado empleado, String estado) {
         try {
             if (estado.isEmpty() || empleado.getNombre().isEmpty() || empleado.getPuesto().isEmpty()
@@ -37,6 +41,10 @@ public class ControladorEmpleados {
         }
     }
 
+    /*
+  Este método sirve para eliminar dentro de la BDR un empleado, usando
+    una sentencia SQL.
+     */
     public void eliminar(Empleado empleado) {
         try {
             if (empleado.getNombre().isEmpty() || empleado.getPuesto().isEmpty() || String.valueOf(empleado.getSalario()).isEmpty()) {
@@ -57,6 +65,10 @@ public class ControladorEmpleados {
         }
     }
 
+    /*
+  Este método sirve para modificar dentro de la BDR un empleado, usando
+    una sentencia SQL.
+     */
     public void editar(Empleado empleado, String estado) {
         try {
             if (estado.isEmpty() || empleado.getNombre().isEmpty() || empleado.getPuesto().isEmpty()

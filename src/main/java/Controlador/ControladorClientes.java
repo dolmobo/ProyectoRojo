@@ -7,8 +7,6 @@ package Controlador;
 import Modelo.Cliente;
 import Usos.ConexionBDR;
 import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.SQLException;
 import java.sql.Statement;
 import javax.swing.JOptionPane;
 
@@ -18,6 +16,10 @@ import javax.swing.JOptionPane;
  */
 public class ControladorClientes {
 
+    /*
+  Este método sirve para añadir a la BDR un nueva cliente, usando
+    una sentencia SQL.
+     */
     public void añadir(Cliente cliente) {
         try {
             if (cliente.getNombre().isEmpty() || cliente.getApellidos().isEmpty()
@@ -43,6 +45,10 @@ public class ControladorClientes {
         }
     }
 
+    /*
+  Este método sirve para eliminar dentro de la  BDR un cliente, usando
+    una sentencia SQL.
+     */
     public void eliminar(Cliente cliente) {
         try {
             if (cliente.getNombre().isEmpty() || cliente.getApellidos().isEmpty()
@@ -67,6 +73,10 @@ public class ControladorClientes {
         }
     }
 
+    /*
+  Este método sirve para modificar dentro de la BDR un cliente, usando
+    una sentencia SQL.
+     */
     public static void editar(Cliente cliente) {
         try {
             if (cliente.getNombre().isEmpty() || cliente.getApellidos().isEmpty()

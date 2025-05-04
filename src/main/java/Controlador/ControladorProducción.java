@@ -6,7 +6,6 @@ package Controlador;
 
 import Usos.ConexionBDR;
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -18,6 +17,10 @@ import javax.swing.JOptionPane;
  */
 public class ControladorProducción {
 
+    /*
+  Este método sirve para añadir a la BDR una nueva producción, usando
+    una sentencia SQL.
+     */
     public static boolean añadir(String id, int cantidad, String producto, String estado, String fechaInicio, String fechaFin) {
 
         String sql = "INSERT INTO produccion (empleado_id, cantidad, producto, estado_f, fecha_inicio, fecha_fin) VALUES (?, ?, ?, ?, ?, ?)";
@@ -40,6 +43,10 @@ public class ControladorProducción {
         }
     }
 
+    /*
+  Este método sirve para eliminar dentro de la BDR una produccion, usando
+    una sentencia SQL.
+     */
     public static void eliminar(String idProduccion) {
         try {
             if (idProduccion.equals("")) {

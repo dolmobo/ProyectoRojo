@@ -24,6 +24,11 @@ public class AutenticadorBDO {
         }
     }
 
+    /*
+  Este método sirve para crear dentro de la BDO un nuevo usuario
+    insertando sus datos, utilizando también la funcionalidad de "persist".
+     */
+
     public static void insertarUsuario(User usuario) {
         EntityManager em = emf.createEntityManager();
         EntityTransaction tx = em.getTransaction();
@@ -41,6 +46,11 @@ public class AutenticadorBDO {
             em.close();
         }
     }
+    /*
+  Este método sirve para comprobar si dentro de la BDO ya existe ese usuario
+    indicado
+     */    
+    
 
     public static boolean existeUsuario(String nombre) {
         EntityManager em = emf.createEntityManager();
@@ -55,6 +65,11 @@ public class AutenticadorBDO {
             em.close();
         }
     }
+    
+    /*
+  Este método sirve para eliminar dentro de la BDO un usuario
+    eliminando sus datos.
+     */    
 
     public static boolean eliminarUsuario(String nombreUsuario) {
         // Crea un EntityManager para conectarse a la base de datos
@@ -96,6 +111,11 @@ public class AutenticadorBDO {
         }
     }
 
+    /*
+  Este método sirve para obtener todos los usuarios dentro de la BDO.
+     */    
+    
+    
     public static List<User> obtenerTodosLosUsuariosLogIn() {
         EntityManager em = emf.createEntityManager();
 
@@ -107,6 +127,11 @@ public class AutenticadorBDO {
             em.close();
         }
     }
+    
+    /*
+  Este método sirve para crear un usuario "Administrador" en caso de que antes 
+    no existiera uno.
+     */    
 
     public static void crearAdministradorSiNoExiste() {
         String usuarioAdmin = "admin";

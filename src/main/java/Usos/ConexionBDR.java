@@ -2,15 +2,12 @@ package Usos;
 
 // Falta algo???
 import java.io.BufferedReader;
-import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 public class ConexionBDR {
 
@@ -45,6 +42,11 @@ public class ConexionBDR {
         conexion.conectar();  // Llamamos al método conectar
     }
 
+    /*
+  Este método sirve para leer la configuración y el contenido del fichero 
+    donde se encuentran las credenciales de inicio de sesión.
+     */    
+    
     public void leerFicheroConfiguracion() {
         String cadena, nombreFich = "\\configuracion.txt";
         String cadenaTroceada[];

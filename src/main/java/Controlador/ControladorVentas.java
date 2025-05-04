@@ -22,8 +22,10 @@ import javax.swing.JOptionPane;
  */
 public class ControladorVentas {
 
-    // Añadir nueva venta
-    //public void añadir(int idVenta, String nombre, int cantidad, float precio, String vendedor, int fechaVenta, float precioFinal, int iva) {
+    /*
+  Este método sirve para añadir a la BDR una nueva venta, usando
+    una sentencia SQL.
+     */
     public void añadir(Venta venta) {
         try {
             if (venta.getIdVenta() <= 0
@@ -61,7 +63,10 @@ public class ControladorVentas {
         }
     }
 
-    // Eliminar venta por ID
+    /*
+  Este método sirve para eliminar dentro de la BDR una venta, usando
+    una sentencia SQL por ID.
+     */
     public static void eliminar(int idVenta) {
         try {
             if (idVenta <= 0) {
@@ -78,7 +83,10 @@ public class ControladorVentas {
         }
     }
 
-    // Editar información de una venta existente
+    /*
+  Este método sirve para modificar dentro de la BDR una venta, usando
+    una sentencia SQL.
+     */
     public static void editar(int idVenta, String nombre, int cantidad, float precio, String vendedor, int fechaVenta, float precioFinal, int iva) {
         try {
             if (idVenta <= 0 || nombre.isEmpty() || cantidad <= 0 || precio <= 0 || vendedor.isEmpty() || fechaVenta <= 0 || precioFinal <= 0 || iva <= 0) {
