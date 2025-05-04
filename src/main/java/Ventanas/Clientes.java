@@ -33,7 +33,7 @@ import javax.swing.table.DefaultTableModel;
  */
 public class Clientes extends javax.swing.JFrame {
 
-    private ControladorClientes controladorClientes;
+    private final ControladorClientes controladorClientes;
     private Object[][] matrizDatos;
     private String[] columnas = {"ID", "Nombre", "Apellidos", "Telefono", "Email", "Direccion"};
     private DefaultTableModel dtm;

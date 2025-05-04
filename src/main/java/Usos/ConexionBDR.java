@@ -27,10 +27,10 @@ public class ConexionBDR {
     public Connection conectar() {
         try {
             Connection con = DriverManager.getConnection(url, usuario, clave);
-            System.out.println("Conexión establecida con " + url);
+            System.out.println("\nConexión establecida con " + url);
             return con;
         } catch (SQLException e) {
-            System.err.println("Error de conexión: " + e.getMessage());
+            System.err.println("\tError de conexión: " + e.getMessage());
             return null;
         }
     }
@@ -48,37 +48,37 @@ public class ConexionBDR {
      */    
     
     public void leerFicheroConfiguracion() {
-        String cadena, nombreFich = "\\configuracion.txt";
-        String cadenaTroceada[];
+        String linea;
+        String[] partes;
+        String nombreFichero = "configuracion.txt"; // Ruta relativa
 
-        System.out.println("\nLEYENDO CONTENIDO DEL ARCHIVO '" + nombreFich + "':\n");
-        try (BufferedReader fichBuf = new BufferedReader(new FileReader(nombreFich))) {
-            cadena = fichBuf.readLine();
-            while (cadena != null) {
-                //System.out.println(cadena);
+        System.out.println("\nLEYENDO CONTENIDO DEL ARCHIVO '" + nombreFichero + "':\n");
 
-                // Extracción de los datos
-                cadenaTroceada = cadena.split(";");
-                if (cadenaTroceada[0].equalsIgnoreCase("usuario")) {
-                    usuario = cadenaTroceada[1];
-                } else if (cadenaTroceada[0].equalsIgnoreCase("clave")) {
-                    clave = cadenaTroceada[1];
-                } else if (cadenaTroceada[0].equalsIgnoreCase("url")) {
-                    url = cadenaTroceada[1];
+        try (BufferedReader br = new BufferedReader(new FileReader(nombreFichero))) {
+            while ((linea = br.readLine()) != null) {
+                partes = linea.split(";", 2);
+                if (partes.length == 2) {
+                    switch (partes[0].trim().toLowerCase()) {
+                        case "usuario":
+                            usuario = partes[1].trim();
+                            break;
+                        case "clave":
+                            clave = partes[1].trim();
+                            break;
+                        case "url":
+                            url = partes[1].trim();
+                            break;
+                    }
                 }
-
-                cadena = fichBuf.readLine();
             }
-            // se cierra el archivo
-            fichBuf.close();
         } catch (IOException e) {
-            System.out.println(e.getMessage());
+            System.err.println("Error leyendo el archivo de configuración: " + e.getMessage());
         }
-        System.out.println("Datos leídos:");
-        System.out.println("Usuario: " + usuario);
-        System.out.println("Clave: " + clave);
-        System.out.println("url:" + url);
 
+        System.out.println("Datos leídos:");
+        System.out.println("\tUsuario: " + usuario);
+        System.out.println("\tClave: " + clave);
+        System.out.println("\tURL: " + url);
     }
 
 }
