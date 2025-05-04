@@ -36,20 +36,13 @@ public class Clientes_user extends javax.swing.JFrame {
     private ControladorClientes controladorClientes;
     private Object[][] matrizDatos;
     private String[] columnas = {"ID", "Nombre", "Apellidos", "Telefono", "Email", "Direccion"};
-    private DefaultTableModel dtm;    
-    
-    
+    private DefaultTableModel dtm;
+
     /**
      * Creates new form Empleados
      */
-    
-    
-    
-    
-    
-    
     public Clientes_user() {
-        
+
         controladorClientes = new ControladorClientes();
         initComponents();
         this.setLocationRelativeTo(null);
@@ -60,10 +53,10 @@ public class Clientes_user extends javax.swing.JFrame {
         Tabla.setModel(dtm);
 
         // Llenamos matrizDatos y actualizamos tabla
-        actualizarMatrizDatos();        
-        
+        actualizarMatrizDatos();
+
     }
-        
+
     public void actualizarMatrizDatos() {
 
         ConexionBDR con = new ConexionBDR();
@@ -96,12 +89,7 @@ public class Clientes_user extends javax.swing.JFrame {
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(this, "Error al cargar empleados: " + e.getMessage());
         }
-    }    
-    
-    
-    
-    
-    
+    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -562,7 +550,7 @@ public class Clientes_user extends javax.swing.JFrame {
 
     private void jBotonAtrasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBotonAtrasActionPerformed
         // TODO add your handling code here:
-        Eleccion_user abrir=new Eleccion_user();
+        Eleccion_user abrir = new Eleccion_user();
         abrir.setVisible(true);
         this.setVisible(false);
     }//GEN-LAST:event_jBotonAtrasActionPerformed
@@ -581,20 +569,18 @@ public class Clientes_user extends javax.swing.JFrame {
         String direccion = txtDireccion.getText();
 
         // Llamar al método del controlador pasando los datos obtenidos de los campos
-
         String telefonoExp = "^[+]?[0-9]{9,15}$";
-        
+
         if (!telefono.matches(telefonoExp)) {
             JOptionPane.showMessageDialog(this, "Por favor ingresa un número de teléfono válido");
             return; // Salir si el teléfono no es válido
         }
-         
-        
+
         // Refrescar la tabla de empleados// Validar el formato general de correo electrónico
         if (!email.matches("^\\w+([\\.-]?\\w+)*@\\w+([\\.-]?\\w+)*(\\.\\w{2,3})+$")) {
             JOptionPane.showMessageDialog(this, "Por favor ingresa un correo electrónico válido");
             return; // Salir del método si el correo no es válido
-        }        
+        }
 
         Cliente cliente = new Cliente(WIDTH, nombre, apellidos, telefono, email, direccion);
 
@@ -608,11 +594,10 @@ public class Clientes_user extends javax.swing.JFrame {
         String idString = id.getText();
         String nombre = txtNombre.getText();
         String apellidos = txtApellidos.getText();
-        String telefono = txtTelefono.getText();        
+        String telefono = txtTelefono.getText();
         String email = txtEmail.getText();
         String direccion = txtDireccion.getText();
-            
-        
+
         int id = 0;
         try {
             id = Integer.parseInt(idString);  // Intentamos convertir el id a int
@@ -625,10 +610,9 @@ public class Clientes_user extends javax.swing.JFrame {
         controladorClientes.eliminar(cliente);
 //        ControladorEmpleados.eliminar(idString,nombre,puesto,salario);
         actualizarMatrizDatos();
-        jButtonEliminarVisualizacionActionPerformed(evt);        
-        
-        
-        
+        jButtonEliminarVisualizacionActionPerformed(evt);
+
+
     }//GEN-LAST:event_EliminarActionPerformed
 
     private void TablaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TablaMouseClicked
@@ -638,21 +622,21 @@ public class Clientes_user extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "No se ha seleccionado ningun empleado.");
         } else {
             // Cogemos los valores que estan la fila seleccionada
-            String idStr = Tabla.getValueAt(filaSeleccionada, 0).toString();            
-            String nombre = (String) Tabla.getValueAt(filaSeleccionada,1);
-            String apellidos = (String) Tabla.getValueAt(filaSeleccionada,2);
-            String telefono = (String) Tabla.getValueAt(filaSeleccionada,3);
-            String email = (String) Tabla.getValueAt(filaSeleccionada,4);
-            String direccion = (String) Tabla.getValueAt(filaSeleccionada,5);
-            
+            String idStr = Tabla.getValueAt(filaSeleccionada, 0).toString();
+            String nombre = (String) Tabla.getValueAt(filaSeleccionada, 1);
+            String apellidos = (String) Tabla.getValueAt(filaSeleccionada, 2);
+            String telefono = (String) Tabla.getValueAt(filaSeleccionada, 3);
+            String email = (String) Tabla.getValueAt(filaSeleccionada, 4);
+            String direccion = (String) Tabla.getValueAt(filaSeleccionada, 5);
+
             // Se establecen los datos que han sido seleccionados previamente
-            id.setText(String.valueOf(idStr));            
+            id.setText(String.valueOf(idStr));
             txtNombre.setText(nombre);
             txtApellidos.setText(apellidos);
             txtTelefono.setText(telefono);
             txtEmail.setText(email);
             txtDireccion.setText(direccion);
-        }        
+        }
     }//GEN-LAST:event_TablaMouseClicked
 
     private void modificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_modificarActionPerformed
@@ -663,7 +647,7 @@ public class Clientes_user extends javax.swing.JFrame {
         String email = txtEmail.getText();
         String direccion = txtDireccion.getText();
         // Llamar al método del controlador pasando los datos obtenidos de los campos
-        
+
         int id = 0;
         try {
             id = Integer.parseInt(idString);  // Intentamos convertir el id a int
@@ -672,11 +656,11 @@ public class Clientes_user extends javax.swing.JFrame {
             return;  // Salir del método si el id es inválido
         }
         Cliente cliente = new Cliente(id, nombre, apellidos, telefono, email, direccion);
-        
+
         controladorClientes.editar(cliente);
 //        ControladorEmpleados.eliminar(idString,nombre,puesto,salario);
         actualizarMatrizDatos();
-        jButtonEliminarVisualizacionActionPerformed(evt);  
+        jButtonEliminarVisualizacionActionPerformed(evt);
 
         // TODO add your handling code here:
     }//GEN-LAST:event_modificarActionPerformed
@@ -691,7 +675,7 @@ public class Clientes_user extends javax.swing.JFrame {
 
     private void jButtonEliminarVisualizacionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonEliminarVisualizacionActionPerformed
         // TODO add your handling code here:
-        id.setText("");  
+        id.setText("");
         txtNombre.setText("");
         txtApellidos.setText("");
         txtTelefono.setText("");
@@ -712,80 +696,75 @@ public class Clientes_user extends javax.swing.JFrame {
     }//GEN-LAST:event_refrescarActionPerformed
 
     private void cargarDatosBinarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cargarDatosBinarioActionPerformed
-    try {
-        // Abres el archivo binario
-        FileInputStream fis = new FileInputStream("listadoClientes.bin");
-        ObjectInputStream ois = new ObjectInputStream(fis);
+        try {
+            // Abres el archivo binario
+            FileInputStream fis = new FileInputStream("listadoClientes.bin");
+            ObjectInputStream ois = new ObjectInputStream(fis);
 
-        // Lees la lista de clientes
-        List<Cliente> listaClientes = (List<Cliente>) ois.readObject();
+            // Lees la lista de clientes
+            List<Cliente> listaClientes = (List<Cliente>) ois.readObject();
 
-        ois.close();
-        fis.close();
+            ois.close();
+            fis.close();
 
-        DefaultTableModel model = (DefaultTableModel) Tabla.getModel();
-        model.setRowCount(0);        
-        
+            DefaultTableModel model = (DefaultTableModel) Tabla.getModel();
+            model.setRowCount(0);
 
-        // Insertas cada cliente
-        for (Cliente cliente : listaClientes) {
-            controladorClientes.añadir(cliente);
-            actualizarMatrizDatos();
+            // Insertas cada cliente
+            for (Cliente cliente : listaClientes) {
+                controladorClientes.añadir(cliente);
+                actualizarMatrizDatos();
+            }
+
+            JOptionPane.showMessageDialog(this, "Datos cargados del binario a la base de datos correctamente.");
+
+            // Refrescas la tabla
+        } catch (Exception e) {
+            System.err.println("ERROR cargando datos desde binario");
+            e.printStackTrace();
         }
-
-        JOptionPane.showMessageDialog(this, "Datos cargados del binario a la base de datos correctamente.");
-        
-        // Refrescas la tabla
-        
-    } catch (Exception e) {
-        System.err.println("ERROR cargando datos desde binario");
-        e.printStackTrace();
-    }
-
-
-
 
         // TODO add your handling code here:
     }//GEN-LAST:event_cargarDatosBinarioActionPerformed
 
     private void guardarDatosXActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_guardarDatosXActionPerformed
-    try {
-        // Creamos el flujo de salida hacia un archivo binario
-        FileOutputStream fos = new FileOutputStream("listadoClientes.bin");
-        ObjectOutputStream oos = new ObjectOutputStream(fos);
+        try {
+            // Creamos el flujo de salida hacia un archivo binario
+            FileOutputStream fos = new FileOutputStream("listadoClientes.bin");
+            ObjectOutputStream oos = new ObjectOutputStream(fos);
 
-        // Creamos la lista de clientes
-        List<Cliente> listaClientes = new ArrayList<>();
+            // Creamos la lista de clientes
+            List<Cliente> listaClientes = new ArrayList<>();
 
-        // Obtenemos el modelo de datos de la tabla
-        DefaultTableModel model = (DefaultTableModel) Tabla.getModel();
-        int filas = model.getRowCount();
+            // Obtenemos el modelo de datos de la tabla
+            DefaultTableModel model = (DefaultTableModel) Tabla.getModel();
+            int filas = model.getRowCount();
 
-        // Recorremos las filas
-        for (int i = 0; i < filas; i++) {
-            int id = Integer.parseInt(model.getValueAt(i, 0).toString());
-            String nombre = model.getValueAt(i, 1).toString();
-            String apellidos = model.getValueAt(i, 2).toString();
-            String telefono = model.getValueAt(i, 3).toString();
-            String email = model.getValueAt(i, 4).toString();
-            String direccion = model.getValueAt(i, 5).toString();
+            // Recorremos las filas
+            for (int i = 0; i < filas; i++) {
+                int id = Integer.parseInt(model.getValueAt(i, 0).toString());
+                String nombre = model.getValueAt(i, 1).toString();
+                String apellidos = model.getValueAt(i, 2).toString();
+                String telefono = model.getValueAt(i, 3).toString();
+                String email = model.getValueAt(i, 4).toString();
+                String direccion = model.getValueAt(i, 5).toString();
 
-            // Creamos el objeto Cliente
-            Cliente cliente = new Cliente(id, nombre, apellidos, telefono, email, direccion);
-            listaClientes.add(cliente);
+                // Creamos el objeto Cliente
+                Cliente cliente = new Cliente(id, nombre, apellidos, telefono, email, direccion);
+                listaClientes.add(cliente);
+            }
+
+            // Guardamos la lista en el archivo binario
+            oos.writeObject(listaClientes);
+
+            // Cerramos el flujo
+            oos.close();
+
+            JOptionPane.showMessageDialog(this, "Datos guardados correctamente en binario.");
+        } catch (Exception e) {
+            System.err.println("ERROR en la escritura de datos del archivo binario");
+            e.printStackTrace();
         }
-
-        // Guardamos la lista en el archivo binario
-        oos.writeObject(listaClientes);
-
-        // Cerramos el flujo
-        oos.close();
-        
-        JOptionPane.showMessageDialog(this, "Datos guardados correctamente en binario.");
-    } catch (Exception e) {
-        System.err.println("ERROR en la escritura de datos del archivo binario");
-        e.printStackTrace();
-    }
         // TODO add your handling code here:
     }//GEN-LAST:event_guardarDatosXActionPerformed
 
@@ -814,7 +793,6 @@ public class Clientes_user extends javax.swing.JFrame {
                 String email = model.getValueAt(i, 4).toString();                  // Columna 2: Apellidos
                 String direccion = model.getValueAt(i, 5).toString();                  // Columna 2: Apellidos
 
-
                 // Se crea un objeto Empleado con los datos leídos
                 Cliente cliente = new Cliente(id, nombre, apellidos, telefono, email, direccion);
 
@@ -827,87 +805,80 @@ public class Clientes_user extends javax.swing.JFrame {
 
             // Se cierra el codificador para finalizar la escritura
             xmle.close();
-            JOptionPane.showMessageDialog(this, "Datos guardados correctamente en XML.");            
+            JOptionPane.showMessageDialog(this, "Datos guardados correctamente en XML.");
         } catch (Exception e) {
             // En caso de error, se muestra un mensaje en consola
             System.err.println("\tERROR en la escritura de datos del archivo: listadoEmpleados.xml");
             e.printStackTrace(); // Opcional: muestra detalles técnicos del error
         }
 
-
         // TODO add your handling code here:
     }//GEN-LAST:event_guardarDatosXMLActionPerformed
 
     private void cargarDatosXMLActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cargarDatosXMLActionPerformed
         try {
-        // Abrimos el archivo XML donde están guardados los empleados
-        FileInputStream fis = new FileInputStream("listadoClientes.xml");
-        XMLDecoder xmld = new XMLDecoder(new BufferedInputStream(fis));
+            // Abrimos el archivo XML donde están guardados los empleados
+            FileInputStream fis = new FileInputStream("listadoClientes.xml");
+            XMLDecoder xmld = new XMLDecoder(new BufferedInputStream(fis));
 
-        // Leemos la lista de empleados del archivo
-        List<Cliente> listaClientes = (List<Cliente>) xmld.readObject();
-        xmld.close();
+            // Leemos la lista de empleados del archivo
+            List<Cliente> listaClientes = (List<Cliente>) xmld.readObject();
+            xmld.close();
 
-        // Obtenemos el modelo de la tabla
-        DefaultTableModel model = (DefaultTableModel) Tabla.getModel();
-        model.setRowCount(0); // Limpiamos la tabla antes de cargar nuevos datos
+            // Obtenemos el modelo de la tabla
+            DefaultTableModel model = (DefaultTableModel) Tabla.getModel();
+            model.setRowCount(0); // Limpiamos la tabla antes de cargar nuevos datos
 
-        // Recorremos la lista y añadimos cada empleado como una fila en la tabla
-         for (Cliente cliente : listaClientes) {
-            // Llamamos al metodo añadir
-            controladorClientes.añadir(cliente);
-            actualizarMatrizDatos();
+            // Recorremos la lista y añadimos cada empleado como una fila en la tabla
+            for (Cliente cliente : listaClientes) {
+                // Llamamos al metodo añadir
+                controladorClientes.añadir(cliente);
+                actualizarMatrizDatos();
+            }
+        } catch (Exception e) {
+            System.err.println("\tERROR al leer el archivo listadoClientes.xml");
+            e.printStackTrace();
         }
-    } catch (Exception e) {
-        System.err.println("\tERROR al leer el archivo listadoClientes.xml");
-        e.printStackTrace();
-    }   
 
     }//GEN-LAST:event_cargarDatosXMLActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
-    int respuesta = JOptionPane.showConfirmDialog(this, 
-                        "¿Estás seguro de que quieres borrar todos los clientes?", 
-                        "Confirmar eliminar", 
-                        JOptionPane.YES_NO_OPTION, 
-                        JOptionPane.WARNING_MESSAGE);
+        int respuesta = JOptionPane.showConfirmDialog(this,
+                "¿Estás seguro de que quieres borrar todos los clientes?",
+                "Confirmar eliminar",
+                JOptionPane.YES_NO_OPTION,
+                JOptionPane.WARNING_MESSAGE);
 
-    if (respuesta == JOptionPane.YES_OPTION) {
-        // 3. Si dijo que sí, conectamos a la base de datos y borramos
-        try {
-            ConexionBDR conexionBDR = new ConexionBDR();
-            Connection conexion = conexionBDR.conectar();
-            Statement st = conexion.createStatement();
+        if (respuesta == JOptionPane.YES_OPTION) {
+            // 3. Si dijo que sí, conectamos a la base de datos y borramos
+            try {
+                ConexionBDR conexionBDR = new ConexionBDR();
+                Connection conexion = conexionBDR.conectar();
+                Statement st = conexion.createStatement();
 
-            String sql = "DELETE FROM clientes";
-            st.executeUpdate(sql);
+                String sql = "DELETE FROM clientes";
+                st.executeUpdate(sql);
 
-            JOptionPane.showMessageDialog(this, "Todos los clientes han sido eliminados correctamente.");
+                JOptionPane.showMessageDialog(this, "Todos los clientes han sido eliminados correctamente.");
 
-            // Refrescamos la tabla para actualizar la vista
-            actualizarMatrizDatos();
-        } catch (Exception e) {
-            System.err.println("ERROR al borrar los datos de la tabla clientes.");
-            e.printStackTrace();
+                // Refrescamos la tabla para actualizar la vista
+                actualizarMatrizDatos();
+            } catch (Exception e) {
+                System.err.println("ERROR al borrar los datos de la tabla clientes.");
+                e.printStackTrace();
+            }
+        } else {
+            // 4. Si dijo que no, no hacemos nada
+            JOptionPane.showMessageDialog(this, "Operación cancelada.");
         }
-    } else {
-        // 4. Si dijo que no, no hacemos nada
-        JOptionPane.showMessageDialog(this, "Operación cancelada.");
-    }        
-        
-        
-        
-        
+
+
     }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
      * @param args the command line arguments
      */
-    
-    
-    
-    
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
@@ -1030,7 +1001,6 @@ public class Clientes_user extends javax.swing.JFrame {
 //        
 //        
 //    }
-    
 //    void Agregar() {
 //        String nom = txtNombre.getText();
 //        String ape = txtApellidos.getText();
@@ -1058,9 +1028,7 @@ public class Clientes_user extends javax.swing.JFrame {
 //        }
 //     
 //    }       
-       
-        
-     public void RefrescarTabla(String tabla){
+    public void RefrescarTabla(String tabla) {
         String sql = "select * from " + tabla;
         Statement st;
         ConexionBDR con = new ConexionBDR();
@@ -1074,29 +1042,26 @@ public class Clientes_user extends javax.swing.JFrame {
         model.addColumn("Email");
         model.addColumn("Direccion");
         Tabla.setModel(model);
-        
-        String [] datos = new String [6];
+
+        String[] datos = new String[6];
         try {
             st = ConexionBDR.createStatement();
             ResultSet rs = st.executeQuery(sql);
-            while (rs.next())
-            {
-                datos[0]=rs.getString(1);
-                datos[1]=rs.getString(2);
-                datos[2]=rs.getString(3);
-                datos[3]=rs.getString(4);
-                datos[4]=rs.getString(5);
-                datos[5]=rs.getString(6);
+            while (rs.next()) {
+                datos[0] = rs.getString(1);
+                datos[1] = rs.getString(2);
+                datos[2] = rs.getString(3);
+                datos[3] = rs.getString(4);
+                datos[4] = rs.getString(5);
+                datos[5] = rs.getString(6);
                 model.addRow(datos);
             }
-        } catch (SQLException e){
+        } catch (SQLException e) {
             JOptionPane.showMessageDialog(null, "Error" + e.toString());
+        }
     }
-    }       
-        
-    
-    
-    
+
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton Añadir;
     private javax.swing.JButton Eliminar;

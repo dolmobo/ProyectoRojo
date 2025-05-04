@@ -17,49 +17,48 @@ import java.sql.Statement;
 import javax.swing.JOptionPane;
 
 /**
- * 
+ *
  * @author Jramirez
  */
-
 public class ControladorVentas {
 
     // Añadir nueva venta
     //public void añadir(int idVenta, String nombre, int cantidad, float precio, String vendedor, int fechaVenta, float precioFinal, int iva) {
     public void añadir(Venta venta) {
-    try {
-        if (venta.getIdVenta() <= 0 
-            || venta.getNombre() == null 
-            || venta.getNombre().isEmpty()
-            || venta.getCantidad() <= 0 
-            || venta.getPrecio() <= 0 
-            || venta.getVendedor() == null 
-            || venta.getVendedor().isEmpty()
-            || venta.getFechaVenta() == null 
-            || venta.getPrecioFinal() <= 0 
-            || venta.getIva() <= 0) {
-                
-            JOptionPane.showMessageDialog(null, "Faltan datos por ingresar.");
-            
-        } else {
-            Connection con = new ConexionBDR().conectar();
-            String sql = "INSERT INTO ventas (idVenta, nombre, cantidad, precio, vendedor, fechaVenta, precioFinal, iva) "
-                    + "VALUES ("
-                    + venta.getIdVenta() + ", '"
-                    + venta.getNombre() + "', "
-                    + venta.getCantidad() + ", "
-                    + venta.getPrecio() + ", '"
-                    + venta.getVendedor() + "', '"
-                    + venta.getFechaVenta() + "', "
-                    + venta.getPrecioFinal() + ", "
-                    + venta.getIva() + ")";
-                    
-            Statement st = con.createStatement();
-            st.executeUpdate(sql);
-            JOptionPane.showMessageDialog(null, "Venta añadida con éxito.");
+        try {
+            if (venta.getIdVenta() <= 0
+                    || venta.getNombre() == null
+                    || venta.getNombre().isEmpty()
+                    || venta.getCantidad() <= 0
+                    || venta.getPrecio() <= 0
+                    || venta.getVendedor() == null
+                    || venta.getVendedor().isEmpty()
+                    || venta.getFechaVenta() == null
+                    || venta.getPrecioFinal() <= 0
+                    || venta.getIva() <= 0) {
+
+                JOptionPane.showMessageDialog(null, "Faltan datos por ingresar.");
+
+            } else {
+                Connection con = new ConexionBDR().conectar();
+                String sql = "INSERT INTO ventas (idVenta, nombre, cantidad, precio, vendedor, fechaVenta, precioFinal, iva) "
+                        + "VALUES ("
+                        + venta.getIdVenta() + ", '"
+                        + venta.getNombre() + "', "
+                        + venta.getCantidad() + ", "
+                        + venta.getPrecio() + ", '"
+                        + venta.getVendedor() + "', '"
+                        + venta.getFechaVenta() + "', "
+                        + venta.getPrecioFinal() + ", "
+                        + venta.getIva() + ")";
+
+                Statement st = con.createStatement();
+                st.executeUpdate(sql);
+                JOptionPane.showMessageDialog(null, "Venta añadida con éxito.");
+            }
+        } catch (HeadlessException | SQLException e) {
+            JOptionPane.showMessageDialog(null, "Error al añadir la venta: " + e.getMessage());
         }
-    } catch (HeadlessException | SQLException e) {
-        JOptionPane.showMessageDialog(null, "Error al añadir la venta: " + e.getMessage());
-    }
     }
 
     // Eliminar venta por ID

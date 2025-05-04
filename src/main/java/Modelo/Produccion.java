@@ -11,13 +11,14 @@ import java.io.Serializable;
  * @author halla
  */
 public class Produccion implements Serializable {
-   private int idProduccion;
-   private String empleado;
-   private int cantidad;
-   public Producto producto;
-   public Estado estado;
-   private String fechaInicio;
-   private String fechaFin;
+
+    private int idProduccion;
+    private String empleado;
+    private int cantidad;
+    public Producto producto;
+    public Estado estado;
+    private String fechaInicio;
+    private String fechaFin;
 
     public int getIdProduccion() {
         return idProduccion;
@@ -74,14 +75,14 @@ public class Produccion implements Serializable {
     public void setFechaFin(String fechaFin) {
         this.fechaFin = fechaFin;
     }
-   
-   public enum Estado{
-       Finalizado, Proceso
-   };
-   
-   public enum Producto{
-       Bandejas, Cajones, Palets
-   };
+
+    public enum Estado {
+        Finalizado, Proceso
+    };
+
+    public enum Producto {
+        Bandejas, Cajones, Palets
+    };
 
     public Produccion() {
     }
@@ -109,5 +110,5 @@ public class Produccion implements Serializable {
     public String toString() {
         return "Produccion{" + "idProduccion=" + idProduccion + ", empleado=" + empleado + ", cantidad=" + cantidad + ", producto=" + producto + ", estado=" + estado + ", fechaInicio=" + fechaInicio + ", fechaFin=" + fechaFin + '}';
     }
-    
+
 }

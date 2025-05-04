@@ -14,12 +14,12 @@ import java.util.regex.Pattern;
 import javax.swing.JButton;
 
 public class Leer {
+
     /**
      * @param mensaje
      * @return
      * @throws IOException
      */
-
 
     public static String leerTelefono(String mensaje) throws IOException {
         String telefono = null;
@@ -81,7 +81,6 @@ public class Leer {
         return nombre;
     }
 
-
     public static String leerEmail(String mensaje) throws IOException {
 
         String email = "";
@@ -125,7 +124,6 @@ public class Leer {
             System.out.println(ex);
         }
 
-
         return email;
 
     }
@@ -146,7 +144,6 @@ public class Leer {
 
     }
 
-
     //  ------------------INT-------------------//
     public static int leerEntero(String mensaje) throws IOException {
         InputStreamReader flujo = new InputStreamReader(System.in);
@@ -162,7 +159,6 @@ public class Leer {
                 auxiliar = teclado.readLine();
                 entero = Integer.parseInt(auxiliar);
 
-
                 if (entero < 0) {
                     System.out.println("Error: Debes ingresar un valor correcto.");
                 } else {
@@ -177,7 +173,6 @@ public class Leer {
 
         return entero;
     }
-
 
     //  ------------------DECIMAL-------------------//
     public static double leerDecimal(String mensaje) throws IOException {
@@ -232,7 +227,6 @@ public class Leer {
 
         return entero;
 
-
     }
 
     public static char leerLetra(String mensaje) throws IOException {
@@ -280,12 +274,10 @@ public class Leer {
         return correo;
     }
 
-    public static void transparenciaBoton(JButton boton){
-    boton.setOpaque(false);
-    boton.setContentAreaFilled(false);
-    boton.setBorderPainted(false);
-}
+    public static void transparenciaBoton(JButton boton) {
+        boton.setOpaque(false);
+        boton.setContentAreaFilled(false);
+        boton.setBorderPainted(false);
+    }
 
 }
-
-

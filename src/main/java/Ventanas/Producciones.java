@@ -3,6 +3,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
 package Ventanas;
+
 import Modelo.Produccion.Estado;
 import Modelo.Produccion.Producto;
 import Controlador.ControladorEmpleados;
@@ -742,7 +743,7 @@ public class Producciones extends javax.swing.JFrame {
                 try {
                     estado = Estado.valueOf(model.getValueAt(i, 4).toString().toUpperCase()); // Convertimos a mayúsculas
                 } catch (IllegalArgumentException e) {
-                    estado = Produccion.Estado.Proceso;  
+                    estado = Produccion.Estado.Proceso;
                     System.err.println("Estado no válido en la fila " + i + ". Asignado valor predeterminado: " + estado);
                 }
 
